@@ -6,8 +6,11 @@
 package lk.ijse.paymentsystem.view;
 
 import java.awt.Color;
+import javax.swing.JTree;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import lk.ijse.paymentsystem.dto.CourseDTO;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 
 /**
@@ -19,6 +22,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     /**
      * Creates new form PaymentForRegistrationCourse
      */
+    private PaymentForRegistrationCourseController controller;
     
     private DSTextComponents textComponents;
     
@@ -30,6 +34,20 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         
         textComponents = new DSTextComponents(this.getContentPane());
     }
+    
+    public PaymentForRegistrationCourse(CourseDTO course){
+        this();
+        controller=new PaymentForRegistrationCourseController(new CourseDTO("GDSE", "Graduate Diploma in SE",4, 280000, 0.3, 0.2, 0.1));
+        initComponents2();
+    }
+    
+    private void initComponents2(){
+        
+//        DefaultMutableTreeNode trNd = controller.setPaymentScheme(jtrPayment);
+        jtrPayment.removeAll();
+//        jtrPayment
+//        jtrPayment =  new JTree(trNd);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,15 +58,16 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGrpPayMethod = new javax.swing.ButtonGroup();
         lblLogo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblProfessionalQualification = new javax.swing.JLabel();
         lblQualificationn = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        rbtnCheque = new javax.swing.JRadioButton();
+        rbtnCash = new javax.swing.JRadioButton();
+        rbtnCard = new javax.swing.JRadioButton();
+        rbtnBank = new javax.swing.JRadioButton();
         lblQualificationn1 = new javax.swing.JLabel();
         lblQualificationn2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -79,27 +98,31 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         lblQualificationn.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblQualificationn.setText("Payment Method :");
 
-        jRadioButton1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        jRadioButton1.setText("Cheque");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnGrpPayMethod.add(rbtnCheque);
+        rbtnCheque.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        rbtnCheque.setText("Cheque");
+        rbtnCheque.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rbtnChequeActionPerformed(evt);
             }
         });
 
-        jRadioButton2.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        jRadioButton2.setText("Cash");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnGrpPayMethod.add(rbtnCash);
+        rbtnCash.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        rbtnCash.setText("Cash");
+        rbtnCash.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                rbtnCashActionPerformed(evt);
             }
         });
 
-        jRadioButton3.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        jRadioButton3.setText("Credit or Debit Card");
+        btnGrpPayMethod.add(rbtnCard);
+        rbtnCard.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        rbtnCard.setText("Credit or Debit Card");
 
-        jRadioButton4.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        jRadioButton4.setText("Bank");
+        btnGrpPayMethod.add(rbtnBank);
+        rbtnBank.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        rbtnBank.setText("Bank");
 
         lblQualificationn1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblQualificationn1.setText("Payment For :");
@@ -116,22 +139,6 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         lblQualificationn5.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblQualificationn5.setText("Discount :");
 
-        jtrPayment.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Full Payment");
-        javax.swing.tree.DefaultMutableTreeNode treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Semester 1");
-        javax.swing.tree.DefaultMutableTreeNode treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("1st Half");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("2nd Half");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Semester 2");
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("1st Half");
-        treeNode2.add(treeNode3);
-        treeNode3 = new javax.swing.tree.DefaultMutableTreeNode("2nd Half");
-        treeNode2.add(treeNode3);
-        treeNode1.add(treeNode2);
-        jtrPayment.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
-        jtrPayment.setToolTipText("");
         jScrollPane1.setViewportView(jtrPayment);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -145,40 +152,43 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                         .addComponent(lblProfessionalQualification))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(54, 54, 54)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblQualificationn1)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblQualificationn5)
+                                    .addComponent(lblQualificationn4))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(86, 86, 86))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblQualificationn5, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblQualificationn4, javax.swing.GroupLayout.Alignment.LEADING))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(15, 15, 15)
+                                    .addComponent(lblQualificationn1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane1))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(lblQualificationn2)
                                             .addGap(18, 18, 18)
-                                            .addComponent(jTextField1))
+                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                             .addComponent(lblQualificationn3)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jScrollPane1)
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))))
+                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lblQualificationn)
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(rbtnCash, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(rbtnCheque, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(115, 115, 115)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jRadioButton4)
-                                            .addComponent(jRadioButton3)))
+                                            .addComponent(rbtnBank)
+                                            .addComponent(rbtnCard)))
                                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
@@ -190,12 +200,12 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQualificationn)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
+                    .addComponent(rbtnCash)
+                    .addComponent(rbtnCard))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton4))
+                    .addComponent(rbtnCheque)
+                    .addComponent(rbtnBank))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -210,17 +220,20 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblQualificationn1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQualificationn4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblQualificationn5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblQualificationn4)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblQualificationn5)
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblQualificationn1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         btnAddStudent.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -269,7 +282,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -292,7 +305,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAddStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -302,13 +315,13 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rbtnChequeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnChequeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rbtnChequeActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void rbtnCashActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnCashActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_rbtnCashActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
         this.dispose();//        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse();
@@ -379,12 +392,9 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddStudent;
     private javax.swing.JButton btnGoBack;
+    private javax.swing.ButtonGroup btnGrpPayMethod;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -401,5 +411,9 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     private javax.swing.JLabel lblQualificationn3;
     private javax.swing.JLabel lblQualificationn4;
     private javax.swing.JLabel lblQualificationn5;
+    private javax.swing.JRadioButton rbtnBank;
+    private javax.swing.JRadioButton rbtnCard;
+    private javax.swing.JRadioButton rbtnCash;
+    private javax.swing.JRadioButton rbtnCheque;
     // End of variables declaration//GEN-END:variables
 }
