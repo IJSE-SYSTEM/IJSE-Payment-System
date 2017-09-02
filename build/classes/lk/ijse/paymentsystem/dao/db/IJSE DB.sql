@@ -147,7 +147,7 @@ CREATE TABLE payment(
 );
 
 
-INSERT INTO course VALUES('CMJD','Comprehensive Master Java Developer',1,60000.00,30.00,,10.00);
-INSERT INTO course VALUES('GDSE','Graduate Deploma In Software Engineering',4,280000.00,30.00,20.00,10.00);
-INSERT INTO course VALUES('ABSD','Advanced Business Solution Developer',1,60000.00,30.00,,10.00);
-INSERT INTO course VALUES('AHAD','Advanced Hybrid Application Developer',1,60000.00,30.00,,10.00);
+INSERT INTO course VALUES('CMJD','Comprehensive Master Java Developer',1,60000.00,0.2,0,0);
+INSERT INTO course VALUES('GDSE','Graduate Deploma In Software Engineering',4,280000.00,0.3,0.2,0.1);
+INSERT INTO course VALUES('ABSD','Advanced Business Solution Developer',1,60000.00,0.2,0,0);
+INSERT INTO course VALUES('AHAD','Advanced Hybrid Application Developer',1,60000.00,0.2,0,0);

@@ -7,6 +7,7 @@ package lk.ijse.paymentsystem.view;
 
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.view.utils.DSButton;
 import lk.ijse.paymentsystem.view.utils.DSTable;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
@@ -432,7 +433,7 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterStudentActionPerformed
 
     private void btnAddCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCourseActionPerformed
-        new CourseDetails(this).setVisible(true);
+        new CourseDetails(new StudentDTO(), this).setVisible(true);
         
     }//GEN-LAST:event_btnAddCourseActionPerformed
 

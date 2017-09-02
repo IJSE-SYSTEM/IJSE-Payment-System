@@ -13,6 +13,7 @@ import java.awt.KeyboardFocusManager;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
 import lk.ijse.paymentsystem.dto.CourseDTO;
+import lk.ijse.paymentsystem.dto.StudentDTO;
 
 /**
  *
@@ -28,13 +29,26 @@ public class CourseDetails extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
     }
     
+    StudentDTO student;
+    CourseDTO course;
+    CourseDetailsController controller;
+    
     private StudentRegistrationCourseDetailForm studentRFC;
-    public CourseDetails(StudentRegistrationCourseDetailForm studentRCF) {
+    public CourseDetails(StudentDTO student,StudentRegistrationCourseDetailForm studentRCF) {
         initComponents();
+        controller=new CourseDetailsController();
         this.studentRFC = studentRCF;
+        this.student=student;
         this.getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
+        initComponents2();
+    }
+    
+    private void initComponents2(){
+        for (String courseName : controller.getCourseNames()) {
+            cmbBxAcademicPrograms.addItem(courseName);
+        }
     }
 
     /**

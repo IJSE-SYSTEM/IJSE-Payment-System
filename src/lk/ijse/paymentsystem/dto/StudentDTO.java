@@ -9,7 +9,7 @@ package lk.ijse.paymentsystem.dto;
  *
  * @author simo-ds
  */
-public class StudentDTO {
+public class StudentDTO extends SuperDTO{
     private String SID;
     private String initialStudentName;
     private String studentName;

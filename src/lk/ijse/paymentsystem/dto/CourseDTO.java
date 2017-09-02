@@ -9,7 +9,7 @@ package lk.ijse.paymentsystem.dto;
  *
  * @author midda
  */
-public class CourseDTO {
+public class CourseDTO extends SuperDTO{
     private String code;
     private String name;
     private int no_of_Semesters;
@@ -128,5 +128,12 @@ public class CourseDTO {
     public void setDiscount1Sem(double discount1Sem) {
         this.discount1Sem = discount1Sem;
     }
+
+    @Override
+    public String toString() {
+        return code+"-"+name;
+    }
+    
+   
 }
 

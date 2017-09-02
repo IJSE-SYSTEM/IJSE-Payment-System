@@ -9,7 +9,7 @@ package lk.ijse.paymentsystem.dto;
  *
  * @author simo-ds
  */
-public class RegistrationDTO {
+public class RegistrationDTO extends SuperDTO{
     private String RID;
     private String SID;
     private String batchId;
