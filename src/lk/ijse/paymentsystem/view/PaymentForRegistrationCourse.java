@@ -6,9 +6,10 @@
 package lk.ijse.paymentsystem.view;
 
 import java.awt.Color;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import lk.ijse.paymentsystem.dto.CourseDTO;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 
@@ -31,15 +32,20 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         textComponents = new DSTextComponents(this.getContentPane());
-        txtCheque.setText("ABCD");
-        jtrPayment.setModel(new DefaultTreeModel(new DefaultMutableTreeNode()));
     }
     
     public PaymentForRegistrationCourse(CourseDTO cdto){
         this();
-        controller=new PaymentForRegistrationCourseController(cdto);
-//        txtCheque.setText("ABCD");
-        
+        controller=new PaymentForRegistrationCourseController(new CourseDTO("GDSE", "Graduate Diploma in Software Engineering", 4, 280000, 30, 20, 10));
+        initComponents2();
+    }
+    
+    private void initComponents2(){
+        jtrPayment.addTreeSelectionListener(tsl);
+        jtrPayment.setModel(controller.setPaymentScheme());
+        for (int i = 0; i < jtrPayment.getRowCount(); i++) {
+            jtrPayment.expandRow(i);
+        }
     }
     
     
@@ -351,7 +357,77 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
             //            btnAddStudent.requestFocusInWindow();
             //        }
     }//GEN-LAST:event_btnGoBackKeyReleased
+
+    TreeSelectionListener tsl=(e) -> {
+        treeSelectionTriggered(e);
+    };
     
+    
+    
+    //change this array to the maximum number of semesters in a course
+    //use formulae no_of_semesters*3
+    //currently it is set for a maximum 8 semsters
+    private int[] rows={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
+    private ArrayList<Integer> semesterRows;
+    {
+        semesterRows=new ArrayList<>();
+        for (int i=1; i<rows.length; i+=3)
+            semesterRows.add(i);
+    }
+    
+    private void treeSelectionTriggered(TreeSelectionEvent e){
+        //System.out.println(Arrays.toString(jtrPayment.getSelectionRows()));
+        int selectedRows[]=jtrPayment.getSelectionRows();
+        int selectRows[]={};
+        for (int selectedRow : selectedRows) {
+            if(selectedRow==0){
+                //System.out.println("1");
+                jtrPayment.removeTreeSelectionListener(tsl);
+                jtrPayment.setSelectionRows(Arrays.copyOf(rows, jtrPayment.getRowCount()));
+                jtrPayment.addTreeSelectionListener(tsl);
+                
+            }else if(semesterRows.contains(selectedRow)){
+                //System.out.println("2");
+                jtrPayment.removeTreeSelectionListener(tsl);
+                
+                int temp[]=Arrays.copyOfRange(rows, selectedRow,selectedRow+3);
+                selectRows=Arrays.copyOf(selectRows, selectRows.length+temp.length);
+                for (int i=selectRows.length-temp.length,j=0; j<temp.length; j++,i++){
+                    selectRows[i]=temp[j];
+                }
+                jtrPayment.setSelectionRows(selectRows);
+                
+                jtrPayment.addTreeSelectionListener(tsl);
+                
+            }else if(semesterRows.contains(selectedRow-1)){
+//                System.out.println("3");
+                
+                if (jtrPayment.isRowSelected(selectedRow+1)){
+                    jtrPayment.setSelectionRow(selectedRow-1);
+                }
+                
+                if (selectedRows.length>1 && selectedRows.length<2 && ((selectedRow+1)!=selectedRows[1])){
+                    selectRows=new int[]{selectedRows[0],selectedRows[1]};
+                    jtrPayment.removeTreeSelectionListener(tsl);
+                    jtrPayment.setSelectionRows(selectRows);
+                    jtrPayment.addTreeSelectionListener(tsl);
+                }
+            }
+            else if(semesterRows.contains(selectedRow-2)){
+//                System.out.println("4");
+                
+                if (selectedRows.length>1 && selectedRows.length<2 && ((selectedRow-1)!=selectedRows[1])){
+                    selectRows=new int[]{selectedRows[0],selectedRows[1]};
+                    jtrPayment.removeTreeSelectionListener(tsl);
+                    jtrPayment.setSelectionRows(selectRows);
+                    jtrPayment.addTreeSelectionListener(tsl);
+                }
+            }
+        }
+        System.out.println(Arrays.toString(jtrPayment.getSelectionRows()));
+    }
+    
+        
 //    TreeModel tm1=new DefaultTreeModel
     
     /**

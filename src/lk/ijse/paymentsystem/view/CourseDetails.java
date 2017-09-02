@@ -245,7 +245,7 @@ public class CourseDetails extends javax.swing.JFrame {
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
         PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(new CourseDTO());
-        new PaymentForRegistrationCourse().setVisible(true);
+        paymentForm.setVisible(true);
         studentRFC.dispose();
         this.dispose();
     }//GEN-LAST:event_btnAddStudentActionPerformed
