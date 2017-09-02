@@ -145,3 +145,9 @@ CREATE TABLE payment(
     CONSTRAINT PRIMARY KEY (payID),
     CONSTRAINT UNIQUE KEY (regID,semester,sem_half)
 );
+
+
+INSERT INTO course VALUES('CMJD','Comprehensive Master Java Developer',1,60000.00,30.00,,10.00);
+INSERT INTO course VALUES('GDSE','Graduate Deploma In Software Engineering',4,280000.00,30.00,20.00,10.00);
+INSERT INTO course VALUES('ABSD','Advanced Business Solution Developer',1,60000.00,30.00,,10.00);
+INSERT INTO course VALUES('AHAD','Advanced Hybrid Application Developer',1,60000.00,30.00,,10.00);
