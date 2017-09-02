@@ -12,6 +12,7 @@ import java.awt.KeyEventPostProcessor;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
+import lk.ijse.paymentsystem.dto.CourseDTO;
 
 /**
  *
@@ -243,7 +244,7 @@ public class CourseDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbBxAcademicProgramsActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
-        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse();
+        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(new CourseDTO());
         new PaymentForRegistrationCourse().setVisible(true);
         studentRFC.dispose();
         this.dispose();

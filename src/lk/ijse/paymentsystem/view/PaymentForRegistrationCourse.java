@@ -6,8 +6,10 @@
 package lk.ijse.paymentsystem.view;
 
 import java.awt.Color;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import lk.ijse.paymentsystem.dto.CourseDTO;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 
 /**
@@ -20,6 +22,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
      * Creates new form PaymentForRegistrationCourse
      */
     
+    private PaymentForRegistrationCourseController controller;
     private DSTextComponents textComponents;
     
     public PaymentForRegistrationCourse() {
@@ -27,9 +30,19 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         setDefaultCloseOperation(2);
         this.getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
-        
         textComponents = new DSTextComponents(this.getContentPane());
+        txtCheque.setText("ABCD");
+        jtrPayment.setModel(new DefaultTreeModel(new DefaultMutableTreeNode()));
     }
+    
+    public PaymentForRegistrationCourse(CourseDTO cdto){
+        this();
+        controller=new PaymentForRegistrationCourseController(cdto);
+//        txtCheque.setText("ABCD");
+        
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,7 +66,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         lblQualificationn2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lblQualificationn3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtCheque = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         lblQualificationn4 = new javax.swing.JLabel();
@@ -162,7 +175,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(lblQualificationn2)
                                             .addGap(18, 18, 18)
-                                            .addComponent(jTextField1))
+                                            .addComponent(txtCheque))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                             .addComponent(lblQualificationn3)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -201,7 +214,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQualificationn2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCheque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -388,7 +401,6 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -401,5 +413,6 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     private javax.swing.JLabel lblQualificationn3;
     private javax.swing.JLabel lblQualificationn4;
     private javax.swing.JLabel lblQualificationn5;
+    private javax.swing.JTextField txtCheque;
     // End of variables declaration//GEN-END:variables
 }
