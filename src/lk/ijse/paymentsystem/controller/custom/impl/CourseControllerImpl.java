@@ -34,7 +34,8 @@ public class CourseControllerImpl implements CourseController {
     public CourseDetailsDTO getCourseDetails(String courseID) throws Exception {
         CourseDetailsDTO cddto=new CourseDetailsDTO();
         cddto.setCourseID(courseID);
-        return courseDetailsDAO.search(cddto);
+        CourseDetailsDTO courseDetailsDTO = courseDetailsDAO.search(cddto);
+        return courseDetailsDTO;
     }
     
 }

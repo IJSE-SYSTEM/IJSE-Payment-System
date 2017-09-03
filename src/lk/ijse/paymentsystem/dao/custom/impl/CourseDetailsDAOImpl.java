@@ -29,9 +29,10 @@ public class CourseDetailsDAOImpl implements CourseDetailsDAO {
         PreparedStatement stm=c.prepareStatement(SQL);
         stm.setString(1, dto.getCourseID());
         ResultSet rst=stm.executeQuery();
-        CourseDetailsDTO cddto=new CourseDetailsDTO();
+        CourseDetailsDTO cddto=null;
+        
         if (rst.next()){
-            cddto=new CourseDetailsDTO(rst.getString(1), rst.getInt(2), rst.getDouble(3), rst.getDouble(4), rst.getDouble(5), rst.getDouble(6), LocalDate.parse(rst.getString(7)));
+            cddto=new CourseDetailsDTO(rst.getString(1),rst.getString(2), rst.getInt(3), rst.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst.getDouble(7), LocalDate.parse(rst.getString(8)));
         }
         return cddto;
     }

@@ -7,6 +7,7 @@ package lk.ijse.paymentsystem.dao;
 
 import lk.ijse.paymentsystem.dao.custom.impl.BatchDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDAOImpl;
+import lk.ijse.paymentsystem.dao.custom.impl.CourseDetailsDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.QueryDAOImpl;
 
 /**
@@ -55,6 +56,9 @@ public class DAOFactory {
             case STU_OTHER:
                 
             case STU_PRO_QUALIFICATIONS:
+            
+            case COURSE_DETAILS:
+                return new CourseDetailsDAOImpl();
                 
         }
         return null;
