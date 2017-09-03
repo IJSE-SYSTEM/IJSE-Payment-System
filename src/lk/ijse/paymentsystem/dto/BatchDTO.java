@@ -13,17 +13,17 @@ import java.time.LocalDate;
  */
 public class BatchDTO extends SuperDTO{
     private String batchID;
-    private String courseCode;
-    private String batchNo;
+    private String courseID;
+    private int batchNo;
     private LocalDate startDate;
     private String Branch;
 
     public BatchDTO() {
     }
 
-    public BatchDTO(String batchID, String courseCode, String batchNo, LocalDate startDate, String Branch) {
+    public BatchDTO(String batchID, String courseID, int batchNo, LocalDate startDate, String Branch) {
         this.batchID = batchID;
-        this.courseCode = courseCode;
+        this.courseID = courseID;
         this.batchNo = batchNo;
         this.startDate = startDate;
         this.Branch = Branch;
@@ -45,30 +45,30 @@ public class BatchDTO extends SuperDTO{
     }
 
     /**
-     * @return the courseCode
+     * @return the courseID
      */
-    public String getCourseCode() {
-        return courseCode;
+    public String getCourseID() {
+        return courseID;
     }
 
     /**
-     * @param courseCode the courseCode to set
+     * @param courseID the courseID to set
      */
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
     }
 
     /**
      * @return the batchNo
      */
-    public String getBatchNo() {
+    public int getBatchNo() {
         return batchNo;
     }
 
     /**
      * @param batchNo the batchNo to set
      */
-    public void setBatchNo(String batchNo) {
+    public void setBatchNo(int batchNo) {
         this.batchNo = batchNo;
     }
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-import lk.ijse.paymentsystem.dto.CourseDTO;
+import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 
 /**
@@ -34,9 +34,9 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         textComponents = new DSTextComponents(this.getContentPane());
     }
     
-    public PaymentForRegistrationCourse(CourseDTO cdto){
+    public PaymentForRegistrationCourse(CourseDetailsDTO cdto){
         this();
-        controller=new PaymentForRegistrationCourseController(new CourseDTO("GDSE", "Graduate Diploma in Software Engineering", 4, 280000, 30, 20, 10));
+        controller=new PaymentForRegistrationCourseController(cdto);
         initComponents2();
     }
     

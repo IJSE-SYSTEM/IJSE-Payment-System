@@ -8,6 +8,7 @@ package lk.ijse.paymentsystem.controller.custom;
 import java.util.ArrayList;
 import lk.ijse.paymentsystem.dto.CourseDTO;
 import lk.ijse.paymentsystem.controller.SuperController;
+import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 
 /**
  *
@@ -39,5 +40,7 @@ public interface CourseController extends SuperController<CourseDTO>{
     public default ArrayList<CourseDTO> getSearched(CourseDTO dto) throws Exception {
         return null;
     }
+    
+    CourseDetailsDTO getCourseDetails(String courseID) throws Exception;
     
 }

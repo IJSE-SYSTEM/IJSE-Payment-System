@@ -7,6 +7,7 @@ package lk.ijse.paymentsystem.dao;
 
 import lk.ijse.paymentsystem.dao.custom.impl.BatchDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDAOImpl;
+import lk.ijse.paymentsystem.dao.custom.impl.QueryDAOImpl;
 
 /**
  *
@@ -16,7 +17,7 @@ public class DAOFactory {
     private static DAOFactory factory;
     
     public enum DAOTypes{
-        STUDENT, COURSE, STU_GUARDIAN, STU_PRO_QUALIFICATIONS, STU_OTHER, REGISTRATION, PAYMENT, SEMESTER, BATCH
+        STUDENT, COURSE, STU_GUARDIAN, STU_PRO_QUALIFICATIONS, STU_OTHER, REGISTRATION, PAYMENT, SEMESTER, BATCH, QUERY, COURSE_DETAILS
     }
 
     private DAOFactory() {
@@ -47,6 +48,8 @@ public class DAOFactory {
                 
             case STUDENT:
                 
+            case QUERY:
+                return new QueryDAOImpl();
             case STU_GUARDIAN:
                 
             case STU_OTHER:

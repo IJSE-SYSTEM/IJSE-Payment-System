@@ -12,7 +12,9 @@ import java.awt.KeyEventPostProcessor;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
+import lk.ijse.paymentsystem.dto.BatchDTO;
 import lk.ijse.paymentsystem.dto.CourseDTO;
+import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 
 /**
@@ -30,7 +32,7 @@ public class CourseDetails extends javax.swing.JFrame {
     }
     
     StudentDTO student;
-    CourseDTO course;
+    CourseDetailsDTO courseDetailsDTO;
     CourseDetailsController controller;
     
     private StudentRegistrationCourseDetailForm studentRFC;
@@ -79,6 +81,8 @@ public class CourseDetails extends javax.swing.JFrame {
         lblCourseDuration = new javax.swing.JLabel();
         lblSemester = new javax.swing.JLabel();
         lblFee = new javax.swing.JLabel();
+        cmbBxBatches = new javax.swing.JComboBox<>();
+        lblDate = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -179,6 +183,15 @@ public class CourseDetails extends javax.swing.JFrame {
         lblFee.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblFee.setText("fee");
 
+        cmbBxBatches.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbBxBatchesActionPerformed(evt);
+            }
+        });
+
+        lblDate.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblDate.setText("date");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -221,7 +234,9 @@ public class CourseDetails extends javax.swing.JFrame {
                             .addComponent(lblCourseName)
                             .addComponent(lblCourseDuration)
                             .addComponent(lblSemester)
-                            .addComponent(lblFee)))
+                            .addComponent(lblFee)
+                            .addComponent(cmbBxBatches, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDate)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(362, 362, 362)
                         .addComponent(lblWith))
@@ -253,7 +268,9 @@ public class CourseDetails extends javax.swing.JFrame {
                     .addComponent(lblAcademicPrograms1)
                     .addComponent(lblCourseName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAcademicPrograms2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAcademicPrograms2)
+                    .addComponent(cmbBxBatches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAcademicPrograms3)
@@ -263,7 +280,9 @@ public class CourseDetails extends javax.swing.JFrame {
                     .addComponent(lblAcademicPrograms5)
                     .addComponent(lblSemester))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAcademicPrograms6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAcademicPrograms6)
+                    .addComponent(lblDate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblAcademicPrograms4)
@@ -272,7 +291,7 @@ public class CourseDetails extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -283,15 +302,13 @@ public class CourseDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_rdiBtnBcsActionPerformed
 
     private void cmbBxAcademicProgramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBxAcademicProgramsActionPerformed
-        course=controller.getCourseDetails(cmbBxAcademicPrograms.getSelectedIndex());
-        lblCourseName.setText(course.getName());
-        lblSemester.setText(""+course.getNo_of_Semesters());
-        lblCourseDuration.setText("Approx. "+(course.getNo_of_Semesters()*6)+" months");
-        lblFee.setText(""+course.getCourseFee());
+        for (String batchDetail : controller.getBatchDetails(cmbBxAcademicPrograms.getSelectedIndex())) {
+            cmbBxBatches.addItem(batchDetail);
+        }
     }//GEN-LAST:event_cmbBxAcademicProgramsActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
-        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(new CourseDTO());
+        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(new CourseDetailsDTO());
         paymentForm.setVisible(true);
         studentRFC.dispose();
         this.dispose();
@@ -334,6 +351,16 @@ public class CourseDetails extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_formWindowOpened
 
+    private void cmbBxBatchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBxBatchesActionPerformed
+        courseDetailsDTO=controller.getCourseDetails(cmbBxBatches.getSelectedIndex());
+        
+        lblDate.setText((controller.getBatchStartDate(cmbBxBatches.getSelectedIndex())).toString());
+        lblCourseName.setText(courseDetailsDTO.getName());
+        lblSemester.setText(""+courseDetailsDTO.getNo_of_Semesters());
+        lblCourseDuration.setText("Approx. "+(courseDetailsDTO.getNo_of_Semesters()*6)+" months");
+        lblFee.setText(""+courseDetailsDTO.getCourseFee());
+    }//GEN-LAST:event_cmbBxBatchesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -373,6 +400,7 @@ public class CourseDetails extends javax.swing.JFrame {
     private javax.swing.JButton btnAddStudent;
     private javax.swing.JButton btnGoBack;
     private javax.swing.JComboBox<String> cmbBxAcademicPrograms;
+    private javax.swing.JComboBox<String> cmbBxBatches;
     private javax.swing.JLabel lblAcademicPrograms;
     private javax.swing.JLabel lblAcademicPrograms1;
     private javax.swing.JLabel lblAcademicPrograms2;
@@ -384,6 +412,7 @@ public class CourseDetails extends javax.swing.JFrame {
     private javax.swing.JLabel lblCourseAppliedFor1;
     private javax.swing.JLabel lblCourseDuration;
     private javax.swing.JLabel lblCourseName;
+    private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblFee;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblSemester;

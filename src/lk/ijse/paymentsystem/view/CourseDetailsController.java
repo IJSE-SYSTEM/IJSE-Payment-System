@@ -5,13 +5,16 @@
  */
 package lk.ijse.paymentsystem.view;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
+import lk.ijse.paymentsystem.controller.custom.BatchController;
 import lk.ijse.paymentsystem.controller.custom.CourseController;
 import lk.ijse.paymentsystem.dto.BatchDTO;
 import lk.ijse.paymentsystem.dto.CourseDTO;
+import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 
 /**
  *
@@ -19,14 +22,18 @@ import lk.ijse.paymentsystem.dto.CourseDTO;
  */
 public class CourseDetailsController {
     
-    private CourseController controller;
+    private CourseController courseController;
+    private BatchController batchController;
     private ArrayList<CourseDTO> courseDTOs=new ArrayList<>();
-    BatchDTO batchDTO;
+    private ArrayList<BatchDTO> batchDTOs=new ArrayList<>();
+    private CourseDTO courseDTO;
+    
 
     public CourseDetailsController() {
-        controller = (CourseController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.COURSE);
+        courseController = (CourseController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.COURSE);
+        batchController=(BatchController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.BATCH);
         try {
-            courseDTOs = controller.getAll();
+            courseDTOs = courseController.getAll();
         } catch (Exception ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -40,8 +47,34 @@ public class CourseDetailsController {
         return courseNames;
     }
     
-    public CourseDTO getCourseDetails(int selectedIndex){
-        return courseDTOs.get(selectedIndex);
+    public CourseDetailsDTO getCourseDetails(int selectedIndex){
+        CourseDetailsDTO cddto=null;
+        try {
+            cddto=courseController.getCourseDetails(batchDTOs.get(selectedIndex).getCourseID());
+        } catch (Exception ex) {
+            Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cddto.setName(courseDTO.getName());
+        cddto.setCode(courseDTO.getCode());
+        return cddto;
+    }
+    
+    public ArrayList<String> getBatchDetails(int selectedIndex){
+        ArrayList<String> batches=new ArrayList<>();
+        courseDTO=courseDTOs.get(selectedIndex);
+        try {
+            batchDTOs=batchController.getBatches(courseDTO.getCode());
+        } catch (Exception ex) {
+            Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (BatchDTO batchDTO : batchDTOs) {
+            batches.add(batchDTO.getBatchID()+" - "+batchDTO.getBranch());
+        }
+        return batches;
+    }
+    
+    public LocalDate getBatchStartDate(int selectedIndex){
+        return batchDTOs.get(selectedIndex).getStartDate();
     }
     
     

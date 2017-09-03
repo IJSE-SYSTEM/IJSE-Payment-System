@@ -22,20 +22,4 @@ public class BatchDAOImpl implements BatchDAO {
         c=ConnectionFactory.getInstance().getConnection();
     }
     
-    
-
-    @Override
-    public ArrayList<BatchDTO> getSearched(BatchDTO dto) throws Exception {
-        String SQL="select * from batch where code=? order by batchNo Desc limit 4";
-        PreparedStatement stm=c.prepareStatement(SQL);
-        stm.setString(1, dto.getCourseCode());
-        ResultSet rst=stm.executeQuery();
-        ArrayList<BatchDTO> batchDTOs=new ArrayList<>();
-        while (rst.next()){
-            BatchDTO bdto=new BatchDTO(rst.getString(1), rst.getString(2), rst.getString(3), LocalDate.parse(rst.getString(4)), rst.getString(5));
-            batchDTOs.add(bdto);
-        }
-        return batchDTOs;
-    }
-    
 }

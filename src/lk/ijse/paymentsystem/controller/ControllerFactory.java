@@ -5,8 +5,8 @@
  */
 package lk.ijse.paymentsystem.controller;
 
+import lk.ijse.paymentsystem.controller.custom.impl.BatchControllerImpl;
 import lk.ijse.paymentsystem.controller.custom.impl.CourseControllerImpl;
-import lk.ijse.paymentsystem.dao.*;
 
 /**
  *
@@ -36,7 +36,7 @@ public class ControllerFactory {
     public SuperController getController(ControllerTypes controller){
         switch (controller){
             case BATCH:
-            
+                return new BatchControllerImpl();
             case COURSE:
                 return new CourseControllerImpl();
             case PAYMENT:

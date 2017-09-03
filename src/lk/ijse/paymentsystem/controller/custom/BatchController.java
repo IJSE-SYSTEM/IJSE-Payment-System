@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lk.ijse.paymentsystem.dao.custom;
+package lk.ijse.paymentsystem.controller.custom;
 
 import java.util.ArrayList;
-import lk.ijse.paymentsystem.dao.SuperDAO;
+import lk.ijse.paymentsystem.controller.SuperController;
 import lk.ijse.paymentsystem.dto.BatchDTO;
 
 /**
  *
  * @author midda
  */
-public interface BatchDAO extends SuperDAO<BatchDTO>{
+public interface BatchController extends SuperController<BatchDTO>{
 
     @Override
     public default ArrayList<BatchDTO> getSearched(BatchDTO dto) throws Exception {
@@ -44,5 +44,7 @@ public interface BatchDAO extends SuperDAO<BatchDTO>{
     public default ArrayList<BatchDTO> getAll() throws Exception {
         return null;
     }
+    
+    public ArrayList<BatchDTO> getBatches(String code) throws Exception;
     
 }

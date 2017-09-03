@@ -10,13 +10,17 @@ import lk.ijse.paymentsystem.dao.DAOFactory;
 import lk.ijse.paymentsystem.dao.custom.CourseDAO;
 import lk.ijse.paymentsystem.dto.CourseDTO;
 import lk.ijse.paymentsystem.controller.custom.CourseController;
+import lk.ijse.paymentsystem.dao.custom.CourseDetailsDAO;
+import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 
 
 public class CourseControllerImpl implements CourseController {
 
     CourseDAO courseDAO;
+    CourseDetailsDAO courseDetailsDAO;
     public CourseControllerImpl() {
         courseDAO=(CourseDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.COURSE);
+        courseDetailsDAO=(CourseDetailsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.COURSE_DETAILS);
     }
 
     
@@ -24,6 +28,13 @@ public class CourseControllerImpl implements CourseController {
     @Override
     public ArrayList<CourseDTO> getAll() throws Exception {
         return courseDAO.getAll();
+    }
+
+    @Override
+    public CourseDetailsDTO getCourseDetails(String courseID) throws Exception {
+        CourseDetailsDTO cddto=new CourseDetailsDTO();
+        cddto.setCourseID(courseID);
+        return courseDetailsDAO.search(cddto);
     }
     
 }

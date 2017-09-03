@@ -17,12 +17,21 @@ USE ijse;
 CREATE TABLE course(
     code VARCHAR(10),                       /*code as in CMJD, GDSE*/
     name VARCHAR(255),
+    CONSTRAINT PRIMARY KEY (code)
+);
+
+CREATE TABLE course_details(
+    courseID VARCHAR(10),
+    code VARCHAR(10),
     no_of_semesters INT(2),
     course_fee DECIMAL(8,2),
     dscntFull DECIMAL(3,2),
     dscnt2Sem DECIMAL(3,2),
     dscnt1Sem DECIMAL(3,2),
-    CONSTRAINT PRIMARY KEY (code)
+    dateModified DATE,
+    CONSTRAINT PRIMARY KEY (courseID),
+    CONSTRAINT FOREIGN KEY (code) REFERENCES course(code)
+    ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE semester_details(
@@ -37,13 +46,16 @@ CREATE TABLE semester_details(
 
 CREATE TABLE batch(
     batchID VARCHAR(10),
-    code VARCHAR(10),
+    courseID VARCHAR(10),
     batchNo INT(3),
-    CONSTRAINT FOREIGN KEY (code) REFERENCES course(code)
+    startDate DATE,
+    branch VARCHAR(20),
+    CONSTRAINT FOREIGN KEY (courseID) REFERENCES course_details(courseID)
     ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT PRIMARY KEY (batchID),
-    CONSTRAINT UNIQUE KEY (code,batchNo)
+    CONSTRAINT UNIQUE KEY (courseID,batchNo)
 );
+
 
 CREATE TABLE student(
     sid VARCHAR(10) NOT NULL,
@@ -146,8 +158,17 @@ CREATE TABLE payment(
     CONSTRAINT UNIQUE KEY (regID,semester,sem_half)
 );
 
+INSERT INTO course VALUES('CMJD','Comprehensive Master Java Developer');
+INSERT INTO course VALUES('GDSE','Graduate Deploma In Software Engineering');
+INSERT INTO course VALUES('ABSD','Advanced Business Solution Developer');
+INSERT INTO course VALUES('AHAD','Advanced Hybrid Application Developer');
 
-INSERT INTO course VALUES('CMJD','Comprehensive Master Java Developer',1,60000.00,0.2,0,0);
-INSERT INTO course VALUES('GDSE','Graduate Deploma In Software Engineering',4,280000.00,0.3,0.2,0.1);
-INSERT INTO course VALUES('ABSD','Advanced Business Solution Developer',1,60000.00,0.2,0,0);
-INSERT INTO course VALUES('AHAD','Advanced Hybrid Application Developer',1,60000.00,0.2,0,0);
+INSERT INTO course_details VALUES('C001','CMJD',1,60000.00,0.2,0,0,'2017-09-03');
+INSERT INTO course_details VALUES('C002','GDSE',4,280000.00,0.3,0.2,0.1,'2017-09-03');
+INSERT INTO course_details VALUES('C003','ABSD',1,60000.00,0.2,0,0,'2017-09-03');
+INSERT INTO course_details VALUES('C004','AHAD',1,60000.00,0.2,0,0,'2017-09-03');
+
+INSERT INTO batch VALUES('GDSE41','C002',41,'2016-09-20','Panadura');
+INSERT INTO batch VALUES('CMJD67','C001',67,'2017-04-05','Panadura');
+INSERT INTO batch VALUES('GDSE45','C002',45,'2017-09-18','Panadura');
+INSERT INTO batch VALUES('GDSE37','C002',37,'2016-09-22','Panadura');

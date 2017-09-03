@@ -8,15 +8,16 @@ package lk.ijse.paymentsystem.view;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import lk.ijse.paymentsystem.dto.CourseDTO;
+import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 
 /**
  *
  * @author midda
  */
 public class PaymentForRegistrationCourseController {
-    private  CourseDTO course;
+    private  CourseDetailsDTO course;
     
-    public PaymentForRegistrationCourseController(CourseDTO cdto) {
+    public PaymentForRegistrationCourseController(CourseDetailsDTO cdto) {
          this.course = cdto;
     }
     

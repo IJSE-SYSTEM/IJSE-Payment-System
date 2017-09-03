@@ -30,10 +30,11 @@ public class CourseDAOImpl implements CourseDAO {
         ResultSet rst=stm.executeQuery(SQL);
         ArrayList<CourseDTO> courseDTOs=new ArrayList<>();
         while(rst.next()){
-           CourseDTO cdto=new CourseDTO(rst.getString(1), rst.getString(2), rst.getInt(3), rst.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst.getDouble(7));
+           CourseDTO cdto=new CourseDTO(rst.getString(1), rst.getString(2));
            courseDTOs.add(cdto);
         }
         return courseDTOs;
     }
     
+//    , rst.getInt(3), rst.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst.getDouble(7)
 }

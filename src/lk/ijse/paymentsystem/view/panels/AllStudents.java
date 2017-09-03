@@ -5,12 +5,10 @@
  */
 package lk.ijse.paymentsystem.view.panels;
 
-import javafx.application.Platform;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import lk.ijse.paymentsystem.view.utils.DSButton;
 import lk.ijse.paymentsystem.view.utils.DSTable;
-import sun.swing.SwingAccessor;
 
 /**
  *
