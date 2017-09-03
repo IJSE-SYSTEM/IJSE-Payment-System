@@ -393,59 +393,81 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         int selectedRows[]=jtrPayment.getSelectionRows();
         System.out.println("Selected Rows : "+Arrays.toString(selectedRows));
         int selectRows[]={};
-        for (int selectedRow : selectedRows) {
-            System.out.println("Selected Row : "+selectedRow);
-            if(selectedRow==0){
-                System.out.println("1");
-                jtrPayment.removeTreeSelectionListener(tsl);
-                jtrPayment.setSelectionRows(Arrays.copyOf(rows, jtrPayment.getRowCount()));
-                jtrPayment.addTreeSelectionListener(tsl);
-                
-            }else if(semesterRows.contains(selectedRow)){
-                System.out.println("2");
-                jtrPayment.removeTreeSelectionListener(tsl);
-                
-                int temp[]=Arrays.copyOfRange(rows, selectedRow,selectedRow+3);
-                selectRows=Arrays.copyOf(selectRows, selectRows.length+temp.length);
-                for (int i=selectRows.length-temp.length,j=0; j<temp.length; j++,i++){
-                    selectRows[i]=temp[j];
+        
+        LOOP1: for (boolean runLoop=true,isInital=true;runLoop==true;){
+            System.out.println("Loop 1");
+            LOOP2:for (int selectedRow : selectedRows) {
+                System.out.println("Selected Row : "+selectedRow);
+                if(selectedRow==0){
+                    System.out.println("1");
+                    selectRows=Arrays.copyOf(rows, jtrPayment.getRowCount());
+                    break LOOP1;
+
+                }else if(semesterRows.contains(selectedRow)){
+                    System.out.println("2");
+
+                    int temp[]=Arrays.copyOfRange(rows, selectedRow,selectedRow+3);
+                    selectRows=Arrays.copyOf(selectRows, selectRows.length+temp.length);
+                    for (int i=selectRows.length-temp.length,j=0; j<temp.length; j++,i++){
+                        selectRows[i]=temp[j];
+                    }
+
+                }else if(semesterRows.contains(selectedRow-1)){
+                    System.out.println("3");
+                    
+                    if(isInital==true){
+                        if (selectedRows.length==1 || selectedRows.length==2 && ((selectedRow+1)==selectedRows[1])){
+                            selectRows=Arrays.copyOf(selectRows, selectRows.length+selectedRows.length);
+                            for (int i=selectRows.length-selectedRows.length,j=0; j<selectedRows.length; j++,i++){
+                                selectRows[i]=selectedRows[j];
+                            }
+                        }
+                    }
+
+                    if (jtrPayment.isRowSelected(selectedRow+1)){
+                        System.out.println("3.1");
+                        selectRows=Arrays.copyOf(selectRows, selectRows.length+1);
+                        selectRows[selectRows.length-1]=selectedRow-1;
+                        System.out.println("Select Rows : "+Arrays.toString(selectRows));
+                    }
                 }
-                jtrPayment.setSelectionRows(selectRows);
-                
-                jtrPayment.addTreeSelectionListener(tsl);
-                
-            }else if(semesterRows.contains(selectedRow-1)){
-                System.out.println("3");
-                
-                if (jtrPayment.isRowSelected(selectedRow+1)){
-                    jtrPayment.setSelectionRow(selectedRow-1);
-                }
-                
-                if (selectedRows.length==2 && ((selectedRow+1)!=selectedRows[1])){
-                    System.out.println("3.2");
-                    selectRows=new int[]{selectedRows[0]};
-                    jtrPayment.removeTreeSelectionListener(tsl);
-                    jtrPayment.setSelectionRows(selectRows);
-                    jtrPayment.addTreeSelectionListener(tsl);
-                    break;
+                else if(semesterRows.contains(selectedRow-2)){
+                    System.out.println("4");
+                    
+                    if(isInital==true){
+                        if (selectedRows.length==1 || selectedRows.length==2 && ((selectedRow-1)==selectedRows[1])){
+                            selectRows=Arrays.copyOf(selectRows, selectRows.length+selectedRows.length);
+                            for (int i=selectRows.length-selectedRows.length,j=0; j<selectedRows.length; j++,i++){
+                                selectRows[i]=selectedRows[j];
+                            }
+                        }
+                    }
                 }
             }
-            else if(semesterRows.contains(selectedRow-2)){
-                System.out.println("4");
-                if (selectedRows.length==2 && ((selectedRow-1)!=selectedRows[1])){
-                    System.out.println("4.2");
-                    selectRows=new int[]{selectedRows[0]};
-                    jtrPayment.removeTreeSelectionListener(tsl);
-                    jtrPayment.setSelectionRows(selectRows);
-                    jtrPayment.addTreeSelectionListener(tsl);
-                    break;
-                }
+            break LOOP1;
+        }
+        System.out.println("Select Rows : "+Arrays.toString(selectRows));
+
+        Arrays.sort(selectRows);
+        int[] temp={selectRows[0]};
+        for (int i1 = 1; i1 < selectRows.length; i1++) {
+            if (selectRows[i1]!=selectRows[i1-1]){
+                temp=Arrays.copyOf(temp, temp.length+1);
+                temp[temp.length-1]=selectRows[i1];
             }
         }
-        System.out.println(Arrays.toString(jtrPayment.getSelectionRows()));
+        selectRows=temp;
         
+        if (Arrays.equals(Arrays.copyOfRange(rows, 1, jtrPayment.getRowCount()),selectRows)){
+            selectRows=Arrays.copyOf(rows, jtrPayment.getRowCount());
+        }
+        
+        jtrPayment.removeTreeSelectionListener(tsl);
+        jtrPayment.setSelectionRows(selectRows);
+        jtrPayment.addTreeSelectionListener(tsl);
+
         controller.calculateAmounts(selectRows);
-        System.out.println("loop over");
+        System.out.println("loop over\n");
     }
     
         

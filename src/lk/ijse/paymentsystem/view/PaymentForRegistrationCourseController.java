@@ -42,7 +42,8 @@ public class PaymentForRegistrationCourseController {
         for (int selectedRow : selectedRows) {
             if(skip>0){
                 skip--;
-                continue;
+            }else if(selectedRow ==0){
+//                course.getCourseFee()
             }
             
             
