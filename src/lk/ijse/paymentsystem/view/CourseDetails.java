@@ -75,6 +75,10 @@ public class CourseDetails extends javax.swing.JFrame {
         lblAcademicPrograms6 = new javax.swing.JLabel();
         btnAddStudent = new javax.swing.JButton();
         btnGoBack = new javax.swing.JButton();
+        lblCourseName = new javax.swing.JLabel();
+        lblCourseDuration = new javax.swing.JLabel();
+        lblSemester = new javax.swing.JLabel();
+        lblFee = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -163,6 +167,18 @@ public class CourseDetails extends javax.swing.JFrame {
             }
         });
 
+        lblCourseName.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblCourseName.setText("name");
+
+        lblCourseDuration.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblCourseDuration.setText("years");
+
+        lblSemester.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblSemester.setText("semesters");
+
+        lblFee.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblFee.setText("fee");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,7 +216,12 @@ public class CourseDetails extends javax.swing.JFrame {
                                             .addComponent(lblAcademicPrograms5)
                                             .addComponent(lblAcademicPrograms6))))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(cmbBxAcademicPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbBxAcademicPrograms, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCourseName)
+                            .addComponent(lblCourseDuration)
+                            .addComponent(lblSemester)
+                            .addComponent(lblFee)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(362, 362, 362)
                         .addComponent(lblWith))
@@ -228,17 +249,25 @@ public class CourseDetails extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCourseAppliedFor1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAcademicPrograms1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAcademicPrograms1)
+                    .addComponent(lblCourseName))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAcademicPrograms2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAcademicPrograms3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAcademicPrograms3)
+                    .addComponent(lblCourseDuration))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAcademicPrograms5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAcademicPrograms5)
+                    .addComponent(lblSemester))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblAcademicPrograms6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblAcademicPrograms4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAcademicPrograms4)
+                    .addComponent(lblFee))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,7 +283,11 @@ public class CourseDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_rdiBtnBcsActionPerformed
 
     private void cmbBxAcademicProgramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBxAcademicProgramsActionPerformed
-        // TODO add your handling code here:
+        course=controller.getCourseDetails(cmbBxAcademicPrograms.getSelectedIndex());
+        lblCourseName.setText(course.getName());
+        lblSemester.setText(""+course.getNo_of_Semesters());
+        lblCourseDuration.setText("Approx. "+(course.getNo_of_Semesters()*6)+" months");
+        lblFee.setText(""+course.getCourseFee());
     }//GEN-LAST:event_cmbBxAcademicProgramsActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
@@ -349,7 +382,11 @@ public class CourseDetails extends javax.swing.JFrame {
     private javax.swing.JLabel lblAcademicPrograms6;
     private javax.swing.JLabel lblCourseAppliedFor;
     private javax.swing.JLabel lblCourseAppliedFor1;
+    private javax.swing.JLabel lblCourseDuration;
+    private javax.swing.JLabel lblCourseName;
+    private javax.swing.JLabel lblFee;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblSemester;
     private javax.swing.JLabel lblWith;
     private javax.swing.JCheckBox rdiBtnBcs;
     // End of variables declaration//GEN-END:variables

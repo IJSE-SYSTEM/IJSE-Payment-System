@@ -39,6 +39,8 @@ CREATE TABLE batch(
     batchID VARCHAR(10),
     code VARCHAR(10),
     batchNo INT(3),
+    startDate DATE,
+    branch VARCHAR(20),
     CONSTRAINT FOREIGN KEY (code) REFERENCES course(code)
     ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT PRIMARY KEY (batchID),

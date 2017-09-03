@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.controller.custom.CourseController;
+import lk.ijse.paymentsystem.dto.BatchDTO;
 import lk.ijse.paymentsystem.dto.CourseDTO;
 
 /**
@@ -18,8 +19,9 @@ import lk.ijse.paymentsystem.dto.CourseDTO;
  */
 public class CourseDetailsController {
     
-    CourseController controller;
-    ArrayList<CourseDTO> courseDTOs=new ArrayList<>();
+    private CourseController controller;
+    private ArrayList<CourseDTO> courseDTOs=new ArrayList<>();
+    BatchDTO batchDTO;
 
     public CourseDetailsController() {
         controller = (CourseController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.COURSE);
@@ -37,4 +39,10 @@ public class CourseDetailsController {
         }
         return courseNames;
     }
+    
+    public CourseDTO getCourseDetails(int selectedIndex){
+        return courseDTOs.get(selectedIndex);
+    }
+    
+    
 }

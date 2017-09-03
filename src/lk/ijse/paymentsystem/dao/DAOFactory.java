@@ -5,6 +5,7 @@
  */
 package lk.ijse.paymentsystem.dao;
 
+import lk.ijse.paymentsystem.dao.custom.impl.BatchDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDAOImpl;
 
 /**
@@ -35,7 +36,7 @@ public class DAOFactory {
     public SuperDAO getDAO(DAOTypes dao){
         switch (dao){
             case BATCH:
-            
+                return new BatchDAOImpl();
             case COURSE:
                 return new CourseDAOImpl();
             case PAYMENT:

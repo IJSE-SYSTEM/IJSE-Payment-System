@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/view/PaymentForRegistrationCourse.java</file>
+            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/view/CourseDetails.java</file>
+            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/dao/custom/impl/CourseDAOImpl.java</file>
+            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/dao/custom/CourseDAO.java</file>
+            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/view/CourseDetailsController.java</file>
         </group>
     </open-files>
 </project-private>
