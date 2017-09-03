@@ -62,6 +62,7 @@ public class CourseDetailsController {
     public ArrayList<String> getBatchDetails(int selectedIndex){
         ArrayList<String> batches=new ArrayList<>();
         courseDTO=courseDTOs.get(selectedIndex);
+        System.out.println("A");
         try {
             batchDTOs=batchController.getBatches(courseDTO.getCode());
         } catch (Exception ex) {
