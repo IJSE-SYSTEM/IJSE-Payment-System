@@ -60,12 +60,6 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         
         
     }
-    
-    public StudentRegistrationCourseDetailForm(StudentDTO studentDTO, GuardianDTO guardianDTO, StudentRegistrationForm studentRegistrationForm){
-        this.student = studentDTO;
-        this.guardian = guardianDTO;
-        this.studentRegistrationForm = studentRegistrationForm;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -458,9 +452,8 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         
         int res = JOptionPane.showConfirmDialog(null,"Do you want to add this Student to the IJSE adminstration System? \n (Make sure this Student has paid the registration fee)","Warning",JOptionPane.YES_NO_OPTION);
         
-        /* if the student has paid registration fee, he will be added to the database with registration fee*/
+        /* if the student has paid registration fee, he will be added to the database*/
         if(res==0){
-            
             this.dispose();
         }
             
