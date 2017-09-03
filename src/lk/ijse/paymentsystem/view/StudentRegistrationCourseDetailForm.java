@@ -6,11 +6,17 @@
 package lk.ijse.paymentsystem.view;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+import lk.ijse.paymentsystem.dto.GuardianDTO;
+import lk.ijse.paymentsystem.dto.QualificationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.view.utils.DSButton;
 import lk.ijse.paymentsystem.view.utils.DSTable;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
+import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /**
  *
@@ -25,6 +31,10 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
     private DSTable table;
     private DSTextComponents textComponents;
 //    private DSButton button;
+    
+    private StudentDTO student;
+    private GuardianDTO guardian;
+    private StudentRegistrationForm studentRegistrationForm;
             
     public StudentRegistrationCourseDetailForm() {        
         initComponents();
@@ -51,6 +61,12 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         
         
+    }
+    
+    public StudentRegistrationCourseDetailForm(StudentDTO studentDTO, GuardianDTO guardianDTO, StudentRegistrationForm studentRegistrationForm){
+        this.student = studentDTO;
+        this.guardian = guardianDTO;
+        this.studentRegistrationForm = studentRegistrationForm;
     }
 
     /**
@@ -429,7 +445,27 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
     }//GEN-LAST:event_rdiBtnCopiesOfProfessionalQualificationCertificatesActionPerformed
 
     private void btnRegisterStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterStudentActionPerformed
-        this.dispose();
+        
+        ArrayList<QualificationDTO> qualificationList = new ArrayList<>();
+        DefaultTableModel dtm = (DefaultTableModel) tblQualification.getModel();
+        
+        /* take data from the qualification table*/
+        
+        for (int i = 0; i < dtm.getRowCount(); i++) {
+            QualificationDTO qualificationDTO = new QualificationDTO(dtm.getValueAt(i, 0).toString(), dtm.getValueAt(i, 1).toString(), dtm.getValueAt(i, 2).toString(), dtm.getValueAt(i, 3).toString());
+            qualificationList.add(qualificationDTO);
+        }
+        
+        /*show confirm message to confirm that the student has paid the registration fee*/
+        
+        int res = JOptionPane.showConfirmDialog(null,"Do you want to add this Student to the IJSE adminstration System? \n (Make sure this Student has paid the registration fee)","Warning",JOptionPane.YES_NO_OPTION);
+        
+        /* if the student has paid registration fee, he will be added to the database with registration fee*/
+        if(res==0){
+            
+            this.dispose();
+        }
+            
     }//GEN-LAST:event_btnRegisterStudentActionPerformed
 
     private void btnAddCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCourseActionPerformed

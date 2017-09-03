@@ -44,6 +44,17 @@ public class CourseDetailsDTO extends CourseDTO{
         this.discount1Sem = discount1Sem;
         this.dateModified = dateModified;
     }
+    
+    public CourseDetailsDTO(String courseID, String code, int no_of_Semesters, double courseFee, double discount, double discount2Sem, double discount1Sem, LocalDate dateModified) {
+        super(code);
+        this.courseID = courseID;
+        this.no_of_Semesters = no_of_Semesters;
+        this.courseFee = courseFee;
+        this.discount = discount;
+        this.discount2Sem = discount2Sem;
+        this.discount1Sem = discount1Sem;
+        this.dateModified = dateModified;
+    }
 
     /**
      * @return the courseID

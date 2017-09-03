@@ -15,6 +15,10 @@ public class CourseDTO extends SuperDTO{
 
     public CourseDTO() {
     }
+    
+   public CourseDTO(String code){
+       this.code=code;
+   }
 
     public CourseDTO(String code, String name) {
         this.code = code;

@@ -51,6 +51,7 @@ public class CourseDetailsController {
         CourseDetailsDTO cddto=null;
         try {
             cddto=courseController.getCourseDetails(batchDTOs.get(selectedIndex).getCourseID());
+            
         } catch (Exception ex) {
             Logger.getLogger(CourseDetailsController.class.getName()).log(Level.SEVERE, null, ex);
         }
