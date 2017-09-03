@@ -12,8 +12,6 @@ import java.awt.KeyEventPostProcessor;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
 import javax.swing.SwingUtilities;
-import lk.ijse.paymentsystem.dto.BatchDTO;
-import lk.ijse.paymentsystem.dto.CourseDTO;
 import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 
@@ -302,13 +300,14 @@ public class CourseDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_rdiBtnBcsActionPerformed
 
     private void cmbBxAcademicProgramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBxAcademicProgramsActionPerformed
+        cmbBxBatches.removeAllItems();
         for (String batchDetail : controller.getBatchDetails(cmbBxAcademicPrograms.getSelectedIndex())) {
             cmbBxBatches.addItem(batchDetail);
         }
     }//GEN-LAST:event_cmbBxAcademicProgramsActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
-        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(new CourseDetailsDTO());
+        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(courseDetailsDTO);
         paymentForm.setVisible(true);
         studentRFC.dispose();
         this.dispose();

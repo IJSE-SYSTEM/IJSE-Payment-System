@@ -468,8 +468,10 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
           String parentAddressLine3 = txtParentAddress3.getText();
 
           GuardianDTO guardian = new GuardianDTO(guardianName, telNo1, telNo2, email, designation, workPlace, addressLine1, addressLine2, addressLine3);
-
-        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailForm = new StudentRegistrationCourseDetailForm();
+          
+          student.setGuardian(guardian);
+          
+        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailForm = new StudentRegistrationCourseDetailForm(this,student);
         studentRegistrationCourseDetailForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAddStudentActionPerformed

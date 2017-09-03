@@ -5,9 +5,10 @@
  */
 package lk.ijse.paymentsystem.view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import lk.ijse.paymentsystem.dto.CourseDTO;
 import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 
 /**
@@ -35,4 +36,20 @@ public class PaymentForRegistrationCourseController {
         return new DefaultTreeModel(trNde);
     }
     
+    public ArrayList<Double> calculateAmounts(int[] selectedRows){
+        Arrays.sort(selectedRows);
+        int skip=0;
+        for (int selectedRow : selectedRows) {
+            if(skip>0){
+                skip--;
+                continue;
+            }
+            
+            
+            
+            
+        }
+        System.out.println("");
+        return null;
+    }
 }

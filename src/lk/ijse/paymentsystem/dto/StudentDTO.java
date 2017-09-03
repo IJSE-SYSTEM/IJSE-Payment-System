@@ -27,6 +27,10 @@ public class StudentDTO extends SuperDTO{
     private String university;
     private String faculty;
     private String higherEducationQualifications;
+    
+    private GuardianDTO guardian;
+    private QualificationDTO qualification;
+    
 
     public StudentDTO() {
     }
@@ -306,6 +310,34 @@ public class StudentDTO extends SuperDTO{
      */
     public void setHigherEducationQualifications(String higherEducationQualifications) {
         this.higherEducationQualifications = higherEducationQualifications;
+    }
+
+    /**
+     * @return the guardian
+     */
+    public GuardianDTO getGuardian() {
+        return guardian;
+    }
+
+    /**
+     * @param guardian the guardian to set
+     */
+    public void setGuardian(GuardianDTO guardian) {
+        this.guardian = guardian;
+    }
+
+    /**
+     * @return the qualification
+     */
+    public QualificationDTO getQualification() {
+        return qualification;
+    }
+
+    /**
+     * @param qualification the qualification to set
+     */
+    public void setQualification(QualificationDTO qualification) {
+        this.qualification = qualification;
     }
     
 }

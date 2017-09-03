@@ -31,7 +31,6 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
 //    private DSButton button;
     
     private StudentDTO student;
-    private GuardianDTO guardian;
     private StudentRegistrationForm studentRegistrationForm;
             
     public StudentRegistrationCourseDetailForm() {        
@@ -59,6 +58,12 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         
         
+    }
+    
+    public StudentRegistrationCourseDetailForm(StudentRegistrationForm studentRegistrationForm,StudentDTO student) {        
+        this();
+        this.studentRegistrationForm=studentRegistrationForm;
+        this.student=student;
     }
 
     /**

@@ -140,6 +140,8 @@ CREATE TABLE registration(
     ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT FOREIGN KEY (transferred_to_batch) REFERENCES batch(batchID)
     ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FOREIGN KEY (new_reg_id) REFERENCES registration(regID)
+    ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT PRIMARY KEY (regID)
 );
 
@@ -148,6 +150,7 @@ CREATE TABLE payment(
     regID VARCHAR(10) NOT NULL,
     semester INT(2) NOT NULL,
     sem_half INT(1) NOT NULL,
+    nextPayID VARCHAR(10),                  /*This is for payments ranging more than one half. For example a payment for a semester is two halves. This a pointer to next half*/
     pay_date DATE,
     amount DECIMAL(8,2) NOT NULL,
     discount DECIMAL(8,2),
