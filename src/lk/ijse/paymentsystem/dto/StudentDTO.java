@@ -26,8 +26,50 @@ public class StudentDTO extends SuperDTO{
     private String grade;
     private String university;
     private String faculty;
-    private String higherEducationQualifications;;
+    private String higherEducationQualifications;
 
+    public StudentDTO() {
+    }
+
+    public StudentDTO(String SID, String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, String gender, String nic, String school, String grade, String university, String faculty, String higherEducationQualifications) {
+        this.SID = SID;
+        this.initialStudentName = initialStudentName;
+        this.studentName = studentName;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.addressLine3 = addressLine3;
+        this.telHome = telHome;
+        this.mobile = mobile;
+        this.email = email;
+        this.dob = dob;
+        this.gender = gender;
+        this.nic = nic;
+        this.school = school;
+        this.grade = grade;
+        this.university = university;
+        this.faculty = faculty;
+        this.higherEducationQualifications = higherEducationQualifications;
+    }
+    
+    public StudentDTO(String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, String gender, String nic, String school, String university) {
+        this.SID = SID;
+        this.initialStudentName = initialStudentName;
+        this.studentName = studentName;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.addressLine3 = addressLine3;
+        this.telHome = telHome;
+        this.mobile = mobile;
+        this.email = email;
+        this.dob = dob;
+        this.gender = gender;
+        this.nic = nic;
+        this.school = school;
+        this.university = university;
+
+    }
+
+    
     /**
      * @return the SID
      */
