@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/controller/custom/impl/BatchControllerImpl.java</file>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/dao/DAOFactory.java</file>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/controller/custom/impl/CourseControllerImpl.java</file>
@@ -11,6 +12,11 @@
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/dao/custom/impl/CourseDetailsDAOImpl.java</file>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/controller/custom/CourseController.java</file>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/view/CourseDetailsController.java</file>
+=======
+            <file>file:/media/simo-ds/Disk%2001/IJSE/GitHub/smart-git/src/lk/ijse/paymentsystem/view/StudentRegistrationForm.java</file>
+            <file>file:/media/simo-ds/Disk%2001/IJSE/GitHub/smart-git/src/lk/ijse/paymentsystem/dto/StudentDTO.java</file>
+            <file>file:/media/simo-ds/Disk%2001/IJSE/GitHub/smart-git/src/lk/ijse/paymentsystem/view/StudentRegistrationCourseDetailForm.java</file>
+>>>>>>> 51a6548ac5488400ff17ec3b5f1881773a79566f
         </group>
     </open-files>
 </project-private>

@@ -13,10 +13,8 @@ import javax.swing.table.DefaultTableModel;
 import lk.ijse.paymentsystem.dto.GuardianDTO;
 import lk.ijse.paymentsystem.dto.QualificationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
-import lk.ijse.paymentsystem.view.utils.DSButton;
 import lk.ijse.paymentsystem.view.utils.DSTable;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
-import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /**
  *
