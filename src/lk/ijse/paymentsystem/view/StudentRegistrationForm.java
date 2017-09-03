@@ -469,7 +469,10 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
 
           GuardianDTO guardian = new GuardianDTO(guardianName, telNo1, telNo2, email, designation, workPlace, addressLine1, addressLine2, addressLine3);
 
-        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailForm = new StudentRegistrationCourseDetailForm();
+          
+          /* Student details and guardian details should pass to the next UI*/
+          
+        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailForm = new StudentRegistrationCourseDetailForm(student, guardian, this);
         studentRegistrationCourseDetailForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAddStudentActionPerformed

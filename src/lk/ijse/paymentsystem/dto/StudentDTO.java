@@ -10,7 +10,7 @@ package lk.ijse.paymentsystem.dto;
  * @author simo-ds
  */
 public class StudentDTO extends SuperDTO{
-    private String SID;
+    private String SID;     /* SID should be generated from a database procedure*/
     private String initialStudentName;
     private String studentName;
     private String addressLine1;
