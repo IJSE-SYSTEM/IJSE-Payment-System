@@ -25,7 +25,7 @@ CREATE TABLE course_details(
     code VARCHAR(10),
     no_of_semesters INT(2),
     course_fee DECIMAL(8,2),
-    dscntFull DECIMAL(3,2),
+    dscnt2PlusSem DECIMAL(3,2),
     dscnt2Sem DECIMAL(3,2),
     dscnt1Sem DECIMAL(3,2),
     dateModified DATE,
@@ -148,9 +148,9 @@ CREATE TABLE registration(
 CREATE TABLE payment(
     payID VARCHAR(10) NOT NULL,
     regID VARCHAR(10) NOT NULL,
-    semester INT(2) NOT NULL,
-    sem_half INT(1) NOT NULL,
-    nextPayID VARCHAR(10),                  /*This is for payments ranging more than one half. For example a payment for a semester is two halves. This a pointer to next half*/
+    semester INT(2) NOT NULL,               /*This is 0 for full payment*/
+    sem_half INT(1) NOT NULL,               /*This is 0 for a full semester pay*/
+    nextPayID VARCHAR(10),                  /*This is used one the payment ranges for more than 1 semesters and not a full payment. Example payment for 2 semsters*/
     pay_date DATE,
     amount DECIMAL(8,2) NOT NULL,
     discount DECIMAL(8,2),
