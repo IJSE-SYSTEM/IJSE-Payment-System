@@ -91,10 +91,11 @@ public class PaymentForRegistrationCourseController {
                     for (int semester : semesters) {
                         paymentDTOs.add(new PaymentDTO("", "", semester, 0, "", LocalDate.now(), amount, discount, payable));
                     }
-                }
-                
+                } 
             }
-        System.out.println("");
-        return null;
+        calculatedAmounts.add(amount);
+        calculatedAmounts.add(discount);
+        calculatedAmounts.add(payable);
+        return calculatedAmounts;
     }
 }
