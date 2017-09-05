@@ -28,7 +28,7 @@ CREATE TABLE course_details(
     dscnt2PlusSem DECIMAL(3,2),
     dscnt2Sem DECIMAL(3,2),
     dscnt1Sem DECIMAL(3,2),
-    dateModified DATE,
+    dateModified DATE,  
     CONSTRAINT PRIMARY KEY (courseID),
     CONSTRAINT FOREIGN KEY (code) REFERENCES course(code)
     ON UPDATE CASCADE ON DELETE CASCADE
@@ -175,3 +175,66 @@ INSERT INTO batch VALUES('GDSE41','C002',41,'2016-09-20','Panadura');
 INSERT INTO batch VALUES('CMJD67','C001',67,'2017-04-05','Panadura');
 INSERT INTO batch VALUES('GDSE45','C002',45,'2017-09-18','Panadura');
 INSERT INTO batch VALUES('GDSE37','C002',37,'2016-09-22','Panadura');
+
+-- SQL stored Procedures
+
+DROP PROCEDURE IF EXISTS add_student;
+
+DELIMITER --
+CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(350), IN addressLine1 VARCHAR(255), IN addressLine2 VARCHAR(255), IN addressLine3 VARCHAR(255), IN tel_home INT(11), IN tel_mobile INT(11), IN email VARCHAR(255), IN dob DATE, IN gender BINARY(1), IN nic VARCHAR(13), IN school VARCHAR(255), IN grade VARCHAR(50), IN university VARCHAR(255), IN faculty VARCHAR(100), IN high_edu_qua VARCHAR(255))
+  BEGIN
+    DECLARE sid VARCHAR(10);
+    DECLARE current_year VARCHAR(4);
+    DECLARE id INT;
+    DECLARE id_year VARCHAR(4);
+    SELECT sid from student ORDER BY sid DESC LIMIT 1 INTO sid;
+    SELECT YEAR(curdate()) INTO current_year;
+    SET id_year = SUBSTR(2018001,1,4);
+    IF sid IS NULL THEN
+      SET sid = concat(current_year,"001");   
+    ELSE
+      IF Equals(id_year,current_year) THEN 
+        SELECT CAST(SUBSTR(sid,5) AS UNSIGNED)  INTO id;
+        SET id = id+1;
+        IF id<100 THEN
+            SET sid = concat(current_year,'00',id);
+        ELSE
+            SET sid = concat(current_year,id);
+        END IF;
+      ELSE
+        SET sid = concat(current_year,"001");
+    END IF;
+
+     INSERT INTO student VALUES(sid, nameWithInitial, sname, addressLine1,addressLine2,addressLine3,tel_home,tel_mobile, email, dob, gender, nic,school,grade,university,faculty,high_edu_qua);
+     SELECT sid;
+  END ;
+DELIMITER ;
+
+
+CALL add_student();
+
+
+
+DROP PROCEDURE IF EXISTS add_registration;
+
+DELIMITER --
+
+CREATE PROCEDURE add_registration(IN sid VARCHAR(10), IN batchId VARCHAR(10), IN registration_Date DATE, IN transferredToBatch VARCHAR(10), IN new_reg_id VARCHAR(10))
+  BEGIN
+    DECLARE regId VARCHAR(10);
+    DECLARE id INT;
+    SELECT regId FROM registration WHERE batchID = batchId ORDER BY regId DESC;
+
+    IF regId IS NULL THEN
+      SET regId = concat(batchId,"001");
+    ELSE
+      SELECT CAST(SUBSTR(regId,CHAR_LENGTH(batchId)) AS UNSIGNED) INTO id;
+      SET regId = concat(batchId, id);
+    END IF;
+
+    INSERT INTO registration VALUES (regId,sid,batchId,registration_Date,transferredToBatch,new_reg_id);
+    SELECT regId;
+
+  END --
+
+DELIMITER ;

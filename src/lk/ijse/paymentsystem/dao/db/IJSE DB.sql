@@ -28,7 +28,7 @@ CREATE TABLE course_details(
     dscnt2PlusSem DECIMAL(3,2),
     dscnt2Sem DECIMAL(3,2),
     dscnt1Sem DECIMAL(3,2),
-    dateModified DATE,
+    dateModified DATE,  
     CONSTRAINT PRIMARY KEY (courseID),
     CONSTRAINT FOREIGN KEY (code) REFERENCES course(code)
     ON UPDATE CASCADE ON DELETE CASCADE
@@ -176,14 +176,7 @@ INSERT INTO batch VALUES('CMJD67','C001',67,'2017-04-05','Panadura');
 INSERT INTO batch VALUES('GDSE45','C002',45,'2017-09-18','Panadura');
 INSERT INTO batch VALUES('GDSE37','C002',37,'2016-09-22','Panadura');
 
-      IF id<10 THEN
-          SET sid = concat(current_year,'00',id);
-      ELSE IF id<100 THEN
-          SET sid = concat(current_year,'0',id);
-      ELSE
-        SET sid = concat(current_year,id);
-      END IF;
-
+-- SQL stored Procedures
 
 DROP PROCEDURE IF EXISTS add_student;
 
@@ -212,7 +205,8 @@ CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(3
         SET sid = concat(current_year,"001");
     END IF;
 
-#     INSERT INTO student VALUES(sid, nameWithInitial, sname, addressLine1,addressLine2,addressLine3,tel_home,tel_mobile, email, dob, gender, nic,school,grade,university,faculty,high_edu_qua);
+     INSERT INTO student VALUES(sid, nameWithInitial, sname, addressLine1,addressLine2,addressLine3,tel_home,tel_mobile, email, dob, gender, nic,school,grade,university,faculty,high_edu_qua);
+     SELECT sid;
   END ;
 DELIMITER ;
 
@@ -224,6 +218,7 @@ CALL add_student();
 DROP PROCEDURE IF EXISTS add_registration;
 
 DELIMITER --
+
 CREATE PROCEDURE add_registration(IN sid VARCHAR(10), IN batchId VARCHAR(10), IN registration_Date DATE, IN transferredToBatch VARCHAR(10), IN new_reg_id VARCHAR(10))
   BEGIN
     DECLARE regId VARCHAR(10);

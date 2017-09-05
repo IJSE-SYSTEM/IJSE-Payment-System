@@ -89,7 +89,10 @@ public class PaymentForRegistrationCourseController {
                 }
                 if (semesters.length>0){
                     for (int semester : semesters) {
-                        paymentDTOs.add(new PaymentDTO("", "", semester, 0, "", LocalDate.now(), amount, discount, payable));
+                        paymentDTOs.add(new PaymentDTO("", "", semester, 0, "", LocalDate.now(), 
+                                BigDecimal.valueOf(amount).divide(BigDecimal.valueOf(semesters.length)).doubleValue(), 
+                                BigDecimal.valueOf(discount).divide(BigDecimal.valueOf(semesters.length)).doubleValue(), 
+                                BigDecimal.valueOf(payable).divide(BigDecimal.valueOf(semesters.length)).doubleValue()));
                     }
                 } 
             }
@@ -97,5 +100,9 @@ public class PaymentForRegistrationCourseController {
         calculatedAmounts.add(discount);
         calculatedAmounts.add(payable);
         return calculatedAmounts;
+    }
+    
+    public void doRegistration(){
+        
     }
 }

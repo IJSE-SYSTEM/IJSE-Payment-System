@@ -34,7 +34,7 @@ public class CourseDAOImpl implements CourseDAO {
            courseDTOs.add(cdto);
         }
         return courseDTOs;
-    }
+    }//...
     
 //    , rst.getInt(3), rst.getDouble(4), rst.getDouble(5), rst.getDouble(6), rst.getDouble(7)
 }

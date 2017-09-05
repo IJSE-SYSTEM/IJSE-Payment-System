@@ -364,11 +364,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnGoBackKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGoBackKeyReleased
-        //        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-            //            btnAddStudent.requestFocusInWindow();
-            //        } else if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            //            btnAddStudent.requestFocusInWindow();
-            //        }
+        
     }//GEN-LAST:event_btnGoBackKeyReleased
 
     TreeSelectionListener tsl=(e) -> {
@@ -466,7 +462,10 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         jtrPayment.setSelectionRows(selectRows);
         jtrPayment.addTreeSelectionListener(tsl);
 
-        controller.calculateAmounts(selectRows);
+        ArrayList<Double> calculatedAmounts=controller.calculateAmounts(selectRows);
+        txtAmount.setText(calculatedAmounts.get(0).toString());
+        txtDiscount.setText(calculatedAmounts.get(1).toString());
+        txtPayable.setText(calculatedAmounts.get(2).toString());
         System.out.println("loop over\n");
     }
     
