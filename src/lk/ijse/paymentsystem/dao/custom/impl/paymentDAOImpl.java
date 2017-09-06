@@ -25,14 +25,15 @@ public class paymentDAOImpl implements paymentDAO {
         String SQL = "INSERT INTO payment VALUES(?,?,?,?,?,?,?,?)";
         PreparedStatement stm = conn.prepareStatement(SQL);
         
-        stm.setObject(1, dto.getPaymentID());
+        stm.setObject(1, dto.getPayID());
         stm.setObject(2, dto.getRegID());
-        stm.setObject(3, dto.getSemesters());
-        stm.setObject(4, dto.getSemesterHalf());
-        stm.setObject(5, dto.getPaymentDate());
+        stm.setObject(3, dto.getSemester());
+        stm.setObject(4, dto.getSem_half());
+        stm.setObject(4, dto.getNextPayID());
+        stm.setObject(5, dto.getDate());
         stm.setObject(6, dto.getAmount());
         stm.setObject(7, dto.getDiscount());
-        stm.setObject(8, dto.getAmountRecieved());
+        stm.setObject(8, dto.getAmount_recieved());
         
         int rst = stm.executeUpdate();
         return rst>0;
