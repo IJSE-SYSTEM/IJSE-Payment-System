@@ -53,6 +53,7 @@ public class PaymentForRegistrationCourseController {
         Arrays.sort(selectedRows);
         double discount=0,amount=0,payable=0;
         int skip=0,semesters[]={};
+        paymentDTOs.clear();
         ArrayList<Double> calculatedAmounts=new ArrayList<>();
             for (int selectedRow : selectedRows) {
                 if(skip>0){
@@ -78,12 +79,14 @@ public class PaymentForRegistrationCourseController {
                         discount=BigDecimal.valueOf(amount).multiply(BigDecimal.valueOf(course.getDiscount())).doubleValue();
                     }
                     payable=BigDecimal.valueOf(amount).subtract(BigDecimal.valueOf(discount)).doubleValue();
+                    skip=2;
                 }else if(PaymentForRegistrationCourse.semesterRows.contains(selectedRow-1)){
-                    amount=BigDecimal.valueOf(course.getCourseFee()).divide(BigDecimal.valueOf(course.getNo_of_Semesters()*2)).multiply(BigDecimal.valueOf(semesters.length)).doubleValue();
+                    System.out.println("3-");
+                    amount=BigDecimal.valueOf(course.getCourseFee()).divide(BigDecimal.valueOf(course.getNo_of_Semesters()*2)).doubleValue();
                     payable=amount;
                     paymentDTOs.add(new PaymentDTO("", "", row_semMap[selectedRow], 1, "", LocalDate.now(), amount, discount, payable));
                 }else{
-                    amount=BigDecimal.valueOf(course.getCourseFee()).divide(BigDecimal.valueOf(course.getNo_of_Semesters()*2)).multiply(BigDecimal.valueOf(semesters.length)).doubleValue();
+                    amount=BigDecimal.valueOf(course.getCourseFee()).divide(BigDecimal.valueOf(course.getNo_of_Semesters()*2)).doubleValue();
                     payable=amount;
                     paymentDTOs.add(new PaymentDTO("", "", row_semMap[selectedRow], 2, "", LocalDate.now(), amount, discount, payable));
                 }

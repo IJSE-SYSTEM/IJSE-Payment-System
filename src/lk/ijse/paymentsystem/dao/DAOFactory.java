@@ -5,10 +5,13 @@
  */
 package lk.ijse.paymentsystem.dao;
 
+import lk.ijse.paymentsystem.dao.custom.RegistrationDAO;
 import lk.ijse.paymentsystem.dao.custom.impl.BatchDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDetailsDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.QueryDAOImpl;
+import lk.ijse.paymentsystem.dao.custom.impl.RegistrationDAOImpl;
+import lk.ijse.paymentsystem.dao.custom.impl.StudentDAOImpl;
 
 /**
  *
@@ -44,11 +47,11 @@ public class DAOFactory {
             case PAYMENT:
                 
             case REGISTRATION:
-                
+                return new RegistrationDAOImpl();
             case SEMESTER:
                 
             case STUDENT:
-                
+                return new StudentDAOImpl();
             case QUERY:
                 return new QueryDAOImpl();
             case STU_GUARDIAN:

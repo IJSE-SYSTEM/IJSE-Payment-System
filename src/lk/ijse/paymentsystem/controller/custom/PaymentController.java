@@ -3,48 +3,48 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lk.ijse.paymentsystem.dao.custom;
+package lk.ijse.paymentsystem.controller.custom;
 
 import java.util.ArrayList;
-import lk.ijse.paymentsystem.dao.SuperDAO;
-import lk.ijse.paymentsystem.dto.RegistrationDTO;
+import lk.ijse.paymentsystem.controller.SuperController;
+import lk.ijse.paymentsystem.dto.PaymentDTO;
 
 /**
  *
- * @author simo-ds
+ * @author midda
  */
-public interface RegistrationDAO extends SuperDAO<RegistrationDTO>{
+public interface PaymentController extends SuperController<PaymentDTO>{
 
     @Override
-    public default boolean add(RegistrationDTO dto) throws Exception {
+    public default boolean add(PaymentDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default boolean update(RegistrationDTO dto) throws Exception {
+    public default boolean update(PaymentDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default boolean delete(RegistrationDTO dto) throws Exception {
+    public default boolean delete(PaymentDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default RegistrationDTO search(RegistrationDTO dto) throws Exception {
+    public default PaymentDTO search(PaymentDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default ArrayList<RegistrationDTO> getSearched(RegistrationDTO dto) throws Exception {
+    public default ArrayList<PaymentDTO> getSearched(PaymentDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default ArrayList<RegistrationDTO> getAll() throws Exception {
+    public default ArrayList<PaymentDTO> getAll() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    String addCall(RegistrationDTO dto) throws Exception;
-    //......
+    boolean add(ArrayList<PaymentDTO> dtos) throws Exception;
+    
 }

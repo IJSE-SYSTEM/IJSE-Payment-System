@@ -400,7 +400,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                     break LOOP1;
 
                 }else if(semesterRows.contains(selectedRow)){
-                    System.out.println("2");
+//                    System.out.println("2");
 
                     int temp[]=Arrays.copyOfRange(rows, selectedRow,selectedRow+3);
                     selectRows=Arrays.copyOf(selectRows, selectRows.length+temp.length);
@@ -409,7 +409,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                     }
 
                 }else if(semesterRows.contains(selectedRow-1)){
-                    System.out.println("3");
+//                    System.out.println("3");
                     
                     if(isInital==true){
                         if (selectedRows.length==1 || selectedRows.length==2 && ((selectedRow+1)==selectedRows[1])){
@@ -421,14 +421,14 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                     }
 
                     if (jtrPayment.isRowSelected(selectedRow+1)){
-                        System.out.println("3.1");
+//                        System.out.println("3.1");
                         selectRows=Arrays.copyOf(selectRows, selectRows.length+1);
                         selectRows[selectRows.length-1]=selectedRow-1;
                         System.out.println("Select Rows : "+Arrays.toString(selectRows));
                     }
                 }
                 else if(semesterRows.contains(selectedRow-2)){
-                    System.out.println("4");
+//                    System.out.println("4");
                     
                     if(isInital==true){
                         if (selectedRows.length==1 || selectedRows.length==2 && ((selectedRow-1)==selectedRows[1])){
@@ -442,7 +442,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
             }
             break LOOP1;
         }
-        System.out.println("Select Rows : "+Arrays.toString(selectRows));
+//        System.out.println("Select Rows : "+Arrays.toString(selectRows));
 
         Arrays.sort(selectRows);
         int[] temp={selectRows[0]};

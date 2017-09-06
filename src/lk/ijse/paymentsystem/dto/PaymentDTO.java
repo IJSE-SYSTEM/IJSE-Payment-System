@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author midda
  */
-public class PaymentDTO {
+public class PaymentDTO extends SuperDTO{
     private String payID;
     private String regID;
     private int semester;

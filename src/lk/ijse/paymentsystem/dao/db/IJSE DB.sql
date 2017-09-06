@@ -189,7 +189,7 @@ CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(3
     DECLARE id_year VARCHAR(4);
     SELECT sid from student ORDER BY sid DESC LIMIT 1 INTO sid;
     SELECT YEAR(curdate()) INTO current_year;
-    SET id_year = SUBSTR(2018001,1,4);
+    SET id_year = SUBSTR(sid,1,4);
     IF sid IS NULL THEN
       SET sid = concat(current_year,"001");   
     ELSE

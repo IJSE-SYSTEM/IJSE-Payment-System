@@ -45,4 +45,5 @@ public interface StudentDAO extends SuperDAO<StudentDTO>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    String addCall(StudentDTO dto) throws Exception;
 }//......

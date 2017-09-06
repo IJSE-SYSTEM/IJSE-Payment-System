@@ -13,12 +13,7 @@ import lk.ijse.paymentsystem.dto.PaymentDTO;
  *
  * @author simo-ds
  */
-public interface paymentDAO extends SuperDAO<PaymentDTO>{
-
-    @Override
-    public default boolean add(PaymentDTO dto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public interface PaymentDAO extends SuperDAO<PaymentDTO>{
 
     @Override
     public default boolean update(PaymentDTO dto) throws Exception {

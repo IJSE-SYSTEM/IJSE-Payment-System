@@ -7,6 +7,7 @@ package lk.ijse.paymentsystem.dao.custom.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import lk.ijse.paymentsystem.dao.custom.StudentDAO;
 import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
 import lk.ijse.paymentsystem.dto.StudentDTO;
@@ -23,8 +24,8 @@ public class StudentDAOImpl implements StudentDAO{
     }
 
     @Override
-    public boolean add(StudentDTO dto) throws Exception {
-        String SQL = "INSERT INTO student VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; /* send data to the database without SID*/
+    public String addCall(StudentDTO dto) throws Exception {
+        String SQL = "call add_student(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; /* send data to the database without SID*/
         PreparedStatement stm = conn.prepareStatement(SQL);
         
         stm.setObject(1, dto.getInitialStudentName());
@@ -44,12 +45,12 @@ public class StudentDAOImpl implements StudentDAO{
         stm.setObject(15, dto.getFaculty());
         stm.setObject(16, dto.getHigherEducationQualifications());
         
-        int rst = stm.executeUpdate();
-        return rst>0;            
-                
+        ResultSet rst=stm.executeQuery();
+        if(rst.next()){
+            return rst.getString(1);
+        }        
+        return null;
     }
-    
-    //........
     
     
 }
