@@ -8,9 +8,12 @@ package lk.ijse.paymentsystem.view;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
+import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 
 /**
@@ -25,6 +28,8 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     
     private PaymentForRegistrationCourseController controller;
     private DSTextComponents textComponents;
+    private StudentDTO studentDTO;
+   
     
     public PaymentForRegistrationCourse() {
         initComponents();
@@ -34,9 +39,11 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         textComponents = new DSTextComponents(this.getContentPane());
     }
     
-    public PaymentForRegistrationCourse(CourseDetailsDTO cdto){
+    public PaymentForRegistrationCourse(StudentDTO studentDTO,CourseDetailsDTO cdto, String batchID){
         this();
-        controller=new PaymentForRegistrationCourseController(cdto);
+        controller=new PaymentForRegistrationCourseController(studentDTO,cdto);
+        controller.batchID=batchID;
+        this.studentDTO=studentDTO;
         initComponents2();
     }
     
@@ -343,6 +350,12 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
+        try{
+        boolean isAdded = controller.doRegistration();
+        JOptionPane.showMessageDialog(null,"Student Successfully Registered");
+        }catch(NullPointerException e){
+            
+        }
         this.dispose();//        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse();
 //        new PaymentForRegistrationCourse().setVisible(true);
 //        studentRFC.dispose();

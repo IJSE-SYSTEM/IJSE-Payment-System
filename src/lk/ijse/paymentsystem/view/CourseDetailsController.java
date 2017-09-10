@@ -79,5 +79,8 @@ public class CourseDetailsController {
         return batchDTOs.get(selectedIndex).getStartDate();
     }
     
+    public String getBatchID(int selectedIndex){
+        return batchDTOs.get(selectedIndex).getBatchID();
+    }
     
 }

@@ -6,24 +6,43 @@
 package lk.ijse.paymentsystem.view;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import lk.ijse.paymentsystem.controller.ControllerFactory;
+import lk.ijse.paymentsystem.controller.custom.PaymentController;
+import lk.ijse.paymentsystem.controller.custom.StudentController;
+import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
 import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 import lk.ijse.paymentsystem.dto.PaymentDTO;
+import lk.ijse.paymentsystem.dto.RegistrationDTO;
+import lk.ijse.paymentsystem.dto.StudentDTO;
 
 /**
  *
  * @author midda
  */
 public class PaymentForRegistrationCourseController {
-    private  CourseDetailsDTO course;
+    private CourseDetailsDTO course;
     private ArrayList<PaymentDTO> paymentDTOs=new ArrayList<>();
+//    private Connection c;
+    private StudentController sc;
+    private PaymentController pc;
+    public String batchID;
+    private StudentDTO studentDTO;
     
-    public PaymentForRegistrationCourseController(CourseDetailsDTO cdto) {
+    public PaymentForRegistrationCourseController(StudentDTO studentDTO,CourseDetailsDTO cdto) {
          this.course = cdto;
+         this.studentDTO=studentDTO;
+//         c=ConnectionFactory.getInstance().getConnection();
+        sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
+        pc=(PaymentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.PAYMENT);
+         
     }
     
     public DefaultTreeModel setPaymentScheme(){
@@ -105,7 +124,20 @@ public class PaymentForRegistrationCourseController {
         return calculatedAmounts;
     }
     
-    public void doRegistration(){
-        
+    public boolean doRegistration(){
+        boolean isSuccessful=false;
+        RegistrationDTO rdto= new RegistrationDTO("", "", batchID, LocalDate.now(), "", "");
+        try {
+            String rid=sc.addStudent(studentDTO, rdto);
+            if (rid!=null){
+                for (PaymentDTO paymentDTO : paymentDTOs) {
+                    paymentDTO.setRegID(rid);
+                }
+                isSuccessful=pc.add(paymentDTOs);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return isSuccessful;
     }
 }

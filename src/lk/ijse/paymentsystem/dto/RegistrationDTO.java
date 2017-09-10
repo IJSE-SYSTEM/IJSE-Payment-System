@@ -5,6 +5,8 @@
  */
 package lk.ijse.paymentsystem.dto;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author simo-ds
@@ -13,9 +15,21 @@ public class RegistrationDTO extends SuperDTO{
     private String RID;
     private String SID;
     private String batchId;
-    private String registrationDate;
+    private LocalDate registrationDate;
     private String transferredToBatch;
     private String newRegistrationID;
+
+    public RegistrationDTO(String RID, String SID, String batchId, LocalDate registrationDate, String transferredToBatch, String newRegistrationID) {
+        this.RID = RID;
+        this.SID = SID;
+        this.batchId = batchId;
+        this.registrationDate = registrationDate;
+        this.transferredToBatch = transferredToBatch;
+        this.newRegistrationID = newRegistrationID;
+    }
+
+    public RegistrationDTO() {
+    }
 
     /**
      * @return the RID
@@ -62,14 +76,14 @@ public class RegistrationDTO extends SuperDTO{
     /**
      * @return the registrationDate
      */
-    public String getRegistrationDate() {
+    public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
     /**
      * @param registrationDate the registrationDate to set
      */
-    public void setRegistrationDate(String registrationDate) {
+    public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
 
@@ -101,4 +115,5 @@ public class RegistrationDTO extends SuperDTO{
         this.newRegistrationID = newRegistrationID;
     }
 
+    
 }

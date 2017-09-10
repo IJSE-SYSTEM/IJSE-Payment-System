@@ -9,6 +9,7 @@ import lk.ijse.paymentsystem.dao.custom.RegistrationDAO;
 import lk.ijse.paymentsystem.dao.custom.impl.BatchDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDetailsDAOImpl;
+import lk.ijse.paymentsystem.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.QueryDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.RegistrationDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.StudentDAOImpl;
@@ -45,7 +46,7 @@ public class DAOFactory {
             case COURSE:
                 return new CourseDAOImpl();
             case PAYMENT:
-                
+                return new PaymentDAOImpl();
             case REGISTRATION:
                 return new RegistrationDAOImpl();
             case SEMESTER:

@@ -29,19 +29,15 @@ public class PaymentDAOImpl implements PaymentDAO {
         stm.setObject(2, dto.getRegID());
         stm.setObject(3, dto.getSemester());
         stm.setObject(4, dto.getSem_half());
-<<<<<<< HEAD:src/lk/ijse/paymentsystem/dao/custom/impl/PaymentDAOImpl.java
         stm.setObject(5, dto.getNextPayID());
         stm.setObject(6, dto.getDate());
         stm.setObject(7, dto.getAmount());
         stm.setObject(8, dto.getDiscount());
-        stm.setObject(9, dto.getAmount_recieved());
-=======
         stm.setObject(4, dto.getNextPayID());
         stm.setObject(5, dto.getDate());
         stm.setObject(6, dto.getAmount());
         stm.setObject(7, dto.getDiscount());
         stm.setObject(8, dto.getAmount_recieved());
->>>>>>> 264c589db4e9e7e15184004f8ef8c23f8ec3cf0c:src/lk/ijse/paymentsystem/dao/custom/impl/paymentDAOImpl.java
         
         int rst = stm.executeUpdate();
         return rst>0;
