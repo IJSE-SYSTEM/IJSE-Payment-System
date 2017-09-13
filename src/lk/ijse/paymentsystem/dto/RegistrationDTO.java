@@ -16,19 +16,27 @@ public class RegistrationDTO extends SuperDTO{
     private String SID;
     private String batchId;
     private LocalDate registrationDate;
+    private boolean bcs;
     private String transferredToBatch;
     private String newRegistrationID;
 
-    public RegistrationDTO(String RID, String SID, String batchId, LocalDate registrationDate, String transferredToBatch, String newRegistrationID) {
+    public RegistrationDTO() {
+    }
+
+    public RegistrationDTO(String batchId, LocalDate registrationDate, boolean bcs) {
+        this.batchId = batchId;
+        this.registrationDate = registrationDate;
+        this.bcs = bcs;
+    }
+    
+    public RegistrationDTO(String RID, String SID, String batchId, LocalDate registrationDate, boolean bcs, String transferredToBatch, String newRegistrationID) {
         this.RID = RID;
         this.SID = SID;
         this.batchId = batchId;
         this.registrationDate = registrationDate;
+        this.bcs = bcs;
         this.transferredToBatch = transferredToBatch;
         this.newRegistrationID = newRegistrationID;
-    }
-
-    public RegistrationDTO() {
     }
 
     /**
@@ -88,6 +96,20 @@ public class RegistrationDTO extends SuperDTO{
     }
 
     /**
+     * @return the bcs
+     */
+    public boolean isBcs() {
+        return bcs;
+    }
+
+    /**
+     * @param bcs the bcs to set
+     */
+    public void setBcs(boolean bcs) {
+        this.bcs = bcs;
+    }
+
+    /**
      * @return the transferredToBatch
      */
     public String getTransferredToBatch() {
@@ -114,6 +136,5 @@ public class RegistrationDTO extends SuperDTO{
     public void setNewRegistrationID(String newRegistrationID) {
         this.newRegistrationID = newRegistrationID;
     }
-
     
 }

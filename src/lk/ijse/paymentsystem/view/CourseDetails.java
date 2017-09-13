@@ -11,8 +11,10 @@ import java.awt.Component;
 import java.awt.KeyEventPostProcessor;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
+import java.time.LocalDate;
 import javax.swing.SwingUtilities;
 import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
+import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 
 /**
@@ -61,7 +63,7 @@ public class CourseDetails extends javax.swing.JFrame {
     private void initComponents() {
 
         lblLogo = new javax.swing.JLabel();
-        rdiBtnBcs = new javax.swing.JCheckBox();
+        rbtnBcs = new javax.swing.JCheckBox();
         lblWith = new javax.swing.JLabel();
         cmbBxAcademicPrograms = new javax.swing.JComboBox<>();
         lblAcademicPrograms = new javax.swing.JLabel();
@@ -91,11 +93,11 @@ public class CourseDetails extends javax.swing.JFrame {
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lk/ijse/paymentsystem/images/ijse-logo.gif"))); // NOI18N
 
-        rdiBtnBcs.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        rdiBtnBcs.setText("BCS (British Computer Society)");
-        rdiBtnBcs.addActionListener(new java.awt.event.ActionListener() {
+        rbtnBcs.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        rbtnBcs.setText("BCS (British Computer Society)");
+        rbtnBcs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdiBtnBcsActionPerformed(evt);
+                rbtnBcsActionPerformed(evt);
             }
         });
 
@@ -240,7 +242,7 @@ public class CourseDetails extends javax.swing.JFrame {
                         .addComponent(lblWith))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(261, 261, 261)
-                        .addComponent(rdiBtnBcs))
+                        .addComponent(rbtnBcs))
                     .addComponent(lblCourseAppliedFor1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -258,7 +260,7 @@ public class CourseDetails extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblWith)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rdiBtnBcs)
+                .addComponent(rbtnBcs)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCourseAppliedFor1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -295,9 +297,9 @@ public class CourseDetails extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rdiBtnBcsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdiBtnBcsActionPerformed
+    private void rbtnBcsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnBcsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_rdiBtnBcsActionPerformed
+    }//GEN-LAST:event_rbtnBcsActionPerformed
 
     private void cmbBxAcademicProgramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBxAcademicProgramsActionPerformed
         cmbBxBatches.removeAllItems();
@@ -307,7 +309,8 @@ public class CourseDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbBxAcademicProgramsActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
-        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(student,courseDetailsDTO,controller.getBatchID(cmbBxBatches.getSelectedIndex()));
+        RegistrationDTO rdto=new RegistrationDTO(controller.getBatchID(cmbBxBatches.getSelectedIndex()), LocalDate.now(), rbtnBcs.isSelected());
+        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(student,courseDetailsDTO,rdto);
         paymentForm.setVisible(true);
         studentRFC.dispose();
         this.dispose();
@@ -416,6 +419,6 @@ public class CourseDetails extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblSemester;
     private javax.swing.JLabel lblWith;
-    private javax.swing.JCheckBox rdiBtnBcs;
+    private javax.swing.JCheckBox rbtnBcs;
     // End of variables declaration//GEN-END:variables
 }

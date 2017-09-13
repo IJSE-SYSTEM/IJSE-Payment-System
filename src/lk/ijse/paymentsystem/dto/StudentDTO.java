@@ -5,6 +5,8 @@
  */
 package lk.ijse.paymentsystem.dto;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author simo-ds
@@ -29,7 +31,8 @@ public class StudentDTO extends SuperDTO{
     private String higherEducationQualifications;
     
     private GuardianDTO guardian;
-    private QualificationDTO qualification;
+    private ArrayList<QualificationDTO> qualifications;
+    private StudentOtherInfoDTO infoDTO;
     
 
     public StudentDTO() {
@@ -327,17 +330,31 @@ public class StudentDTO extends SuperDTO{
     }
 
     /**
-     * @return the qualification
+     * @return the qualifications
      */
-    public QualificationDTO getQualification() {
-        return qualification;
+    public ArrayList<QualificationDTO> getQualifications() {
+        return qualifications;
     }
 
     /**
-     * @param qualification the qualification to set
+     * @param qualifications the qualifications to set
      */
-    public void setQualification(QualificationDTO qualification) {
-        this.qualification = qualification;
+    public void setQualifications(ArrayList<QualificationDTO> qualifications) {
+        this.qualifications = qualifications;
     }
-    
+
+    /**
+     * @return the infoDTO
+     */
+    public StudentOtherInfoDTO getInfoDTO() {
+        return infoDTO;
+    }
+
+    /**
+     * @param infoDTO the infoDTO to set
+     */
+    public void setInfoDTO(StudentOtherInfoDTO infoDTO) {
+        this.infoDTO = infoDTO;
+    }
+
 }

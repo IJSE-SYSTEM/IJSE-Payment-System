@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import lk.ijse.paymentsystem.dto.GuardianDTO;
 import lk.ijse.paymentsystem.dto.QualificationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
+import lk.ijse.paymentsystem.dto.StudentOtherInfoDTO;
 import lk.ijse.paymentsystem.view.utils.DSTable;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 
@@ -441,17 +442,32 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rdiBtnCopiesOfProfessionalQualificationCertificatesActionPerformed
 
-    private void btnRegisterStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterStudentActionPerformed
-        
-        ArrayList<QualificationDTO> qualificationList = new ArrayList<>();
+    private ArrayList<QualificationDTO> qualificationList = new ArrayList<>();
+    private void getValues(){
         DefaultTableModel dtm = (DefaultTableModel) tblQualification.getModel();
-        
-        /* take data from the qualification table*/
-        
         for (int i = 0; i < dtm.getRowCount(); i++) {
             QualificationDTO qualificationDTO = new QualificationDTO(dtm.getValueAt(i, 0).toString(), dtm.getValueAt(i, 1).toString(), dtm.getValueAt(i, 2).toString(), dtm.getValueAt(i, 3).toString());
             qualificationList.add(qualificationDTO);
         }
+        
+        StudentOtherInfoDTO infoDTO=new StudentOtherInfoDTO(
+                "", 
+                Integer.parseInt(txtIqTestMarks.getText()), 
+                txtAreaSpecialComments.getText(), 
+                rdiBtnCopyOfBirthCertificate.isSelected(), 
+                rdiBtnPassportSizeColouredPhotographs.isSelected(),
+                rdiBtnCopyOfNic.isSelected(),
+                rdiBtnCopyOfAcademicCertificates.isSelected(), 
+                rdiBtnCopiesOfSportsCertificate.isSelected(), 
+                rdiBtnCopiesOfProfessionalQualificationCertificates.isSelected());
+        
+        student.setQualifications(qualificationList);
+        student.setInfoDTO(infoDTO);
+    }
+    
+    private void btnRegisterStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterStudentActionPerformed
+        
+        /* take data from the qualification table*/
         
         /*show confirm message to confirm that the student has paid the registration fee*/
         
@@ -465,7 +481,7 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterStudentActionPerformed
 
     private void btnAddCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCourseActionPerformed
-        new CourseDetails(new StudentDTO(), this).setVisible(true);
+        new CourseDetails(student, this).setVisible(true);
         
     }//GEN-LAST:event_btnAddCourseActionPerformed
 

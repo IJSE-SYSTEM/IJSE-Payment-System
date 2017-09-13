@@ -11,6 +11,7 @@ package lk.ijse.paymentsystem.dto;
  */
 public class QualificationDTO {
     
+    private String sid;
     private String qualification;
     private String awardingInstitute;
     private String dateOfAward;
@@ -80,6 +81,20 @@ public class QualificationDTO {
      */
     public void setSpecialization(String specialization) {
         this.specialization = specialization;
+    }
+
+    /**
+     * @return the sid
+     */
+    public String getSid() {
+        return sid;
+    }
+
+    /**
+     * @param sid the sid to set
+     */
+    public void setSid(String sid) {
+        this.sid = sid;
     }
     
     

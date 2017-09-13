@@ -33,12 +33,14 @@ public class PaymentForRegistrationCourseController {
 //    private Connection c;
     private StudentController sc;
     private PaymentController pc;
-    public String batchID;
+    private String batchID;
     private StudentDTO studentDTO;
+    RegistrationDTO rdto;
     
-    public PaymentForRegistrationCourseController(StudentDTO studentDTO,CourseDetailsDTO cdto) {
+    public PaymentForRegistrationCourseController(StudentDTO studentDTO,CourseDetailsDTO cdto,RegistrationDTO rdto) {
          this.course = cdto;
          this.studentDTO=studentDTO;
+         this.batchID=rdto.getBatchId();
 //         c=ConnectionFactory.getInstance().getConnection();
         sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
         pc=(PaymentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.PAYMENT);
@@ -126,7 +128,6 @@ public class PaymentForRegistrationCourseController {
     
     public boolean doRegistration(){
         boolean isSuccessful=false;
-        RegistrationDTO rdto= new RegistrationDTO("", "", batchID, LocalDate.now(), "", "");
         try {
             String rid=sc.addStudent(studentDTO, rdto);
             if (rid!=null){

@@ -13,6 +13,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
+import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 
@@ -39,10 +40,9 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         textComponents = new DSTextComponents(this.getContentPane());
     }
     
-    public PaymentForRegistrationCourse(StudentDTO studentDTO,CourseDetailsDTO cdto, String batchID){
+    public PaymentForRegistrationCourse(StudentDTO studentDTO,CourseDetailsDTO cdto, RegistrationDTO rdto){
         this();
-        controller=new PaymentForRegistrationCourseController(studentDTO,cdto);
-        controller.batchID=batchID;
+        controller=new PaymentForRegistrationCourseController(studentDTO, cdto, rdto);
         this.studentDTO=studentDTO;
         initComponents2();
     }
