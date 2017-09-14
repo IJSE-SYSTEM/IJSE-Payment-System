@@ -9,7 +9,7 @@ package lk.ijse.paymentsystem.dto;
  *
  * @author simo-ds
  */
-public class GuardianDTO {
+public class GuardianDTO extends SuperDTO{
     private String SID;
     private String GuardianName;
     private String telNo1;

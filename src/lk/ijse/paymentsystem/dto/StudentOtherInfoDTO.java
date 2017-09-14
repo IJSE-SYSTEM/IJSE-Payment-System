@@ -9,7 +9,7 @@ package lk.ijse.paymentsystem.dto;
  *
  * @author midda
  */
-public class StudentOtherInfoDTO {
+public class StudentOtherInfoDTO extends SuperDTO{
     private String sid;
     private String dataEntryBy;
     private int iqTest;
