@@ -9,7 +9,7 @@ package lk.ijse.paymentsystem.dto;
  *
  * @author simo-ds
  */
-public class QualificationDTO {
+public class QualificationDTO extends SuperDTO{
     
     private String sid;
     private String qualification;

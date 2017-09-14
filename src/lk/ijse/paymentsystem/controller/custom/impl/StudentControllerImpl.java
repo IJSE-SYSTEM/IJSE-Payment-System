@@ -38,6 +38,8 @@ public class StudentControllerImpl implements StudentController {
             c.setAutoCommit(false);
             String sid=sdao.addCall(sdto); 
             if (sid!=null){
+                
+                
                 rdto.setSID(sid);
                 String rid=rdao.addCall(rdto);
                 if (rid!=null){

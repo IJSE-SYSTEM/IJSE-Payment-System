@@ -115,12 +115,12 @@ CREATE TABLE stu_other_info(
     data_entry_by VARCHAR(100) NOT NULL,
     iq_test INT(3),
     comments VARCHAR(1000),
-    birthCertificate BINARY,
-    photos BINARY,
-    nic BINARY,
-    academicCertificates BINARY,
-    sportsCertificates BINARY,
-    professionalCertificates BINARY,
+    birthCertificate BOOLEAN,
+    photos BOOLEAN,
+    nic BOOLEAN,
+    academicCertificates BOOLEAN,
+    sportsCertificates BOOLEAN,
+    professionalCertificates BOOLEAN,
     CONSTRAINT FOREIGN KEY (sid) REFERENCES student(sid)
     ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT PRIMARY KEY (sid)
@@ -132,6 +132,7 @@ CREATE TABLE registration(
     sid VARCHAR(10) NOT NULL,
     batchID VARCHAR(10) NOT NULL,
     registration_date DATE,
+    bcs binary,
     transferred_to_batch VARCHAR(10),
     new_reg_id VARCHAR(10),
     CONSTRAINT FOREIGN KEY (sid) REFERENCES student(sid) 
@@ -203,11 +204,13 @@ CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(3
         END IF;
       ELSE
         SET sid = concat(current_year,"001");
-    END IF;
+      END IF;
 
      INSERT INTO student VALUES(sid, nameWithInitial, sname, addressLine1,addressLine2,addressLine3,tel_home,tel_mobile, email, dob, gender, nic,school,grade,university,faculty,high_edu_qua);
      SELECT sid;
-  END ;
+
+  END --
+
 DELIMITER ;
 
 
@@ -219,7 +222,7 @@ DROP PROCEDURE IF EXISTS add_registration;
 
 DELIMITER --
 
-CREATE PROCEDURE add_registration(IN sid VARCHAR(10), IN batchId VARCHAR(10), IN registration_Date DATE, IN transferredToBatch VARCHAR(10), IN new_reg_id VARCHAR(10))
+CREATE PROCEDURE add_registration(IN sid VARCHAR(10), IN batchId VARCHAR(10), IN registration_Date DATE, IN bcs BINARY)
   BEGIN
     DECLARE regId VARCHAR(10);
     DECLARE id INT;
@@ -232,7 +235,7 @@ CREATE PROCEDURE add_registration(IN sid VARCHAR(10), IN batchId VARCHAR(10), IN
       SET regId = concat(batchId, id);
     END IF;
 
-    INSERT INTO registration VALUES (regId,sid,batchId,registration_Date,transferredToBatch,new_reg_id);
+    INSERT INTO registration (regID, sid, registration_date, bcs )VALUES (regId, sid, batchId, registration_Date, bcs);
     SELECT regId;
 
   END --
