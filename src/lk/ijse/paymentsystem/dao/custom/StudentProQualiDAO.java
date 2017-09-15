@@ -7,42 +7,42 @@ package lk.ijse.paymentsystem.dao.custom;
 
 import java.util.ArrayList;
 import lk.ijse.paymentsystem.dao.SuperDAO;
-import lk.ijse.paymentsystem.dto.StudentProfessionalQualificationDTO;
+import lk.ijse.paymentsystem.dto.QualificationDTO;
 
 /**
  *
  * @author simo-ds
  */
-public interface StudentProQualiDAO extends SuperDAO<StudentProfessionalQualificationDTO>{
+public interface StudentProQualiDAO extends SuperDAO<QualificationDTO>{
 
     @Override
-    public default boolean add(StudentProfessionalQualificationDTO dto) throws Exception {
+    public default boolean add(QualificationDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default boolean update(StudentProfessionalQualificationDTO dto) throws Exception {
+    public default boolean update(QualificationDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default boolean delete(StudentProfessionalQualificationDTO dto) throws Exception {
+    public default boolean delete(QualificationDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default StudentProfessionalQualificationDTO search(StudentProfessionalQualificationDTO dto) throws Exception {
+    public default QualificationDTO search(QualificationDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default ArrayList<StudentProfessionalQualificationDTO> getSearched(StudentProfessionalQualificationDTO dto) throws Exception {
+    public default ArrayList<QualificationDTO> getSearched(QualificationDTO dto) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public default ArrayList<StudentProfessionalQualificationDTO> getAll() throws Exception {
+    public default ArrayList<QualificationDTO> getAll() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

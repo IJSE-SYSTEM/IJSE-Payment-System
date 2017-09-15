@@ -7,10 +7,9 @@ package lk.ijse.paymentsystem.dao.custom.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.ArrayList;
 import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
-import lk.ijse.paymentsystem.dto.StudentProfessionalQualificationDTO;
 import lk.ijse.paymentsystem.dao.custom.StudentProQualiDAO;
+import lk.ijse.paymentsystem.dto.QualificationDTO;
 
 
 public class StudentProQualiDAOImpl implements StudentProQualiDAO {
@@ -23,7 +22,7 @@ public class StudentProQualiDAOImpl implements StudentProQualiDAO {
     
     
     @Override
-    public boolean add(StudentProfessionalQualificationDTO dto) throws Exception {
+    public boolean add(QualificationDTO dto) throws Exception {
         String SQL = "INSERT INTO stu_pro_qualification VALUES(?,?,?,?,?)";
         PreparedStatement stm = conn.prepareStatement(SQL);
         stm.setObject(1, dto.getSid());

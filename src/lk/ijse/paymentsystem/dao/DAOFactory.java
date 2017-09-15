@@ -10,10 +10,13 @@ import lk.ijse.paymentsystem.dao.custom.StudentProQualiDAO;
 import lk.ijse.paymentsystem.dao.custom.impl.BatchDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDetailsDAOImpl;
+import lk.ijse.paymentsystem.dao.custom.impl.GuardianDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.QueryDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.RegistrationDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.StudentDAOImpl;
+import lk.ijse.paymentsystem.dao.custom.impl.StudentOtherInfoDAOImpl;
+import lk.ijse.paymentsystem.dao.custom.impl.StudentProQualiDAOImpl;
 
 /**
  *
@@ -57,11 +60,11 @@ public class DAOFactory {
             case QUERY:
                 return new QueryDAOImpl();
             case STU_GUARDIAN:
-                
+                return new GuardianDAOImpl();
             case STU_OTHER:
-                
+                return new StudentOtherInfoDAOImpl();
             case STU_PRO_QUALIFICATIONS:
-                return new StudentProQualiDAO
+                return new StudentProQualiDAOImpl();
             case COURSE_DETAILS:
                 return new CourseDetailsDAOImpl();
                 
