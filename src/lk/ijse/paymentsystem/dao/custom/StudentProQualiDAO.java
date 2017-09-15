@@ -13,7 +13,7 @@ import lk.ijse.paymentsystem.dto.StudentProfessionalQualificationDTO;
  *
  * @author simo-ds
  */
-public interface StudentProfessionalQualificationDAO extends SuperDAO<StudentProfessionalQualificationDTO>{
+public interface StudentProQualiDAO extends SuperDAO<StudentProfessionalQualificationDTO>{
 
     @Override
     public default boolean add(StudentProfessionalQualificationDTO dto) throws Exception {

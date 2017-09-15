@@ -8,16 +8,16 @@ package lk.ijse.paymentsystem.dao.custom.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-import lk.ijse.paymentsystem.dao.custom.StudentProfessionalQualificationDAO;
 import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
 import lk.ijse.paymentsystem.dto.StudentProfessionalQualificationDTO;
+import lk.ijse.paymentsystem.dao.custom.StudentProQualiDAO;
 
 
-public class StudentProfessionalQualificationDAOImpl implements StudentProfessionalQualificationDAO {
+public class StudentProQualiDAOImpl implements StudentProQualiDAO {
 
     private Connection conn;
 
-    public StudentProfessionalQualificationDAOImpl() {
+    public StudentProQualiDAOImpl() {
         conn = ConnectionFactory.getInstance().getConnection();
     }
     

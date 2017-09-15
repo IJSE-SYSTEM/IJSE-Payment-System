@@ -128,12 +128,12 @@ CREATE TABLE stu_other_info(
 
 
 CREATE TABLE registration(
-    regID VARCHAR(10) NOT NULL,
+    regID VARCHAR(15) NOT NULL,
     sid VARCHAR(10) NOT NULL,
     batchID VARCHAR(10) NOT NULL,
     registration_date DATE,
     bcs binary,
-    transferred_to_batch VARCHAR(10),
+    transferred_to_batch VARCHAR(15),
     new_reg_id VARCHAR(10),
     CONSTRAINT FOREIGN KEY (sid) REFERENCES student(sid) 
     ON UPDATE CASCADE ON DELETE CASCADE,
@@ -205,6 +205,8 @@ CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(3
       ELSE
         SET sid = concat(current_year,"001");
       END IF;
+    END IF;
+
 
      INSERT INTO student VALUES(sid, nameWithInitial, sname, addressLine1,addressLine2,addressLine3,tel_home,tel_mobile, email, dob, gender, nic,school,grade,university,faculty,high_edu_qua);
      SELECT sid;
@@ -226,13 +228,19 @@ CREATE PROCEDURE add_registration(IN sid VARCHAR(10), IN batchId VARCHAR(10), IN
   BEGIN
     DECLARE regId VARCHAR(10);
     DECLARE id INT;
-    SELECT regId FROM registration WHERE batchID = batchId ORDER BY regId DESC;
+    DECLARE course VARCHAR(10);
+    DECLARE branch VARCHAR(20);
+    DECLARE batchNo INT;
+    SELECT regId FROM registration WHERE batchID = batchId ORDER BY regId DESC LIMIT 1 INTO regId;                #     SELECT regId FROM registration WHERE batchID = batchId ORDER BY regId DESC;
+    SELECT code FROM course_details C, batch B WHERE B.courseID=C.courseID && B.batchID = batchId INTO course;
+    SELECT branch FROM batch WHERE batch.batchID=batchId INTO branch;
+    SELECT batchNo FROM batch WHERE batch.batchID=batchId INTO batchNo;
 
     IF regId IS NULL THEN
-      SET regId = concat(batchId,"001");
+      SET regId = concat(course,'/',SUBSTR(branch,1,1),'/',batchNo,'/','001');
     ELSE
       SELECT CAST(SUBSTR(regId,CHAR_LENGTH(batchId)) AS UNSIGNED) INTO id;
-      SET regId = concat(batchId, id);
+      SET regId = concat(batchId, id);                                                                            #     Prepare these for the new ID
     END IF;
 
     INSERT INTO registration (regID, sid, registration_date, bcs )VALUES (regId, sid, batchId, registration_Date, bcs);
