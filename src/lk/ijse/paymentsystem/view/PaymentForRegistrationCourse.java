@@ -351,7 +351,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
         try{
-        boolean isAdded = controller.doRegistration();
+        controller.doRegistration();
         JOptionPane.showMessageDialog(null,"Student Successfully Registered");
         }catch(NullPointerException e){
             

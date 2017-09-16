@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -21,6 +22,9 @@ import lk.ijse.paymentsystem.dto.PaymentDTO;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.other.IDGenarator;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -126,7 +130,53 @@ public class PaymentForRegistrationCourseController {
         return calculatedAmounts;
     }
     
-    public boolean doRegistration(){
+    public void doRegistration(){
+        if(completeRegistration()){
+            try {
+                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
+                HashMap<String, Object> parameters=new HashMap<>();
+                
+                parameters.put("invoiceId", payID);
+                parameters.put("invoiceDate", LocalDate.now().toString());
+                parameters.put("studentName", studentDTO.getInitialStudentName());
+                parameters.put("studentAddress", studentDTO.getAddressLine1()+", "+studentDTO.getAddressLine2()+", "+studentDTO.getAddressLine3());
+                parameters.put("course", course.getCode()+"-"+course.getName());
+                parameters.put("batchNo", course.getBatchDTO().getBatchNo());
+                parameters.put("batchCommencingDate",course.getBatchDTO().getStartDate().toString());
+                parameters.put("registrationFee",new Double(5000.00));
+                parameters.put("amount", calculatedAmounts.get(0));
+                parameters.put("discount", calculatedAmounts.get(1));
+                parameters.put("amountRecieved", calculatedAmounts.get(2));
+                parameters.put("total", BigDecimal.valueOf(5000).add(BigDecimal.valueOf(calculatedAmounts.get(2))).doubleValue());
+                String description = "Full Payment";
+                LocalDate nextPay=null;
+                if(paymentDTOs.size()>0){
+                    description = "Payment for Semesters : ";
+                    for (PaymentDTO paymentDTO : paymentDTOs) {
+                        description+=paymentDTO.getSemester()+", ";
+                    }
+                    description+="\b\b";
+                }else if(paymentDTOs.get(0).getSemester()!=0){
+                    if(paymentDTOs.get(0).getSem_half()==1)
+                        description = String.format("Payment for Semester %s 1st Half", ""+paymentDTOs.get(0).getSemester());
+                    else
+                        description = String.format("Payment for Semester %s 2nd Half", ""+paymentDTOs.get(0).getSemester());
+                }else{
+                    
+                }
+                parameters.put("description", description);
+                
+                
+                
+                
+            } catch (JRException ex) {
+                Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
+    public boolean completeRegistration(){
         boolean isSuccessful=false;
         int state=0;
         try {
@@ -136,7 +186,7 @@ public class PaymentForRegistrationCourseController {
                 for (PaymentDTO paymentDTO : paymentDTOs) {
                     paymentDTO.setRegID(rid);
                 }
-                if(isSuccessful=pc.add(paymentDTOs)){
+                if(isSuccessful=doPayment()){
                     state=2;
                 }
                 while(!isSuccessful){
@@ -153,6 +203,9 @@ public class PaymentForRegistrationCourseController {
     public boolean doPayment(){
         boolean isSuccessful=false;
         payID=IDGenarator.getNewPayID(course.getBatchDTO().getBranch().substring(0, 1));
+        for (PaymentDTO paymentDTO : paymentDTOs) {
+            paymentDTO.setPayID(payID);
+        }
         try {
             isSuccessful=pc.add(paymentDTOs);
         } catch (Exception ex) {
