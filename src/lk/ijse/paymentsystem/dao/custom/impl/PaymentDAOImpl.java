@@ -22,18 +22,13 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean add(PaymentDTO dto) throws Exception {
-        String SQL = "INSERT INTO payment VALUES(?,?,?,?,?,?,?,?,?)";
+        String SQL = "INSERT INTO payment VALUES(?,?,?,?,?,?,?,?)";
         PreparedStatement stm = conn.prepareStatement(SQL);
         
         stm.setObject(1, dto.getPayID());
         stm.setObject(2, dto.getRegID());
         stm.setObject(3, dto.getSemester());
         stm.setObject(4, dto.getSem_half());
-        stm.setObject(5, dto.getNextPayID());
-        stm.setObject(6, dto.getDate());
-        stm.setObject(7, dto.getAmount());
-        stm.setObject(8, dto.getDiscount());
-        stm.setObject(4, dto.getNextPayID());
         stm.setObject(5, dto.getDate());
         stm.setObject(6, dto.getAmount());
         stm.setObject(7, dto.getDiscount());

@@ -151,14 +151,14 @@ CREATE TABLE payment(
     regID VARCHAR(10) NOT NULL,
     semester INT(2) NOT NULL,               /*This is 0 for full payment*/
     sem_half INT(1) NOT NULL,               /*This is 0 for a full semester pay*/
-    nextPayID VARCHAR(10),                  /*This is used one the payment ranges for more than 1 semesters and not a full payment. Example payment for 2 semsters*/
+#     nextPayID VARCHAR(10),                  /*This is used one the payment ranges for more than 1 semesters and not a full payment. Example payment for 2 semsters*/
     pay_date DATE,
     amount DECIMAL(8,2) NOT NULL,
     discount DECIMAL(8,2),
     amount_recieved DECIMAL(8,2) NOT NULL,
     CONSTRAINT FOREIGN KEY (regID) REFERENCES registration(regID)
     ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT PRIMARY KEY (payID),
+    CONSTRAINT PRIMARY KEY (payID,semester,sem_half),
     CONSTRAINT UNIQUE KEY (regID,semester,sem_half)
 );
 

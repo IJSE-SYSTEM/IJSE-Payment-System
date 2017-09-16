@@ -25,7 +25,7 @@ public class CourseDetailsController {
     private CourseController courseController;
     private BatchController batchController;
     private ArrayList<CourseDTO> courseDTOs=new ArrayList<>();
-    private ArrayList<BatchDTO> batchDTOs=new ArrayList<>();
+    public ArrayList<BatchDTO> batchDTOs=new ArrayList<>();
     private CourseDTO courseDTO;
     
 

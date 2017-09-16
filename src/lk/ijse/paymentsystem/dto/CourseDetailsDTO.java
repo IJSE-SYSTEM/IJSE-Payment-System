@@ -19,6 +19,8 @@ public class CourseDetailsDTO extends CourseDTO{
     private double discount2Sem;
     private double discount1Sem;
     private LocalDate dateModified;
+    
+    private BatchDTO batchDTO;
 
     public CourseDetailsDTO() {
         
@@ -152,6 +154,20 @@ public class CourseDetailsDTO extends CourseDTO{
      */
     public void setDateModified(LocalDate dateModified) {
         this.dateModified = dateModified;
+    }
+
+    /**
+     * @return the batchDTO
+     */
+    public BatchDTO getBatchDTO() {
+        return batchDTO;
+    }
+
+    /**
+     * @param batchDTO the batchDTO to set
+     */
+    public void setBatchDTO(BatchDTO batchDTO) {
+        this.batchDTO = batchDTO;
     }
     
     

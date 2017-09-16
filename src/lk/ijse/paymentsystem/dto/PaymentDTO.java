@@ -16,18 +16,16 @@ public class PaymentDTO extends SuperDTO{
     private String regID;
     private int semester;
     private int sem_half;
-    private String nextPayID;
     private LocalDate date;
     private double amount;
     private double discount;
     private double amount_recieved;
 
-    public PaymentDTO(String payID, String regID, int semester, int sem_half, String nextPayID, LocalDate date, double amount, double discount, double amount_recieved) {
+    public PaymentDTO(String payID, String regID, int semester, int sem_half, LocalDate date, double amount, double discount, double amount_recieved) {
         this.payID = payID;
         this.regID = regID;
         this.semester = semester;
         this.sem_half = sem_half;
-        this.nextPayID = nextPayID;
         this.date = date;
         this.amount = amount;
         this.discount = discount;
@@ -92,21 +90,7 @@ public class PaymentDTO extends SuperDTO{
     public void setSem_half(int sem_half) {
         this.sem_half = sem_half;
     }
-
-    /**
-     * @return the nextPayID
-     */
-    public String getNextPayID() {
-        return nextPayID;
-    }
-
-    /**
-     * @param nextPayID the nextPayID to set
-     */
-    public void setNextPayID(String nextPayID) {
-        this.nextPayID = nextPayID;
-    }
-
+    
     /**
      * @return the date
      */
