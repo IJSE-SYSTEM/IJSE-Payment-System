@@ -6,8 +6,15 @@
 package lk.ijse.paymentsystem.view;
 
 import java.awt.Color;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.swing.JOptionPane;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import lk.ijse.paymentsystem.controller.ControllerFactory;
+import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
+import lk.ijse.paymentsystem.dto.RegistrationDTO;
+import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 
 /**
@@ -20,16 +27,35 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
      * Creates new form PaymentForRegistrationCourse
      */
     
+    private PaymentForRegistrationCourseController controller;
     private DSTextComponents textComponents;
+    private StudentDTO studentDTO;
+   
     
     public PaymentForRegistrationCourse() {
         initComponents();
         setDefaultCloseOperation(2);
         this.getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
-        
         textComponents = new DSTextComponents(this.getContentPane());
     }
+    
+    public PaymentForRegistrationCourse(StudentDTO studentDTO,CourseDetailsDTO cdto, RegistrationDTO rdto){
+        this();
+        controller=new PaymentForRegistrationCourseController(studentDTO, cdto, rdto);
+        this.studentDTO=studentDTO;
+        initComponents2();
+    }
+    
+    private void initComponents2(){
+        jtrPayment.addTreeSelectionListener(tsl);
+        jtrPayment.setModel(controller.setPaymentScheme());
+        for (int i = 0; i < jtrPayment.getRowCount(); i++) {
+            jtrPayment.expandRow(i);
+        }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,15 +79,17 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         lblQualificationn2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lblQualificationn3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtCheque = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         lblQualificationn4 = new javax.swing.JLabel();
         lblQualificationn5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        txtAmount = new javax.swing.JTextField();
+        txtDiscount = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtrPayment = new javax.swing.JTree();
+        lblQualificationn6 = new javax.swing.JLabel();
+        txtPayable = new javax.swing.JTextField();
         btnAddStudent = new javax.swing.JButton();
         btnGoBack = new javax.swing.JButton();
 
@@ -134,6 +162,9 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         jtrPayment.setToolTipText("");
         jScrollPane1.setViewportView(jtrPayment);
 
+        lblQualificationn6.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblQualificationn6.setText("Amount Payable:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -154,15 +185,15 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                                         .addComponent(lblQualificationn4, javax.swing.GroupLayout.Alignment.LEADING))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtDiscount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtAmount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(lblQualificationn2)
                                             .addGap(18, 18, 18)
-                                            .addComponent(jTextField1))
+                                            .addComponent(txtCheque))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                             .addComponent(lblQualificationn3)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,7 +210,11 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jRadioButton4)
                                             .addComponent(jRadioButton3)))
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(lblQualificationn6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtPayable, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -201,7 +236,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQualificationn2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCheque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -215,12 +250,16 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQualificationn4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQualificationn5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51))
+                    .addComponent(txtDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblQualificationn6)
+                    .addComponent(txtPayable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
 
         btnAddStudent.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
@@ -269,7 +308,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -311,6 +350,12 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
+        try{
+        controller.doRegistration();
+        JOptionPane.showMessageDialog(null,"Student Successfully Registered");
+        }catch(NullPointerException e){
+            
+        }
         this.dispose();//        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse();
 //        new PaymentForRegistrationCourse().setVisible(true);
 //        studentRFC.dispose();
@@ -332,13 +377,112 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnGoBackKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGoBackKeyReleased
-        //        if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-            //            btnAddStudent.requestFocusInWindow();
-            //        } else if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            //            btnAddStudent.requestFocusInWindow();
-            //        }
+        
     }//GEN-LAST:event_btnGoBackKeyReleased
+
+    TreeSelectionListener tsl=(e) -> {
+        treeSelectionTriggered(e);
+    };
     
+    
+    
+    //change this array to the maximum number of semesters in a course
+    //use formulae no_of_semesters*3
+    //currently it is set for a maximum 8 semsters
+    static int[] rows={0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24};
+    static ArrayList<Integer> semesterRows;
+    {
+        semesterRows=new ArrayList<>();
+        for (int i=1; i<rows.length; i+=3)
+            semesterRows.add(i);
+    }
+    
+    private void treeSelectionTriggered(TreeSelectionEvent e){
+        //System.out.println(Arrays.toString(jtrPayment.getSelectionRows()));
+        int selectedRows[]=jtrPayment.getSelectionRows();
+        System.out.println("Selected Rows : "+Arrays.toString(selectedRows));
+        int selectRows[]={};
+        
+        LOOP1: for (boolean runLoop=true,isInital=true;runLoop==true;){
+            System.out.println("Loop 1");
+            LOOP2:for (int selectedRow : selectedRows) {
+                System.out.println("Selected Row : "+selectedRow);
+                if(selectedRow==0){
+                    System.out.println("1");
+                    selectRows=Arrays.copyOf(rows, jtrPayment.getRowCount());
+                    break LOOP1;
+
+                }else if(semesterRows.contains(selectedRow)){
+//                    System.out.println("2");
+
+                    int temp[]=Arrays.copyOfRange(rows, selectedRow,selectedRow+3);
+                    selectRows=Arrays.copyOf(selectRows, selectRows.length+temp.length);
+                    for (int i=selectRows.length-temp.length,j=0; j<temp.length; j++,i++){
+                        selectRows[i]=temp[j];
+                    }
+
+                }else if(semesterRows.contains(selectedRow-1)){
+//                    System.out.println("3");
+                    
+                    if(isInital==true){
+                        if (selectedRows.length==1 || selectedRows.length==2 && ((selectedRow+1)==selectedRows[1])){
+                            selectRows=Arrays.copyOf(selectRows, selectRows.length+selectedRows.length);
+                            for (int i=selectRows.length-selectedRows.length,j=0; j<selectedRows.length; j++,i++){
+                                selectRows[i]=selectedRows[j];
+                            }
+                        }
+                    }
+
+                    if (jtrPayment.isRowSelected(selectedRow+1)){
+//                        System.out.println("3.1");
+                        selectRows=Arrays.copyOf(selectRows, selectRows.length+1);
+                        selectRows[selectRows.length-1]=selectedRow-1;
+                        System.out.println("Select Rows : "+Arrays.toString(selectRows));
+                    }
+                }
+                else if(semesterRows.contains(selectedRow-2)){
+//                    System.out.println("4");
+                    
+                    if(isInital==true){
+                        if (selectedRows.length==1 || selectedRows.length==2 && ((selectedRow-1)==selectedRows[1])){
+                            selectRows=Arrays.copyOf(selectRows, selectRows.length+selectedRows.length);
+                            for (int i=selectRows.length-selectedRows.length,j=0; j<selectedRows.length; j++,i++){
+                                selectRows[i]=selectedRows[j];
+                            }
+                        }
+                    }
+                }
+            }
+            break LOOP1;
+        }
+//        System.out.println("Select Rows : "+Arrays.toString(selectRows));
+
+        Arrays.sort(selectRows);
+        int[] temp={selectRows[0]};
+        for (int i1 = 1; i1 < selectRows.length; i1++) {
+            if (selectRows[i1]!=selectRows[i1-1]){
+                temp=Arrays.copyOf(temp, temp.length+1);
+                temp[temp.length-1]=selectRows[i1];
+            }
+        }
+        selectRows=temp;
+        
+        if (Arrays.equals(Arrays.copyOfRange(rows, 1, jtrPayment.getRowCount()),selectRows)){
+            selectRows=Arrays.copyOf(rows, jtrPayment.getRowCount());
+        }
+        
+        jtrPayment.removeTreeSelectionListener(tsl);
+        jtrPayment.setSelectionRows(selectRows);
+        jtrPayment.addTreeSelectionListener(tsl);
+
+        ArrayList<Double> calculatedAmounts=controller.calculateAmounts(selectRows);
+        txtAmount.setText(calculatedAmounts.get(0).toString());
+        txtDiscount.setText(calculatedAmounts.get(1).toString());
+        txtPayable.setText(calculatedAmounts.get(2).toString());
+        System.out.println("loop over\n");
+    }
+    
+        
 //    TreeModel tm1=new DefaultTreeModel
     
     /**
@@ -388,10 +532,7 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTree jtrPayment;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblProfessionalQualification;
@@ -401,5 +542,10 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     private javax.swing.JLabel lblQualificationn3;
     private javax.swing.JLabel lblQualificationn4;
     private javax.swing.JLabel lblQualificationn5;
+    private javax.swing.JLabel lblQualificationn6;
+    private javax.swing.JTextField txtAmount;
+    private javax.swing.JTextField txtCheque;
+    private javax.swing.JTextField txtDiscount;
+    private javax.swing.JTextField txtPayable;
     // End of variables declaration//GEN-END:variables
 }

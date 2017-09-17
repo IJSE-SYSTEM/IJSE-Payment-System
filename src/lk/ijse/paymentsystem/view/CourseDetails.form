@@ -69,7 +69,15 @@
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="cmbBxAcademicPrograms" min="-2" pref="344" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cmbBxAcademicPrograms" min="-2" pref="344" max="-2" attributes="0"/>
+                          <Component id="lblCourseName" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblCourseDuration" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblSemester" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblFee" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbBxBatches" min="-2" pref="344" max="-2" attributes="0"/>
+                          <Component id="lblDate" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="362" max="-2" attributes="0"/>
@@ -77,7 +85,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="261" max="-2" attributes="0"/>
-                      <Component id="rdiBtnBcs" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbtnBcs" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="lblCourseAppliedFor1" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -100,27 +108,45 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblWith" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="rdiBtnBcs" min="-2" max="-2" attributes="0"/>
+              <Component id="rbtnBcs" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblCourseAppliedFor1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblAcademicPrograms1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAcademicPrograms1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCourseName" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblAcademicPrograms2" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAcademicPrograms2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cmbBxBatches" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblAcademicPrograms3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAcademicPrograms3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCourseDuration" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblAcademicPrograms5" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAcademicPrograms5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSemester" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblAcademicPrograms6" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAcademicPrograms6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblDate" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblAcademicPrograms4" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblAcademicPrograms4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblFee" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAddStudent" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnGoBack" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="14" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -133,7 +159,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="rdiBtnBcs">
+    <Component class="javax.swing.JCheckBox" name="rbtnBcs">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Noto Sans" size="16" style="0"/>
@@ -141,7 +167,7 @@
         <Property name="text" type="java.lang.String" value="BCS (British Computer Society)"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdiBtnBcsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnBcsActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblWith">
@@ -276,6 +302,59 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGoBackActionPerformed"/>
         <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnGoBackKeyReleased"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblCourseName">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Noto Sans" size="16" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="name"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblCourseDuration">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Noto Sans" size="16" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="years"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblSemester">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Noto Sans" size="16" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="semesters"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblFee">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Noto Sans" size="16" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="fee"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbBxBatches">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbBxBatchesActionPerformed"/>
+      </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblDate">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Noto Sans" size="16" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="date"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
