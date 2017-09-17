@@ -151,24 +151,24 @@ public class PaymentForRegistrationCourseController {
                 String description = "Full Payment";
                 LocalDate nextPay=null;
                 if(paymentDTOs.size()>0){
-                    description = "Payment for Semesters : ";
-                    for (PaymentDTO paymentDTO : paymentDTOs) {
-                        description+=paymentDTO.getSemester()+", ";
-                    }
-                    description+="\b\b";
-                }else if(paymentDTOs.get(0).getSemester()!=0){
-                    if(paymentDTOs.get(0).getSem_half()==1)
-                        description = String.format("Payment for Semester %s 1st Half", ""+paymentDTOs.get(0).getSemester());
-                    else
-                        description = String.format("Payment for Semester %s 2nd Half", ""+paymentDTOs.get(0).getSemester());
-                }else{
                     
+                    if(paymentDTOs.size()==1 && paymentDTOs.get(0).getSemester()!=0 && paymentDTOs.get(0).getSem_half()!=0){
+                        if(paymentDTOs.get(0).getSem_half()==1)
+                            description = String.format("Payment for Semester %s 1st Half", ""+paymentDTOs.get(0).getSemester());
+                        else
+                            description = String.format("Payment for Semester %s 2nd Half", ""+paymentDTOs.get(0).getSemester());
+                    }else if(paymentDTOs.size()==1 && paymentDTOs.get(0).getSemester()==0){
+                        
+                    }else{
+                        description = "Payment for Semesters : ";
+                        for (PaymentDTO paymentDTO : paymentDTOs) {
+                            description+=paymentDTO.getSemester()+", ";
+                        }
+                        description+="\b\b";
+                    }
+                    parameters.put("description", description);
+                
                 }
-                parameters.put("description", description);
-                
-                
-                
-                
             } catch (JRException ex) {
                 Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -186,11 +186,9 @@ public class PaymentForRegistrationCourseController {
                 for (PaymentDTO paymentDTO : paymentDTOs) {
                     paymentDTO.setRegID(rid);
                 }
-                if(isSuccessful=doPayment()){
-                    state=2;
-                }
-                while(!isSuccessful){
-                    doPayment();
+                while(state==1){
+                    if(isSuccessful=doPayment())
+                        state=2;
                 }
             }
         } catch (Exception ex) {
