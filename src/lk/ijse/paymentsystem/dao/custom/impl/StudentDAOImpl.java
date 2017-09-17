@@ -25,7 +25,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public String addCall(StudentDTO dto) throws Exception {
-        String SQL = "call add_student(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; /* send data to the database without SID*/
+        String SQL = "call add_student(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; /* send data to the database without SID*/
         PreparedStatement stm = conn.prepareStatement(SQL);
         
         stm.setObject(1, dto.getInitialStudentName());
@@ -39,11 +39,10 @@ public class StudentDAOImpl implements StudentDAO{
         stm.setObject(9, dto.getDob());
         stm.setObject(10, dto.getGender());
         stm.setObject(11, dto.getNic());
-        stm.setObject(12, dto.getSchool());
-        stm.setObject(13, dto.getGrade());
-        stm.setObject(14, dto.getUniversity());
-        stm.setObject(15, dto.getFaculty());
-        stm.setObject(16, dto.getHigherEducationQualifications());
+        stm.setObject(12, dto.getRegFee());
+        stm.setObject(13, dto.getSchool());
+        stm.setObject(14, dto.getGrade());
+        stm.setObject(15, dto.getUniversity());
         
         ResultSet rst=stm.executeQuery();
         if(rst.next()){

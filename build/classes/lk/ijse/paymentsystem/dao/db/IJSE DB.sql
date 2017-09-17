@@ -70,6 +70,7 @@ CREATE TABLE student(
     dob DATE NOT NULL,
     gender BINARY NOT NULL,
     nic VARCHAR(13),
+    regFee DECIMAL(8,2),
     school VARCHAR(255),
     grade VARCHAR(50),
     university VARCHAR(255),

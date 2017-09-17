@@ -24,11 +24,10 @@ public class StudentDTO extends SuperDTO{
     private String dob;
     private String gender;
     private String nic;
+    private double regFee;
     private String school;
     private String grade;
     private String university;
-    private String faculty;
-    private String higherEducationQualifications;
     
     private GuardianDTO guardian;
     private ArrayList<QualificationDTO> qualifications;
@@ -38,28 +37,14 @@ public class StudentDTO extends SuperDTO{
     public StudentDTO() {
     }
 
-    public StudentDTO(String SID, String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, String gender, String nic, String school, String grade, String university, String faculty, String higherEducationQualifications) {
+    public StudentDTO(String SID, String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, String gender, String nic, double regFee, String school, String grade, String university) {
+        this(initialStudentName,studentName,addressLine1,addressLine2,addressLine3,telHome,mobile,email,dob,gender,nic,school,university);
         this.SID = SID;
-        this.initialStudentName = initialStudentName;
-        this.studentName = studentName;
-        this.addressLine1 = addressLine1;
-        this.addressLine2 = addressLine2;
-        this.addressLine3 = addressLine3;
-        this.telHome = telHome;
-        this.mobile = mobile;
-        this.email = email;
-        this.dob = dob;
-        this.gender = gender;
-        this.nic = nic;
-        this.school = school;
-        this.grade = grade;
-        this.university = university;
-        this.faculty = faculty;
-        this.higherEducationQualifications = higherEducationQualifications;
+        this.regFee = regFee;
     }
     
+//    this has no regFee Parameter
     public StudentDTO(String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, String gender, String nic, String school, String university) {
-        this.SID = SID;
         this.initialStudentName = initialStudentName;
         this.studentName = studentName;
         this.addressLine1 = addressLine1;
@@ -73,7 +58,6 @@ public class StudentDTO extends SuperDTO{
         this.nic = nic;
         this.school = school;
         this.university = university;
-
     }
 
     
@@ -288,34 +272,6 @@ public class StudentDTO extends SuperDTO{
     }
 
     /**
-     * @return the faculty
-     */
-    public String getFaculty() {
-        return faculty;
-    }
-
-    /**
-     * @param faculty the faculty to set
-     */
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
-    }
-
-    /**
-     * @return the higherEducationQualifications
-     */
-    public String getHigherEducationQualifications() {
-        return higherEducationQualifications;
-    }
-
-    /**
-     * @param higherEducationQualifications the higherEducationQualifications to set
-     */
-    public void setHigherEducationQualifications(String higherEducationQualifications) {
-        this.higherEducationQualifications = higherEducationQualifications;
-    }
-
-    /**
      * @return the guardian
      */
     public GuardianDTO getGuardian() {
@@ -355,6 +311,20 @@ public class StudentDTO extends SuperDTO{
      */
     public void setInfoDTO(StudentOtherInfoDTO infoDTO) {
         this.infoDTO = infoDTO;
+    }
+
+    /**
+     * @return the regFee
+     */
+    public double getRegFee() {
+        return regFee;
+    }
+
+    /**
+     * @param regFee the regFee to set
+     */
+    public void setRegFee(double regFee) {
+        this.regFee = regFee;
     }
 
 }

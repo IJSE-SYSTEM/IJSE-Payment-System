@@ -70,11 +70,10 @@ CREATE TABLE student(
     dob DATE NOT NULL,
     gender BINARY NOT NULL,
     nic VARCHAR(13),
+    regFee DECIMAL(8,2),
     school VARCHAR(255),
     grade VARCHAR(50),
     university VARCHAR(255),
-    faculty VARCHAR(100),
-    hi_edu_qua VARCHAR(255),
     CONSTRAINT PRIMARY KEY (sid)
 );
 
@@ -182,7 +181,7 @@ INSERT INTO batch VALUES('GDSE37','C002',37,'2016-09-22','Panadura');
 DROP PROCEDURE IF EXISTS add_student;
 
 DELIMITER --
-CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(350), IN addressLine1 VARCHAR(255), IN addressLine2 VARCHAR(255), IN addressLine3 VARCHAR(255), IN tel_home INT(11), IN tel_mobile INT(11), IN email VARCHAR(255), IN dob DATE, IN gender BINARY(1), IN nic VARCHAR(13), IN school VARCHAR(255), IN grade VARCHAR(50), IN university VARCHAR(255), IN faculty VARCHAR(100), IN high_edu_qua VARCHAR(255))
+CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(350), IN addressLine1 VARCHAR(255), IN addressLine2 VARCHAR(255), IN addressLine3 VARCHAR(255), IN tel_home INT(11), IN tel_mobile INT(11), IN email VARCHAR(255), IN dob DATE, IN gender BINARY(1), IN nic VARCHAR(13), IN regFee DECIMAL(8,2), IN school VARCHAR(255), IN grade VARCHAR(50), IN university VARCHAR(255))
   BEGIN
     DECLARE sid VARCHAR(10);
     DECLARE current_year VARCHAR(4);
@@ -208,7 +207,7 @@ CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(3
     END IF;
 
 
-     INSERT INTO student VALUES(sid, nameWithInitial, sname, addressLine1,addressLine2,addressLine3,tel_home,tel_mobile, email, dob, gender, nic,school,grade,university,faculty,high_edu_qua);
+     INSERT INTO student VALUES(sid, nameWithInitial, sname, addressLine1,addressLine2,addressLine3,tel_home,tel_mobile, email, dob, gender, nic, regFee,school,grade,university);
      SELECT sid;
 
   END --
