@@ -230,16 +230,24 @@ CREATE PROCEDURE add_registration(IN sid VARCHAR(10), IN batchId VARCHAR(10), IN
     DECLARE course VARCHAR(10);
     DECLARE branch VARCHAR(20);
     DECLARE batchNo INT;
+    DECLARE prefix VARCHAR(10);
     SELECT regId FROM registration WHERE batchID = batchId ORDER BY regId DESC LIMIT 1 INTO regId;                #     SELECT regId FROM registration WHERE batchID = batchId ORDER BY regId DESC;
     SELECT code FROM course_details C, batch B WHERE B.courseID=C.courseID && B.batchID = batchId INTO course;
     SELECT branch FROM batch WHERE batch.batchID=batchId INTO branch;
     SELECT batchNo FROM batch WHERE batch.batchID=batchId INTO batchNo;
 
+    SET prefix = concat(course,'/',SUBSTR(branch,1,1),'/',batchNo,'/');
     IF regId IS NULL THEN
-      SET regId = concat(course,'/',SUBSTR(branch,1,1),'/',batchNo,'/','001');
+      SET regId = concat(prefix,'001');
     ELSE
-      SELECT CAST(SUBSTR(regId,CHAR_LENGTH(batchId)) AS UNSIGNED) INTO id;
-      SET regId = concat(batchId, id);                                                                            #     Prepare these for the new ID
+      SELECT CAST(SUBSTR(regId,CHAR_LENGTH(prefix)) AS UNSIGNED) INTO id;
+      SET id = id+1;
+        IF id<100 THEN
+            SET regId = concat(prefix,'00',id);
+        ELSE
+            SET regId = concat(prefix,id);
+        END IF;
+      SET regId = concat(prefix, id);                                                                            #     Prepare these for the new ID
     END IF;
 
     INSERT INTO registration (regID, sid, registration_date, bcs )VALUES (regId, sid, batchId, registration_Date, bcs);

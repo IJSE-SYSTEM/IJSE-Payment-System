@@ -33,6 +33,7 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
     
     private StudentDTO student;
     private StudentRegistrationForm studentRegistrationForm;
+    private StudentRegistrationCourseDetailFormController controller;
             
     public StudentRegistrationCourseDetailForm() {        
         initComponents();
@@ -40,6 +41,8 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         setDefaultCloseOperation(2);
         setLocationRelativeTo(null);
         isAlwaysOnTop();
+        
+        controller=new StudentRegistrationCourseDetailFormController(student);
         
         table = new DSTable(tblQualification);
         textComponents = new DSTextComponents(this.getContentPane());
@@ -475,7 +478,8 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         
         /* if the student has paid registration fee, he will be added to the database*/
         if(res==0){
-            this.dispose();
+            controller.doRegistration();
+//            this.dispose();
         }
             
     }//GEN-LAST:event_btnRegisterStudentActionPerformed

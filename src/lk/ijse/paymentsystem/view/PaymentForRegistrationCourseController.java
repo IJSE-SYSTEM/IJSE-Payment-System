@@ -23,6 +23,8 @@ import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.other.IDGenarator;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
@@ -178,6 +180,7 @@ public class PaymentForRegistrationCourseController {
                         description+="\b\b";
                     }
                     parameters.put("description", description);
+                    JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
                 
                 }
             } catch (JRException ex) {

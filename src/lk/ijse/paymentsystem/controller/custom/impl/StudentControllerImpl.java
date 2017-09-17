@@ -84,5 +84,28 @@ public class StudentControllerImpl implements StudentController {
         }
         return isSuccessful;
     } 
+
+    @Override
+    public boolean add(StudentDTO sdto) throws Exception {
+        try{    
+            c.setAutoCommit(false);
+            sid=sdao.addCall(sdto); 
+            if (sid!=null){
+                boolean detailsAdded=false;
+                sdto.getGuardian().setSID(sid);
+                sdto.getInfoDTO().setSid(sid);
+                detailsAdded=sgdao.add(sdto.getGuardian());
+                detailsAdded=soidao.add(sdto.getInfoDTO());
+                detailsAdded=addQualifications(sdto.getQualifications());
+                if (detailsAdded){
+                    c.commit();
+                    return true;
+                }
+            }
+        }finally{
+            c.setAutoCommit(true);
+        }
+        return false;
+    }
     
 }
