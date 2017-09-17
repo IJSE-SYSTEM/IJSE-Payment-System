@@ -17,6 +17,7 @@ import lk.ijse.paymentsystem.dto.StudentDTO;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
@@ -40,7 +41,7 @@ public class StudentRegistrationCourseDetailFormController {
     public void doRegistration(){
         try {
             if(sc.add(studentDTO)){
-                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
+//                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
                 HashMap<String, Object> parameters=new HashMap<>();
 
 //                    parameters.put("invoiceId", payID);
@@ -58,7 +59,9 @@ public class StudentRegistrationCourseDetailFormController {
 //                    String description = "Full Payment";
                 LocalDate nextPay=LocalDate.now().plusDays(14);
                 parameters.put("dueDate", nextPay.toString());
-                JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
+                String printName = JasperFillManager.fillReportToFile("/lk/ijse/paymentsystem/reports/Invoice.jasper",parameters);
+                JasperPrintManager.printReport(printName, true);
+//                JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
             }            
         } catch (JRException ex) {
             Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);

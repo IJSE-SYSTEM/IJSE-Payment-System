@@ -25,6 +25,7 @@ import lk.ijse.paymentsystem.other.IDGenarator;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
@@ -146,7 +147,7 @@ public class PaymentForRegistrationCourseController {
     public void doRegistration(){
         if(completeRegistration()){
             try {
-                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
+//                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
                 HashMap<String, Object> parameters=new HashMap<>();
                 
                 parameters.put("invoiceId", payID);
@@ -180,7 +181,11 @@ public class PaymentForRegistrationCourseController {
                         description+="\b\b";
                     }
                     parameters.put("description", description);
-                    JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
+                    
+                    String printName = JasperFillManager.fillReportToFile("/lk/ijse/paymentsystem/reports/Invoice.jasper", parameters);
+                    JasperPrintManager.printReport(printName, true);
+                    
+//                    JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
                 
                 }
             } catch (JRException ex) {
