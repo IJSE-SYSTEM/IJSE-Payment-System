@@ -25,13 +25,13 @@ public class RegistrationDAOImpl implements RegistrationDAO {
 
     @Override
     public String addCall(RegistrationDTO dto) throws Exception {
-        String SQL = "add_registration(?,?,?,?,?)";
+        String SQL = "call add_registration(?,?,?,?)";
         PreparedStatement stm = conn.prepareStatement(SQL);
         stm.setObject(1, dto.getSID());
         stm.setObject(2, dto.getBatchId());
-        stm.setObject(3, dto.getRegistrationDate());
-        stm.setObject(4, dto.getTransferredToBatch());
-        stm.setObject(5, dto.getNewRegistrationID());
+        stm.setObject(3, dto.getRegistrationDate().toString());
+        stm.setObject(4, dto.isBcs());
+        
         
         ResultSet rst = stm.executeQuery();
         if(rst.next()){

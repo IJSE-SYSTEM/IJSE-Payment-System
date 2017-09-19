@@ -41,8 +41,7 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         setDefaultCloseOperation(2);
         setLocationRelativeTo(null);
         isAlwaysOnTop();
-        
-        controller=new StudentRegistrationCourseDetailFormController(student);
+       
         
         table = new DSTable(tblQualification);
         textComponents = new DSTextComponents(this.getContentPane());
@@ -68,6 +67,7 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         this();
         this.studentRegistrationForm=studentRegistrationForm;
         this.student=student;
+        controller=new StudentRegistrationCourseDetailFormController(this.student);
     }
 
     /**
@@ -478,6 +478,7 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         
         /* if the student has paid registration fee, he will be added to the database*/
         if(res==0){
+            getValues();
             controller.doRegistration();
 //            this.dispose();
         }
@@ -485,6 +486,7 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterStudentActionPerformed
 
     private void btnAddCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCourseActionPerformed
+        getValues();
         new CourseDetails(student, this).setVisible(true);
         
     }//GEN-LAST:event_btnAddCourseActionPerformed

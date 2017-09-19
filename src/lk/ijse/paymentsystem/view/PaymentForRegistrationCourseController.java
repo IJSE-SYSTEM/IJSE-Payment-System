@@ -48,6 +48,7 @@ public class PaymentForRegistrationCourseController {
          this.course = cdto;
          this.studentDTO=studentDTO;
          this.batchID=rdto.getBatchId();
+         this.rdto = rdto;
 //         c=ConnectionFactory.getInstance().getConnection();
         sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
         pc=(PaymentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.PAYMENT);
@@ -104,6 +105,7 @@ public class PaymentForRegistrationCourseController {
                     calculatedAmounts.add(payable);
                     return calculatedAmounts;
                 }else if(PaymentForRegistrationCourse.semesterRows.contains(selectedRow)) {
+                    System.out.println("2");
                     semesters=Arrays.copyOf(semesters, semesters.length+1);
                     semesters[semesters.length-1]=row_semMap[selectedRow];
                     amount=BigDecimal.valueOf(course.getCourseFee()).divide(BigDecimal.valueOf(course.getNo_of_Semesters())).multiply(BigDecimal.valueOf(semesters.length)).doubleValue();
@@ -129,18 +131,22 @@ public class PaymentForRegistrationCourseController {
                     payable=amount;
                     paymentDTOs.add(new PaymentDTO("", "", row_semMap[selectedRow], 2, LocalDate.now(), amount, discount, payable));
                 }
-                if (semesters.length>0){
-                    for (int semester : semesters) {
-                        paymentDTOs.add(new PaymentDTO("", "", semester, 0, LocalDate.now(), 
-                                BigDecimal.valueOf(amount).divide(BigDecimal.valueOf(semesters.length)).doubleValue(), 
-                                BigDecimal.valueOf(discount).divide(BigDecimal.valueOf(semesters.length)).doubleValue(), 
-                                BigDecimal.valueOf(payable).divide(BigDecimal.valueOf(semesters.length)).doubleValue()));
-                    }
+            }
+            if (semesters.length>0){
+                for (int semester : semesters) {
+                    paymentDTOs.add(new PaymentDTO("", "", semester, 0, LocalDate.now(), 
+                            BigDecimal.valueOf(amount).divide(BigDecimal.valueOf(semesters.length)).doubleValue(), 
+                            BigDecimal.valueOf(discount).divide(BigDecimal.valueOf(semesters.length)).doubleValue(), 
+                            BigDecimal.valueOf(payable).divide(BigDecimal.valueOf(semesters.length)).doubleValue()));
                 }
             }
         calculatedAmounts.add(amount);
         calculatedAmounts.add(discount);
         calculatedAmounts.add(payable);
+        for (PaymentDTO paymentDTO : paymentDTOs) {
+            System.out.println(paymentDTO);
+        }
+        System.out.println();
         return calculatedAmounts;
     }
     
@@ -206,10 +212,10 @@ public class PaymentForRegistrationCourseController {
                 for (PaymentDTO paymentDTO : paymentDTOs) {
                     paymentDTO.setRegID(rid);
                 }
-                while(state==1){
+//                while(state==1){
                     if(isSuccessful=doPayment())
                         state=2;
-                }
+//                }
             }
         } catch (Exception ex) {
             Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);

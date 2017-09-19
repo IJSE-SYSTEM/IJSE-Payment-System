@@ -449,7 +449,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
           String mobile = txtMobile.getText();
           String email = txtEmail.getText();
           String dob = txtYear.getText()+"-"+txtMonth.getText()+"-"+txtDay.getText();
-          String gender = chkBoxMale.isSelected()?"Male":"Female";
+          boolean gender = chkBoxMale.isSelected();
           String nic = txtNic.getText();
           String school = txtSchool.getText();
           String university = txtUniversityOrOther.getText();

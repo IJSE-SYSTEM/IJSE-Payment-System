@@ -18,7 +18,7 @@ import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
  */
 public class IDGeneratorDAOImpl {
     public static String getLastPayID(String branch) throws SQLException, ClassNotFoundException{
-        String SQL=String.format("SELECT payID FROM payment WHERE payID LIKE '%s/%' ORDER BY payID DESC LIMIT 1",branch);
+        String SQL="SELECT payID FROM payment WHERE payID LIKE '"+branch+"/%' ORDER BY payID DESC LIMIT 1";
         Connection conn=ConnectionFactory.getInstance().getConnection();
         Statement stm=conn.createStatement();
         ResultSet rst=stm.executeQuery(SQL);

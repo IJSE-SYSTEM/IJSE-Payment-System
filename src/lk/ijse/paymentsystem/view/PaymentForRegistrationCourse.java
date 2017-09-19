@@ -352,11 +352,11 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
         try{
         controller.doRegistration();
-        JOptionPane.showMessageDialog(null,"Student Successfully Registered");
+//        JOptionPane.showMessageDialog(null,"Student Successfully Registered");
         }catch(NullPointerException e){
-            
+            e.printStackTrace();
         }
-        this.dispose();//        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse();
+//        this.dispose();//        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse();
 //        new PaymentForRegistrationCourse().setVisible(true);
 //        studentRFC.dispose();
 //        this.dispose();

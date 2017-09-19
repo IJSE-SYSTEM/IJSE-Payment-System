@@ -32,6 +32,11 @@ public class PaymentDTO extends SuperDTO{
         this.amount_recieved = amount_recieved;
     }
 
+    @Override
+    public String toString() {
+        return "PaymentDTO{" + "payID=" + payID + ", regID=" + regID + ", semester=" + semester + ", sem_half=" + sem_half + ", date=" + date + ", amount=" + amount + ", discount=" + discount + ", amount_recieved=" + amount_recieved + '}';
+    }
+
     public PaymentDTO() {
     }
 

@@ -30,8 +30,8 @@ public class StudentRegistrationCourseDetailFormController {
     private StudentDTO studentDTO;
     private StudentController sc;
     private final double regFee=5000;
-    public StudentRegistrationCourseDetailFormController() {
-    }
+//    public StudentRegistrationCourseDetailFormController() {
+//    }
 
     public StudentRegistrationCourseDetailFormController(StudentDTO studentDTO) {
         this.studentDTO = studentDTO;
@@ -39,7 +39,9 @@ public class StudentRegistrationCourseDetailFormController {
     }
     
     public void doRegistration(){
+        studentDTO.setRegFee(5000);
         try {
+            System.out.println();
             if(sc.add(studentDTO)){
 //                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
                 HashMap<String, Object> parameters=new HashMap<>();
@@ -59,8 +61,8 @@ public class StudentRegistrationCourseDetailFormController {
 //                    String description = "Full Payment";
                 LocalDate nextPay=LocalDate.now().plusDays(14);
                 parameters.put("dueDate", nextPay.toString());
-                String printName = JasperFillManager.fillReportToFile("/lk/ijse/paymentsystem/reports/Invoice.jasper",parameters);
-                JasperPrintManager.printReport(printName, true);
+                JasperPrint jasperPrint = JasperFillManager.fillReport("/lk/ijse/paymentsystem/reports/Invoice.jasper",parameters);
+                JasperPrintManager.printReport(jasperPrint, true);
 //                JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
             }            
         } catch (JRException ex) {

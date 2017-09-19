@@ -28,6 +28,7 @@ public class StudentDAOImpl implements StudentDAO{
         String SQL = "call add_student(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; /* send data to the database without SID*/
         PreparedStatement stm = conn.prepareStatement(SQL);
         
+        System.out.println(dto);
         stm.setObject(1, dto.getInitialStudentName());
         stm.setObject(2, dto.getStudentName());
         stm.setObject(3, dto.getAddressLine1());
@@ -37,7 +38,7 @@ public class StudentDAOImpl implements StudentDAO{
         stm.setObject(7, dto.getMobile());
         stm.setObject(8, dto.getEmail());
         stm.setObject(9, dto.getDob());
-        stm.setObject(10, dto.getGender());
+        stm.setBoolean(10, dto.getGender());
         stm.setObject(11, dto.getNic());
         stm.setObject(12, dto.getRegFee());
         stm.setObject(13, dto.getSchool());

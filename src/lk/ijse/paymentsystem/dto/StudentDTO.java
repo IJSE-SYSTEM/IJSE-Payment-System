@@ -22,7 +22,7 @@ public class StudentDTO extends SuperDTO{
     private String mobile;
     private String email;
     private String dob;
-    private String gender;
+    private boolean gender;
     private String nic;
     private double regFee;
     private String school;
@@ -37,14 +37,14 @@ public class StudentDTO extends SuperDTO{
     public StudentDTO() {
     }
 
-    public StudentDTO(String SID, String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, String gender, String nic, double regFee, String school, String grade, String university) {
+    public StudentDTO(String SID, String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, boolean gender, String nic, double regFee, String school, String grade, String university) {
         this(initialStudentName,studentName,addressLine1,addressLine2,addressLine3,telHome,mobile,email,dob,gender,nic,school,university);
         this.SID = SID;
         this.regFee = regFee;
     }
     
 //    this has no regFee Parameter
-    public StudentDTO(String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, String gender, String nic, String school, String university) {
+    public StudentDTO(String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, boolean gender, String nic, String school, String university) {
         this.initialStudentName = initialStudentName;
         this.studentName = studentName;
         this.addressLine1 = addressLine1;
@@ -204,14 +204,14 @@ public class StudentDTO extends SuperDTO{
     /**
      * @return the gender
      */
-    public String getGender() {
+    public boolean getGender() {
         return gender;
     }
 
     /**
      * @param gender the gender to set
      */
-    public void setGender(String gender) {
+    public void setGender(boolean gender) {
         this.gender = gender;
     }
 
@@ -326,5 +326,12 @@ public class StudentDTO extends SuperDTO{
     public void setRegFee(double regFee) {
         this.regFee = regFee;
     }
+
+    @Override
+    public String toString() {
+        return "StudentDTO{" + "SID=" + SID + ", initialStudentName=" + initialStudentName + ", studentName=" + studentName + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", addressLine3=" + addressLine3 + ", telHome=" + telHome + ", mobile=" + mobile + ", email=" + email + ", dob=" + dob + ", gender=" + gender + ", nic=" + nic + ", regFee=" + regFee + ", school=" + school + ", grade=" + grade + ", university=" + university + ", guardian=" + guardian + ", qualifications=" + qualifications + ", infoDTO=" + infoDTO + '}';
+    }
+    
+    
 
 }

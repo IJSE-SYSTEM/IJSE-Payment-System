@@ -12,8 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dao.DAOFactory;
+import lk.ijse.paymentsystem.dao.custom.GuardianDAO;
 import lk.ijse.paymentsystem.dao.custom.RegistrationDAO;
-import lk.ijse.paymentsystem.dao.custom.StuGuardianDAO;
+//import lk.ijse.paymentsystem.dao.custom.StuGuardianDAO;
 import lk.ijse.paymentsystem.dao.custom.StudentDAO;
 import lk.ijse.paymentsystem.dao.custom.StudentOtherInfoDAO;
 import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
@@ -28,7 +29,7 @@ public class StudentControllerImpl implements StudentController {
     private StudentDAO sdao;
     private RegistrationDAO rdao;
     private StudentProQualiDAO spqdao;
-    private StuGuardianDAO sgdao;
+    private GuardianDAO sgdao;
     private StudentOtherInfoDAO soidao;
     
     Connection c;
@@ -37,7 +38,7 @@ public class StudentControllerImpl implements StudentController {
         sdao=(StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STUDENT);
         rdao=(RegistrationDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.REGISTRATION);
         spqdao=(StudentProQualiDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_PRO_QUALIFICATIONS);
-        sgdao=(StuGuardianDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_GUARDIAN);
+        sgdao= (GuardianDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_GUARDIAN);
         soidao=(StudentOtherInfoDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_OTHER);
         
         c=ConnectionFactory.getInstance().getConnection();
@@ -45,21 +46,28 @@ public class StudentControllerImpl implements StudentController {
     
     
     private String sid;
+    private boolean doNotCommit=false;
     @Override
     public String addStudent(StudentDTO sdto, RegistrationDTO rdto) throws Exception {
         try {
             c.setAutoCommit(false);
+            doNotCommit=true;
             sid=sdao.addCall(sdto); 
+            System.out.println(sid);
             if (sid!=null){
                 boolean detailsAdded=false;
                 sdto.getGuardian().setSID(sid);
                 sdto.getInfoDTO().setSid(sid);
                 detailsAdded=sgdao.add(sdto.getGuardian());
+//                System.out.println(detailsAdded);
                 detailsAdded=soidao.add(sdto.getInfoDTO());
+//                System.out.println(detailsAdded);
                 detailsAdded=addQualifications(sdto.getQualifications());
+//                System.out.println(detailsAdded);
                 if (detailsAdded){
                     rdto.setSID(sid);
                     String rid=rdao.addCall(rdto);
+                    System.out.println(rid);
                     if (rid!=null){
                         c.commit();
                         return rid;
@@ -69,13 +77,14 @@ public class StudentControllerImpl implements StudentController {
             c.rollback();
         }finally{
             sid=null;
+            doNotCommit=false;
             c.setAutoCommit(true);
         }
         return null;
     }
     
     public boolean addQualifications(ArrayList<QualificationDTO> qdtos) throws Exception{
-        boolean isSuccessful=false;
+        boolean isSuccessful=true;
         for (QualificationDTO qdto : qdtos) {
             qdto.setSid(sid);
             isSuccessful=spqdao.add(qdto);
@@ -98,12 +107,14 @@ public class StudentControllerImpl implements StudentController {
                 detailsAdded=soidao.add(sdto.getInfoDTO());
                 detailsAdded=addQualifications(sdto.getQualifications());
                 if (detailsAdded){
-                    c.commit();
+                    if(!doNotCommit)
+                        c.commit();
                     return true;
                 }
             }
         }finally{
-            c.setAutoCommit(true);
+            if(!doNotCommit)
+                c.setAutoCommit(true);
         }
         return false;
     }
