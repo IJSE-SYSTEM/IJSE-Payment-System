@@ -23,31 +23,42 @@ import lk.ijse.paymentsystem.dto.StudentDTO;
  */
 public class CourseDetails extends javax.swing.JFrame {
 
+    private String sid;
+
     /**
      * Creates new form CourseDetails
      */
-    public CourseDetails(){
+    public CourseDetails() {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
     }
-    
+
     StudentDTO student;
     CourseDetailsDTO courseDetailsDTO;
     CourseDetailsController controller;
-    
+
     private StudentRegistrationCourseDetailForm studentRFC;
-    public CourseDetails(StudentDTO student,StudentRegistrationCourseDetailForm studentRCF) {
+
+    public CourseDetails(StudentDTO student, StudentRegistrationCourseDetailForm studentRCF) {
         initComponents();
-        controller=new CourseDetailsController();
+        controller = new CourseDetailsController();
         this.studentRFC = studentRCF;
-        this.student=student;
+        this.student = student;
         this.getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(2);
         initComponents2();
     }
-    
-    private void initComponents2(){
+
+    public CourseDetails(String sid) {
+        this();
+        controller = new CourseDetailsController();
+        this.sid = sid;
+        initComponents2();
+
+    }
+
+    private void initComponents2() {
         for (String courseName : controller.getCourseNames()) {
             cmbBxAcademicPrograms.addItem(courseName);
         }
@@ -309,12 +320,19 @@ public class CourseDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbBxAcademicProgramsActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
-        RegistrationDTO rdto=new RegistrationDTO(controller.getBatchID(cmbBxBatches.getSelectedIndex()), LocalDate.now(), rbtnBcs.isSelected());
+        RegistrationDTO rdto = new RegistrationDTO(controller.getBatchID(cmbBxBatches.getSelectedIndex()), LocalDate.now(), rbtnBcs.isSelected());
         courseDetailsDTO.setBatchDTO(controller.batchDTOs.get(cmbBxBatches.getSelectedIndex()));
-        PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(student,courseDetailsDTO,rdto);
-        paymentForm.setVisible(true);
-        studentRFC.dispose();
-        this.dispose();
+        if (sid != null) {
+            PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(sid, courseDetailsDTO, rdto);
+            paymentForm.setVisible(true);
+            
+        } else {
+            
+            PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(student, courseDetailsDTO, rdto);
+            paymentForm.setVisible(true);
+            studentRFC.dispose();
+            this.dispose();
+        }
     }//GEN-LAST:event_btnAddStudentActionPerformed
 
     private void btnAddStudentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAddStudentKeyReleased
@@ -345,7 +363,9 @@ public class CourseDetails extends javax.swing.JFrame {
                 if (e.getID() == java.awt.event.KeyEvent.KEY_RELEASED) {
                     if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                         Window windowForComponent = SwingUtilities.windowForComponent((Component) e.getSource());
-                        if (windowForComponent == null) return false;
+                        if (windowForComponent == null) {
+                            return false;
+                        }
                         windowForComponent.dispose();
                     }
                 }
@@ -355,13 +375,13 @@ public class CourseDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void cmbBxBatchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbBxBatchesActionPerformed
-        courseDetailsDTO=controller.getCourseDetails(cmbBxBatches.getSelectedIndex());
-        
+        courseDetailsDTO = controller.getCourseDetails(cmbBxBatches.getSelectedIndex());
+
         lblDate.setText((controller.getBatchStartDate(cmbBxBatches.getSelectedIndex())).toString());
         lblCourseName.setText(courseDetailsDTO.getName());
-        lblSemester.setText(""+courseDetailsDTO.getNo_of_Semesters());
-        lblCourseDuration.setText("Approx. "+(courseDetailsDTO.getNo_of_Semesters()*6)+" months");
-        lblFee.setText(""+courseDetailsDTO.getCourseFee());
+        lblSemester.setText("" + courseDetailsDTO.getNo_of_Semesters());
+        lblCourseDuration.setText("Approx. " + (courseDetailsDTO.getNo_of_Semesters() * 6) + " months");
+        lblFee.setText("" + courseDetailsDTO.getCourseFee());
     }//GEN-LAST:event_cmbBxBatchesActionPerformed
 
     /**

@@ -16,12 +16,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.controller.custom.PaymentController;
+import lk.ijse.paymentsystem.controller.custom.RegistrationController;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 import lk.ijse.paymentsystem.dto.PaymentDTO;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.other.IDGenarator;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -42,6 +44,8 @@ public class PaymentForRegistrationCourseController {
     private String batchID;
     private StudentDTO studentDTO;
     RegistrationDTO rdto;
+    String sid;
+    private RegistrationController rc;
     private final double regFee=5000;
     
     public PaymentForRegistrationCourseController(StudentDTO studentDTO,CourseDetailsDTO cdto,RegistrationDTO rdto) {
@@ -53,6 +57,18 @@ public class PaymentForRegistrationCourseController {
         sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
         pc=(PaymentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.PAYMENT);
          
+    }
+    
+    public PaymentForRegistrationCourseController(String sid,CourseDetailsDTO cdto,RegistrationDTO rdto) {
+         this.course = cdto;
+//         this.studentDTO=studentDTO;
+         this.batchID=rdto.getBatchId();
+         this.rdto = rdto;
+         this.sid=sid;
+//         c=ConnectionFactory.getInstance().getConnection();
+//        sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
+        pc=(PaymentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.PAYMENT);
+        rc=(RegistrationController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.REGISTRATION);
     }
     
     public DefaultTreeModel setPaymentScheme(){
@@ -153,6 +169,7 @@ public class PaymentForRegistrationCourseController {
     public void doRegistration(){
         if(completeRegistration()){
             try {
+                System.out.println("Jasper");
 //                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
                 HashMap<String, Object> parameters=new HashMap<>();
                 
@@ -182,14 +199,14 @@ public class PaymentForRegistrationCourseController {
                     }else{
                         description = "Payment for Semesters : ";
                         for (PaymentDTO paymentDTO : paymentDTOs) {
-                            description+=paymentDTO.getSemester()+", ";
+                            description+=paymentDTO.getSemester()+" ";
                         }
-                        description+="\b\b";
+//                        description+="\b\b";
                     }
                     parameters.put("description", description);
-                    
-                    String printName = JasperFillManager.fillReportToFile("/lk/ijse/paymentsystem/reports/Invoice 2.jasper", parameters);
-                    JasperPrintManager.printReport(printName, true);
+                    JasperReport jasperReport = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice_2.jasper"));
+                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, new JREmptyDataSource());
+                    JasperPrintManager.printReport(jasperPrint, true);
                     
 //                    JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
                 
@@ -204,9 +221,17 @@ public class PaymentForRegistrationCourseController {
     public boolean completeRegistration(){
         boolean isSuccessful=false;
         int state=0;
-        studentDTO.setRegFee(regFee);
+        
         try {
-            String rid=sc.addStudent(studentDTO, rdto);
+            String rid=null;
+            if (sid==null){
+                rid=sc.addStudent(studentDTO, rdto);
+                studentDTO.setRegFee(regFee);
+            }else{
+                rdto.setSID(sid);
+                rid=rc.addCall(rdto);
+            }
+            
             if (rid!=null){
                 state=1;
                 for (PaymentDTO paymentDTO : paymentDTOs) {
@@ -214,12 +239,14 @@ public class PaymentForRegistrationCourseController {
                 }
 //                while(state==1){
                     if(isSuccessful=doPayment())
+                        System.out.println(isSuccessful+"1");
                         state=2;
 //                }
             }
         } catch (Exception ex) {
             Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        System.out.println(isSuccessful+"2");
         return isSuccessful;
     }
     

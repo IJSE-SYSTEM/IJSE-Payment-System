@@ -5,15 +5,14 @@
  */
 package lk.ijse.paymentsystem.view;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
-import lk.ijse.paymentsystem.dto.PaymentDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
+import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -42,11 +41,12 @@ public class StudentRegistrationCourseDetailFormController {
         studentDTO.setRegFee(5000);
         try {
             System.out.println();
-            if(sc.add(studentDTO)){
+            String sid=sc.addStudent(studentDTO);
+            if(sid!=null){
 //                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
                 HashMap<String, Object> parameters=new HashMap<>();
 
-//                    parameters.put("invoiceId", payID);
+                parameters.put("invoiceId", sid);
                 parameters.put("invoiceDate", LocalDate.now().toString());
                 parameters.put("studentName", studentDTO.getInitialStudentName());
                 parameters.put("studentAddress", studentDTO.getAddressLine1()+", "+studentDTO.getAddressLine2()+", "+studentDTO.getAddressLine3());
@@ -61,7 +61,8 @@ public class StudentRegistrationCourseDetailFormController {
 //                    String description = "Full Payment";
                 LocalDate nextPay=LocalDate.now().plusDays(14);
                 parameters.put("dueDate", nextPay.toString());
-                JasperPrint jasperPrint = JasperFillManager.fillReport("/lk/ijse/paymentsystem/reports/Invoice 2.jasper",parameters);
+                JasperReport jasperReport = (JasperReport) JRLoader.loadObject(this.getClass().getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice_2.jasper"));
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, new JREmptyDataSource());
                 JasperPrintManager.printReport(jasperPrint, true);
 //                JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
             }            

@@ -455,7 +455,7 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         
         StudentOtherInfoDTO infoDTO=new StudentOtherInfoDTO(
                 "", 
-                Integer.parseInt(txtIqTestMarks.getText()), 
+                Integer.parseInt(txtIqTestMarks.getText().equals("")?"00":txtIqTestMarks.getText()), 
                 txtAreaSpecialComments.getText(), 
                 rdiBtnCopyOfBirthCertificate.isSelected(), 
                 rdiBtnPassportSizeColouredPhotographs.isSelected(),

@@ -439,39 +439,58 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtParentAddress3ActionPerformed
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
-          
-          String nameWithInitials = txtNameWithInitials.getText();
-          String studentName = txtFullName.getText();
-          String addressLine1 = txtAddress1.getText();
-          String addressLine2 = txtAddress2.getText();
-          String addressLine3 = txtAddress3.getText();
-          String telHome = txtHome.getText();
-          String mobile = txtMobile.getText();
-          String email = txtEmail.getText();
-          String dob = txtYear.getText()+"-"+txtMonth.getText()+"-"+txtDay.getText();
-          boolean gender = chkBoxMale.isSelected();
-          String nic = txtNic.getText();
-          String school = txtSchool.getText();
-          String university = txtUniversityOrOther.getText();
 
-          StudentDTO student = new StudentDTO(nameWithInitials, studentName, addressLine1, addressLine2, addressLine3, telHome, mobile, email, dob, gender, nic, school, university);
-          
-          
-          String guardianName = txtNameOfPatentOrGuardian.getText();
-          String telNo1 = txtMobile1.getText();
-          String telNo2 = txtMobile2.getText();
-          String guardianEmail = txtParentEmail.getText();
-          String designation = txtDesignation.getText();
-          String workPlace = txtWorkingPlace.getText();
-          String parentAddressLine1  = txtParentAddress1.getText();
-          String parentAddressLine2 = txtParentAddress2.getText();
-          String parentAddressLine3 = txtParentAddress3.getText();
+        String nameWithInitials = txtNameWithInitials.getText();
+        String studentName = txtFullName.getText();
+        String addressLine1 = txtAddress1.getText();
+        String addressLine2 = txtAddress2.getText();
+        String addressLine3 = txtAddress3.getText();
+        String telHome = null;
+        if (txtHome.getText().equals("")) {
+            telHome = "0000";
+        } else {
+            telHome = txtHome.getText();
+        }
 
-          GuardianDTO guardian = new GuardianDTO(guardianName, telNo1, telNo2, email, designation, workPlace, addressLine1, addressLine2, addressLine3);
-          
-          student.setGuardian(guardian);
-          
-        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailForm = new StudentRegistrationCourseDetailForm(this,student);
+        String mobile = null;
+        
+        if (txtMobile.getText().equals("")) {
+            mobile = "0000";
+        }else {
+            mobile = txtMobile.getText();
+        }
+       
+        String email = txtEmail.getText();
+        
+        String dob = null;
+        if (txtYear.getText().equals("") || txtMonth.getText().equals("") || txtDay.getText().equals("")) {
+            dob = "2000-00-00";
+        }else {
+            dob = txtYear.getText() + "-" + txtMonth.getText() + "-" + txtDay.getText();
+        }
+         
+        boolean gender = chkBoxMale.isSelected();
+        String nic = txtNic.getText();
+        String school = txtSchool.getText();
+        String university = txtUniversityOrOther.getText();
+
+        StudentDTO student = new StudentDTO(nameWithInitials, studentName, addressLine1, addressLine2, addressLine3, telHome, mobile, email, dob, gender, nic, school, university);
+
+        String guardianName = txtNameOfPatentOrGuardian.getText();
+        String telNo1 = txtMobile1.getText();
+        String telNo2 = txtMobile2.getText();
+        String guardianEmail = txtParentEmail.getText();
+        String designation = txtDesignation.getText();
+        String workPlace = txtWorkingPlace.getText();
+        String parentAddressLine1 = txtParentAddress1.getText();
+        String parentAddressLine2 = txtParentAddress2.getText();
+        String parentAddressLine3 = txtParentAddress3.getText();
+
+        GuardianDTO guardian = new GuardianDTO(guardianName, telNo1, telNo2, email, designation, workPlace, addressLine1, addressLine2, addressLine3);
+
+        student.setGuardian(guardian);
+
+        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailForm = new StudentRegistrationCourseDetailForm(this, student);
         studentRegistrationCourseDetailForm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAddStudentActionPerformed

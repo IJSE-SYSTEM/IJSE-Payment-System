@@ -95,7 +95,7 @@ public class StudentControllerImpl implements StudentController {
     } 
 
     @Override
-    public boolean add(StudentDTO sdto) throws Exception {
+    public String addStudent(StudentDTO sdto) throws Exception {
         try{    
             c.setAutoCommit(false);
             sid=sdao.addCall(sdto); 
@@ -109,14 +109,14 @@ public class StudentControllerImpl implements StudentController {
                 if (detailsAdded){
                     if(!doNotCommit)
                         c.commit();
-                    return true;
+                    return sid;
                 }
             }
         }finally{
             if(!doNotCommit)
                 c.setAutoCommit(true);
         }
-        return false;
+        return sid;
     }
     
 }

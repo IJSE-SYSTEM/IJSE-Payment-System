@@ -47,6 +47,13 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
         initComponents2();
     }
     
+    public PaymentForRegistrationCourse(String sid,CourseDetailsDTO cdto, RegistrationDTO rdto){
+        this();
+        controller=new PaymentForRegistrationCourseController(sid, cdto, rdto);
+//        this.studentDTO=studentDTO;
+        initComponents2();
+    }
+    
     private void initComponents2(){
         jtrPayment.addTreeSelectionListener(tsl);
         jtrPayment.setModel(controller.setPaymentScheme());

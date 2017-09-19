@@ -8,6 +8,7 @@ package lk.ijse.paymentsystem.controller;
 import lk.ijse.paymentsystem.controller.custom.impl.BatchControllerImpl;
 import lk.ijse.paymentsystem.controller.custom.impl.CourseControllerImpl;
 import lk.ijse.paymentsystem.controller.custom.impl.PaymentControllerImpl;
+import lk.ijse.paymentsystem.controller.custom.impl.RegistrationControllerImpl;
 import lk.ijse.paymentsystem.controller.custom.impl.StudentControllerImpl;
 
 /**
@@ -44,7 +45,7 @@ public class ControllerFactory {
             case PAYMENT:
                 return new PaymentControllerImpl();
             case REGISTRATION:
-//                return new 
+                return new RegistrationControllerImpl();
             case SEMESTER:
                 
             case STUDENT:

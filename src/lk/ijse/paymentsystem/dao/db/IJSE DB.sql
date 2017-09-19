@@ -166,15 +166,15 @@ INSERT INTO course VALUES('GDSE','Graduate Deploma In Software Engineering');
 INSERT INTO course VALUES('ABSD','Advanced Business Solution Developer');
 INSERT INTO course VALUES('AHAD','Advanced Hybrid Application Developer');
 
-INSERT INTO course_details VALUES('C001','CMJD',1,60000.00,0.2,0,0,'2017-09-03');
-INSERT INTO course_details VALUES('C002','GDSE',4,280000.00,0.3,0.2,0.1,'2017-09-03');
-INSERT INTO course_details VALUES('C003','ABSD',1,60000.00,0.2,0,0,'2017-09-03');
-INSERT INTO course_details VALUES('C004','AHAD',1,60000.00,0.2,0,0,'2017-09-03');
+-- INSERT INTO course_details VALUES('C001','CMJD',1,60000.00,0.2,0,0,'2017-09-03');
+INSERT INTO course_details VALUES('C001','GDSE',4,280000.00,0.3,0.2,0.1,'2017-09-19');
+-- INSERT INTO course_details VALUES('C003','ABSD',1,60000.00,0.2,0,0,'2017-09-03');
+-- INSERT INTO course_details VALUES('C004','AHAD',1,60000.00,0.2,0,0,'2017-09-03');
 
-INSERT INTO batch VALUES('GDSE41','C002',41,'2016-09-20','Panadura');
-INSERT INTO batch VALUES('CMJD67','C001',67,'2017-04-05','Panadura');
-INSERT INTO batch VALUES('GDSE45','C002',45,'2017-09-18','Panadura');
-INSERT INTO batch VALUES('GDSE37','C002',37,'2016-09-22','Panadura');
+-- INSERT INTO batch VALUES('GDSE41','C002',41,'2016-09-20','Panadura');
+-- INSERT INTO batch VALUES('CMJD67','C001',67,'2017-04-05','Panadura');
+INSERT INTO batch VALUES('GDSE45','C001',45,'2017-09-19','Panadura');
+-- INSERT INTO batch VALUES('GDSE37','C002',37,'2016-09-22','Panadura');
 
 -- SQL stored Procedures
 

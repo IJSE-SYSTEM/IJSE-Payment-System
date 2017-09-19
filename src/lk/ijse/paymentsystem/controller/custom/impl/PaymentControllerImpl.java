@@ -29,7 +29,7 @@ public class PaymentControllerImpl implements PaymentController {
                 isSuccessful=false;
             }
         }
-        return false;
+        return isSuccessful;
     }
     
 }
