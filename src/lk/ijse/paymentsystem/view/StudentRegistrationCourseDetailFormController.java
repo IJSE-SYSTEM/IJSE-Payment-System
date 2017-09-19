@@ -61,7 +61,7 @@ public class StudentRegistrationCourseDetailFormController {
 //                    String description = "Full Payment";
                 LocalDate nextPay=LocalDate.now().plusDays(14);
                 parameters.put("dueDate", nextPay.toString());
-                JasperPrint jasperPrint = JasperFillManager.fillReport("/lk/ijse/paymentsystem/reports/Invoice.jasper",parameters);
+                JasperPrint jasperPrint = JasperFillManager.fillReport("/lk/ijse/paymentsystem/reports/Invoice 2.jasper",parameters);
                 JasperPrintManager.printReport(jasperPrint, true);
 //                JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
             }            

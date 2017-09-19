@@ -188,7 +188,7 @@ public class PaymentForRegistrationCourseController {
                     }
                     parameters.put("description", description);
                     
-                    String printName = JasperFillManager.fillReportToFile("/lk/ijse/paymentsystem/reports/Invoice.jasper", parameters);
+                    String printName = JasperFillManager.fillReportToFile("/lk/ijse/paymentsystem/reports/Invoice 2.jasper", parameters);
                     JasperPrintManager.printReport(printName, true);
                     
 //                    JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
