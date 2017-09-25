@@ -118,5 +118,12 @@ public class StudentControllerImpl implements StudentController {
         }
         return sid;
     }
+
+    @Override
+    public StudentDTO search(StudentDTO dto) throws Exception {
+        return sdao.search(dto);
+    }
+    
+    
     
 }

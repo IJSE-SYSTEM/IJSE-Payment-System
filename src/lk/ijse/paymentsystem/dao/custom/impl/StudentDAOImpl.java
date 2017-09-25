@@ -51,4 +51,20 @@ public class StudentDAOImpl implements StudentDAO{
         }        
         return null;
     }
+
+    @Override
+    public StudentDTO search(StudentDTO dto) throws Exception {
+        String SQL="select * from student where sid=?";
+        PreparedStatement stm=conn.prepareStatement(SQL);
+        stm.setObject(1, dto.getSID());
+        ResultSet rst=stm.executeQuery();
+        if (rst.next()){
+            return new StudentDTO(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), 
+                    rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9), rst.getString(10), rst.getBoolean(11), 
+                    rst.getString(12), rst.getDouble(13), rst.getString(14), rst.getString(15), rst.getString(16));
+        }
+        return null;
+    }
+    
+    
 }

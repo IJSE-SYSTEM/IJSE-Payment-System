@@ -479,7 +479,13 @@ public class StudentRegistrationCourseDetailForm extends javax.swing.JFrame {
         /* if the student has paid registration fee, he will be added to the database*/
         if(res==0){
             getValues();
-            controller.doRegistration();
+            String sid = controller.doRegistration();
+            if (sid != null) {
+                JOptionPane.showMessageDialog(null, "Student added successfully.\nYour student's ID is "+sid);
+                this.dispose();
+            }else {
+                JOptionPane.showMessageDialog(null, "Student addidtion failed");
+            }
 //            this.dispose();
         }
             

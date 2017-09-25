@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dto.StudentDTO;
@@ -37,12 +38,13 @@ public class StudentRegistrationCourseDetailFormController {
         sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
     }
     
-    public void doRegistration(){
+    public String doRegistration(){
         studentDTO.setRegFee(5000);
         try {
             System.out.println();
             String sid=sc.addStudent(studentDTO);
             if(sid!=null){
+                
 //                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
                 HashMap<String, Object> parameters=new HashMap<>();
 
@@ -65,13 +67,14 @@ public class StudentRegistrationCourseDetailFormController {
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, new JREmptyDataSource());
                 JasperPrintManager.printReport(jasperPrint, true);
 //                JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
-            }            
+            }          
+            return sid;
         } catch (JRException ex) {
             Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(StudentRegistrationCourseDetailFormController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        return null;
     }
     
 }

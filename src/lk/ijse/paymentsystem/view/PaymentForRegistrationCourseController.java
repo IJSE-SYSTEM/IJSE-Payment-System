@@ -66,9 +66,19 @@ public class PaymentForRegistrationCourseController {
          this.rdto = rdto;
          this.sid=sid;
 //         c=ConnectionFactory.getInstance().getConnection();
-//        sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
+        sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
         pc=(PaymentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.PAYMENT);
         rc=(RegistrationController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.REGISTRATION);
+    }
+    
+    private void getStudent(){
+        StudentDTO s=new StudentDTO();
+        s.setSID(sid);
+        try {
+            this.studentDTO=sc.search(s);
+        } catch (Exception ex) {
+            Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public DefaultTreeModel setPaymentScheme(){
