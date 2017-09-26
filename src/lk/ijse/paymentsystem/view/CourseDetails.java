@@ -37,9 +37,9 @@ public class CourseDetails extends javax.swing.JFrame {
     CourseDetailsDTO courseDetailsDTO;
     CourseDetailsController controller;
 
-    private StudentRegistrationCourseDetailForm studentRFC;
+    private StudentRegistrationForm studentRFC;
 
-    public CourseDetails(StudentDTO student, StudentRegistrationCourseDetailForm studentRCF) {
+    public CourseDetails(StudentDTO student, StudentRegistrationForm studentRCF) {
         initComponents();
         controller = new CourseDetailsController();
         this.studentRFC = studentRCF;

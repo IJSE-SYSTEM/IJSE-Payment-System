@@ -6,40 +6,34 @@
 package lk.ijse.paymentsystem.controller.custom.impl;
 
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dao.DAOFactory;
 import lk.ijse.paymentsystem.dao.custom.GuardianDAO;
 import lk.ijse.paymentsystem.dao.custom.RegistrationDAO;
 //import lk.ijse.paymentsystem.dao.custom.StuGuardianDAO;
 import lk.ijse.paymentsystem.dao.custom.StudentDAO;
-import lk.ijse.paymentsystem.dao.custom.StudentOtherInfoDAO;
 import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
-import lk.ijse.paymentsystem.dto.QualificationDTO;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
-import lk.ijse.paymentsystem.dao.custom.StudentProQualiDAO;
 
 
 public class StudentControllerImpl implements StudentController {
     
     private StudentDAO sdao;
     private RegistrationDAO rdao;
-    private StudentProQualiDAO spqdao;
+//    private StudentProQualiDAO spqdao;
     private GuardianDAO sgdao;
-    private StudentOtherInfoDAO soidao;
+
+//    private StudentOtherInfoDAO soidao;
     
     Connection c;
 
     public StudentControllerImpl() {
         sdao=(StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STUDENT);
         rdao=(RegistrationDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.REGISTRATION);
-        spqdao=(StudentProQualiDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_PRO_QUALIFICATIONS);
+//        spqdao=(StudentProQualiDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_PRO_QUALIFICATIONS);
         sgdao= (GuardianDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_GUARDIAN);
-        soidao=(StudentOtherInfoDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_OTHER);
+//        soidao=(StudentOtherInfoDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_OTHER);
         
         c=ConnectionFactory.getInstance().getConnection();
     }
@@ -60,9 +54,9 @@ public class StudentControllerImpl implements StudentController {
                 sdto.getInfoDTO().setSid(sid);
                 detailsAdded=sgdao.add(sdto.getGuardian());
 //                System.out.println(detailsAdded);
-                detailsAdded=soidao.add(sdto.getInfoDTO());
+//                detailsAdded=soidao.add(sdto.getInfoDTO());/
 //                System.out.println(detailsAdded);
-                detailsAdded=addQualifications(sdto.getQualifications());
+//                detailsAdded=addQualifications(sdto.getQualifications());
 //                System.out.println(detailsAdded);
                 if (detailsAdded){
                     rdto.setSID(sid);
@@ -83,16 +77,16 @@ public class StudentControllerImpl implements StudentController {
         return null;
     }
     
-    public boolean addQualifications(ArrayList<QualificationDTO> qdtos) throws Exception{
-        boolean isSuccessful=true;
-        for (QualificationDTO qdto : qdtos) {
-            qdto.setSid(sid);
-            isSuccessful=spqdao.add(qdto);
-            if (!isSuccessful)
-                break;
-        }
-        return isSuccessful;
-    } 
+//    public boolean addQualifications(ArrayList<QualificationDTO> qdtos) throws Exception{
+//        boolean isSuccessful=true;
+//        for (QualificationDTO qdto : qdtos) {
+//            qdto.setSid(sid);
+//            isSuccessful=spqdao.add(qdto);
+//            if (!isSuccessful)
+//                break;
+//        }
+//        return isSuccessful;
+//    } 
 
     @Override
     public String addStudent(StudentDTO sdto) throws Exception {
@@ -102,10 +96,10 @@ public class StudentControllerImpl implements StudentController {
             if (sid!=null){
                 boolean detailsAdded=false;
                 sdto.getGuardian().setSID(sid);
-                sdto.getInfoDTO().setSid(sid);
+//                sdto.getInfoDTO().setSid(sid);
                 detailsAdded=sgdao.add(sdto.getGuardian());
-                detailsAdded=soidao.add(sdto.getInfoDTO());
-                detailsAdded=addQualifications(sdto.getQualifications());
+//                detailsAdded=soidao.add(sdto.getInfoDTO());
+//                detailsAdded=addQualifications(sdto.getQualifications());
                 if (detailsAdded){
                     if(!doNotCommit)
                         c.commit();

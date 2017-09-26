@@ -30,18 +30,21 @@ public class StudentRegistrationCourseDetailFormController {
     private StudentDTO studentDTO;
     private StudentController sc;
     private final double regFee=5000;
-//    public StudentRegistrationCourseDetailFormController() {
-//    }
+    
+    public StudentRegistrationCourseDetailFormController() {
+    }
 
+    
     public StudentRegistrationCourseDetailFormController(StudentDTO studentDTO) {
         this.studentDTO = studentDTO;
         sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
     }
     
-    public String doRegistration(){
+    public String doRegistration(StudentDTO studentDTO){
+        this.studentDTO = studentDTO;
         studentDTO.setRegFee(5000);
         try {
-            System.out.println();
+//            System.out.println();
             String sid=sc.addStudent(studentDTO);
             if(sid!=null){
                 

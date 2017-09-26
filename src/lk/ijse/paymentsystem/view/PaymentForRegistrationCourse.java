@@ -378,9 +378,9 @@ public class PaymentForRegistrationCourse extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddStudentKeyReleased
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
-        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailsForm = new StudentRegistrationCourseDetailForm();
-        studentRegistrationCourseDetailsForm.setVisible(true);
-        this.dispose();
+//        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailsForm = new StudentRegistrationCourseDetailForm();
+//        studentRegistrationCourseDetailsForm.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnGoBackKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGoBackKeyReleased

@@ -15,12 +15,24 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dto.GuardianDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.view.utils.DSButton;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -28,6 +40,10 @@ import lk.ijse.paymentsystem.view.utils.DSTextComponents;
  */
 public class StudentRegistrationForm extends javax.swing.JFrame {
 
+    private StudentDTO studentDTO;
+    private StudentController sc;
+    private final double regFee=5000;
+    private StudentRegistrationCourseDetailFormController controller;
     /**
      * Creates new form StudentRegistrationForm
      */
@@ -39,6 +55,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         setDefaultCloseOperation(2);
         setLocationRelativeTo(null);
         isAlwaysOnTop();
+        controller = new StudentRegistrationCourseDetailFormController(studentDTO);
 
 //        button = new DSButton(this);
 //        button.convertAllJButtonsToDSButtons();
@@ -124,7 +141,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         lblNameWithInitials1 = new javax.swing.JLabel();
         txtNameOfPatentOrGuardian = new javax.swing.JTextField();
         lblNameWithInitials3 = new javax.swing.JLabel();
-        lblTelephone1 = new javax.swing.JLabel();
+        lblIqTest = new javax.swing.JLabel();
         lblHome1 = new javax.swing.JLabel();
         txtMobile1 = new javax.swing.JTextField();
         lblMobile1 = new javax.swing.JLabel();
@@ -135,12 +152,16 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         lblDesignation = new javax.swing.JLabel();
         lblWorkingPlace = new javax.swing.JLabel();
         txtWorkingPlace = new javax.swing.JTextField();
-        txtParentAddress3 = new javax.swing.JTextField();
+        txtIqTest = new javax.swing.JTextField();
         txtParentAddress2 = new javax.swing.JTextField();
         txtParentAddress1 = new javax.swing.JTextField();
         lblAddress1 = new javax.swing.JLabel();
-        btnAddStudent = new javax.swing.JButton();
+        lblSubTitle2 = new javax.swing.JLabel();
+        txtParentAddress4 = new javax.swing.JTextField();
+        lblTelephone2 = new javax.swing.JLabel();
         btnGoBack = new javax.swing.JButton();
+        btnAddCourse = new javax.swing.JButton();
+        btnRegisterStudent = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -285,8 +306,8 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblSubTitle1.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        lblSubTitle1.setText("PARENT/GUARDIAN DETAILS");
-        jPanel2.add(lblSubTitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        lblSubTitle1.setText("ADDITIONAL INFORMATIONS");
+        jPanel2.add(lblSubTitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, -1, -1));
 
         lblNameWithInitials1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblNameWithInitials1.setText("or Guardian:");
@@ -298,9 +319,9 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         lblNameWithInitials3.setText("Name of Parent");
         jPanel2.add(lblNameWithInitials3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 130, -1));
 
-        lblTelephone1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        lblTelephone1.setText("Telephone:");
-        jPanel2.add(lblTelephone1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        lblIqTest.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblIqTest.setText("IQ Test:");
+        jPanel2.add(lblIqTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, -1));
 
         lblHome1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblHome1.setText("Mobile 01 :");
@@ -339,12 +360,12 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         jPanel2.add(lblWorkingPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 130, -1));
         jPanel2.add(txtWorkingPlace, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 270, 370, -1));
 
-        txtParentAddress3.addActionListener(new java.awt.event.ActionListener() {
+        txtIqTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtParentAddress3ActionPerformed(evt);
+                txtIqTestActionPerformed(evt);
             }
         });
-        jPanel2.add(txtParentAddress3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 370, -1));
+        jPanel2.add(txtIqTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, 370, -1));
         jPanel2.add(txtParentAddress2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 370, -1));
         jPanel2.add(txtParentAddress1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 310, 370, -1));
 
@@ -354,22 +375,20 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         lblAddress1.setText("Parent Address:");
         jPanel2.add(lblAddress1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
 
-        btnAddStudent.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        btnAddStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lk/ijse/paymentsystem/icons/add.png"))); // NOI18N
-        btnAddStudent.setMnemonic('A');
-        btnAddStudent.setText("Add Student");
-        btnAddStudent.setToolTipText("Click to add a new student");
-        btnAddStudent.setPreferredSize(new java.awt.Dimension(127, 39));
-        btnAddStudent.addActionListener(new java.awt.event.ActionListener() {
+        lblSubTitle2.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        lblSubTitle2.setText("PARENT/GUARDIAN DETAILS");
+        jPanel2.add(lblSubTitle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        txtParentAddress4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddStudentActionPerformed(evt);
+                txtParentAddress4ActionPerformed(evt);
             }
         });
-        btnAddStudent.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                btnAddStudentKeyReleased(evt);
-            }
-        });
+        jPanel2.add(txtParentAddress4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 370, -1));
+
+        lblTelephone2.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblTelephone2.setText("Telephone:");
+        jPanel2.add(lblTelephone2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
 
         btnGoBack.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnGoBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lk/ijse/paymentsystem/icons/back1600 edit.png"))); // NOI18N
@@ -385,6 +404,28 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         btnGoBack.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 btnGoBackKeyReleased(evt);
+            }
+        });
+
+        btnAddCourse.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnAddCourse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lk/ijse/paymentsystem/icons/add.png"))); // NOI18N
+        btnAddCourse.setText("Add to Course");
+        btnAddCourse.setToolTipText("Click to add a new student");
+        btnAddCourse.setPreferredSize(new java.awt.Dimension(127, 39));
+        btnAddCourse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCourseActionPerformed(evt);
+            }
+        });
+
+        btnRegisterStudent.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        btnRegisterStudent.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lk/ijse/paymentsystem/icons/add.png"))); // NOI18N
+        btnRegisterStudent.setText("Register Student");
+        btnRegisterStudent.setToolTipText("Click to add a new student");
+        btnRegisterStudent.setPreferredSize(new java.awt.Dimension(127, 39));
+        btnRegisterStudent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterStudentActionPerformed(evt);
             }
         });
 
@@ -406,7 +447,9 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnAddStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnAddCourse, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRegisterStudent, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -418,12 +461,14 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jSeparator1)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAddStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnAddCourse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnRegisterStudent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
 
@@ -434,84 +479,19 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAddress3ActionPerformed
 
-    private void txtParentAddress3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtParentAddress3ActionPerformed
+    private void txtIqTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIqTestActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtParentAddress3ActionPerformed
-
-    private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
-
-        String nameWithInitials = txtNameWithInitials.getText();
-        String studentName = txtFullName.getText();
-        String addressLine1 = txtAddress1.getText();
-        String addressLine2 = txtAddress2.getText();
-        String addressLine3 = txtAddress3.getText();
-        String telHome = null;
-        if (txtHome.getText().equals("")) {
-            telHome = "0000";
-        } else {
-            telHome = txtHome.getText();
-        }
-
-        String mobile = null;
-        
-        if (txtMobile.getText().equals("")) {
-            mobile = "0000";
-        }else {
-            mobile = txtMobile.getText();
-        }
-       
-        String email = txtEmail.getText();
-        
-        String dob = null;
-        if (txtYear.getText().equals("") || txtMonth.getText().equals("") || txtDay.getText().equals("")) {
-            dob = "2000-00-00";
-        }else {
-            dob = txtYear.getText() + "-" + txtMonth.getText() + "-" + txtDay.getText();
-        }
-         
-        boolean gender = chkBoxMale.isSelected();
-        String nic = txtNic.getText();
-        String school = txtSchool.getText();
-        String university = txtUniversityOrOther.getText();
-
-        StudentDTO student = new StudentDTO(nameWithInitials, studentName, addressLine1, addressLine2, addressLine3, telHome, mobile, email, dob, gender, nic, school, university);
-
-        String guardianName = txtNameOfPatentOrGuardian.getText();
-        String telNo1 = txtMobile1.getText();
-        String telNo2 = txtMobile2.getText();
-        String guardianEmail = txtParentEmail.getText();
-        String designation = txtDesignation.getText();
-        String workPlace = txtWorkingPlace.getText();
-        String parentAddressLine1 = txtParentAddress1.getText();
-        String parentAddressLine2 = txtParentAddress2.getText();
-        String parentAddressLine3 = txtParentAddress3.getText();
-
-        GuardianDTO guardian = new GuardianDTO(guardianName, telNo1, telNo2, email, designation, workPlace, addressLine1, addressLine2, addressLine3);
-
-        student.setGuardian(guardian);
-
-        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailForm = new StudentRegistrationCourseDetailForm(this, student);
-        studentRegistrationCourseDetailForm.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAddStudentActionPerformed
+    }//GEN-LAST:event_txtIqTestActionPerformed
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGoBackActionPerformed
 
-    private void btnAddStudentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAddStudentKeyReleased
-        if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            btnGoBack.requestFocusInWindow();
-        } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-            btnGoBack.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_btnAddStudentKeyReleased
-
     private void btnGoBackKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGoBackKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-            btnAddStudent.requestFocusInWindow();
+//            btnAddStudent.requestFocusInWindow();
         } else if (evt.getKeyCode() == KeyEvent.VK_LEFT) {
-            btnAddStudent.requestFocusInWindow();
+//            btnAddStudent.requestFocusInWindow();
         }
     }//GEN-LAST:event_btnGoBackKeyReleased
 
@@ -613,6 +593,101 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtParentEmailActionPerformed
 
+    private void txtParentAddress4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtParentAddress4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtParentAddress4ActionPerformed
+
+    private void btnRegisterStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterStudentActionPerformed
+
+        /* take data from the qualification table*/
+
+        /*show confirm message to confirm that the student has paid the registration fee*/
+
+        int res = JOptionPane.showConfirmDialog(null,"Do you want to add this Student to the IJSE adminstration System? \n (Make sure this Student has paid the registration fee)","Warning",JOptionPane.YES_NO_OPTION);
+
+        /* if the student has paid registration fee, he will be added to the database*/
+        if(res==0){
+            getValue();
+            String sid = controller.doRegistration(studentDTO);
+            if (sid != null) {
+                JOptionPane.showMessageDialog(null, "Student added successfully.\nYour student's ID is "+sid);
+                this.dispose();
+            }else {
+                JOptionPane.showMessageDialog(null, "Student addidtion failed");
+            }
+                        this.dispose();
+        }
+
+    }//GEN-LAST:event_btnRegisterStudentActionPerformed
+
+    private void btnAddCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCourseActionPerformed
+        getValue();
+        new CourseDetails(studentDTO, this).setVisible(true);
+
+    }//GEN-LAST:event_btnAddCourseActionPerformed
+
+    private void getValue(){
+        
+        String nameWithInitials = txtNameWithInitials.getText();
+        String studentName = txtFullName.getText();
+        String addressLine1 = txtAddress1.getText();
+        String addressLine2 = txtAddress2.getText();
+        String addressLine3 = txtAddress3.getText();
+        String telHome = null;
+        if (txtHome.getText().equals("")) {
+            telHome = "0000";
+        } else {
+            telHome = txtHome.getText();
+        }
+
+        String mobile = null;
+        
+        if (txtMobile.getText().equals("")) {
+            mobile = "0000";
+        }else {
+            mobile = txtMobile.getText();
+        }
+       
+        String email = txtEmail.getText();
+        
+        String dob = null;
+        if (txtYear.getText().equals("") || txtMonth.getText().equals("") || txtDay.getText().equals("")) {
+            dob = "2000-00-00";
+        }else {
+            dob = txtYear.getText() + "-" + txtMonth.getText() + "-" + txtDay.getText();
+        }
+         
+        boolean gender = chkBoxMale.isSelected();
+        String nic = txtNic.getText();
+        String school = txtSchool.getText();
+        String university = txtUniversityOrOther.getText();
+
+        StudentDTO student = new StudentDTO(nameWithInitials, studentName, addressLine1, addressLine2, addressLine3, telHome, mobile, email, dob, gender, nic, school, university);
+
+        String guardianName = txtNameOfPatentOrGuardian.getText();
+        String telNo1 = txtMobile1.getText();
+        String telNo2 = txtMobile2.getText();
+        String guardianEmail = txtParentEmail.getText();
+        String designation = txtDesignation.getText();
+        String workPlace = txtWorkingPlace.getText();
+        String parentAddressLine1 = txtParentAddress1.getText();
+        String parentAddressLine2 = txtParentAddress2.getText();
+        String parentAddressLine3 = txtIqTest.getText();
+
+        GuardianDTO guardian = new GuardianDTO(guardianName, telNo1, telNo2, email, designation, workPlace, addressLine1, addressLine2, addressLine3);
+
+        student.setGuardian(guardian);
+        
+        int iq = Integer.parseInt(txtIqTest.getText());
+        
+        this.studentDTO = student;
+
+//        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailForm = new StudentRegistrationCourseDetailForm(this, student);
+//        studentRegistrationCourseDetailForm.setVisible(true);
+//        this.dispose();
+    }
+    
+     
     /**
      * @param args the command line arguments
      */
@@ -649,9 +724,10 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddStudent;
+    private javax.swing.JButton btnAddCourse;
     private javax.swing.JButton btnGoBack;
     private javax.swing.ButtonGroup btnGrpGender;
+    private javax.swing.JButton btnRegisterStudent;
     private javax.swing.JCheckBox chkBoxFemale;
     private javax.swing.JCheckBox chkBoxMale;
     private javax.swing.JLabel jLabel1;
@@ -669,6 +745,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblHome1;
+    private javax.swing.JLabel lblIqTest;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMobile;
     private javax.swing.JLabel lblMobile1;
@@ -680,8 +757,9 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblSchool;
     private javax.swing.JLabel lblSubTitle;
     private javax.swing.JLabel lblSubTitle1;
+    private javax.swing.JLabel lblSubTitle2;
     private javax.swing.JLabel lblTelephone;
-    private javax.swing.JLabel lblTelephone1;
+    private javax.swing.JLabel lblTelephone2;
     private javax.swing.JLabel lblUniversityOrOther;
     private javax.swing.JLabel lblWorkingPlace;
     private javax.swing.JLabel lblYear;
@@ -693,6 +771,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFullName;
     private javax.swing.JTextField txtHome;
+    private javax.swing.JTextField txtIqTest;
     private javax.swing.JTextField txtMobile;
     private javax.swing.JTextField txtMobile1;
     private javax.swing.JTextField txtMobile2;
@@ -702,7 +781,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtNic;
     private javax.swing.JTextField txtParentAddress1;
     private javax.swing.JTextField txtParentAddress2;
-    private javax.swing.JTextField txtParentAddress3;
+    private javax.swing.JTextField txtParentAddress4;
     private javax.swing.JTextField txtParentEmail;
     private javax.swing.JTextField txtSchool;
     private javax.swing.JTextField txtUniversityOrOther;
