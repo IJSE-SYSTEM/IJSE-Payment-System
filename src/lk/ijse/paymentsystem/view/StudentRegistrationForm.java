@@ -43,7 +43,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
     private StudentDTO studentDTO;
     private StudentController sc;
     private final double regFee=5000;
-    private StudentRegistrationCourseDetailFormController controller;
+    private StudentRegistrationFormController controller;
     /**
      * Creates new form StudentRegistrationForm
      */
@@ -55,7 +55,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         setDefaultCloseOperation(2);
         setLocationRelativeTo(null);
         isAlwaysOnTop();
-        controller = new StudentRegistrationCourseDetailFormController(studentDTO);
+        controller = new StudentRegistrationFormController(studentDTO);
 
 //        button = new DSButton(this);
 //        button.convertAllJButtonsToDSButtons();
