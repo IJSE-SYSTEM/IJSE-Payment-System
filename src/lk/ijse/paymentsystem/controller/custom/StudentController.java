@@ -3,6 +3,7 @@ package lk.ijse.paymentsystem.controller.custom;
 
 import java.util.ArrayList;
 import lk.ijse.paymentsystem.controller.SuperController;
+import lk.ijse.paymentsystem.dto.PaymentDTO;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 
@@ -49,7 +50,7 @@ public interface StudentController extends SuperController<StudentDTO>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    String addStudent(StudentDTO sdto, RegistrationDTO rdto) throws Exception;
+    String[] addStudent(StudentDTO sdto, RegistrationDTO rdto,  ArrayList<PaymentDTO> paymentDTOs) throws Exception;
     
      String addStudent(StudentDTO sdto) throws Exception;
 }

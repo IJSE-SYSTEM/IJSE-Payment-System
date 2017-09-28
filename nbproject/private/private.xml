@@ -5,11 +5,15 @@
         <group>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/view/PaymentForRegistrationCourseController.java</file>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/dao/db/IJSE%20DB.sql</file>
+            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/controller/custom/impl/PaymentControllerImpl.java</file>
+            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/dto/StudentDTO.java</file>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/controller/custom/impl/StudentControllerImpl.java</file>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/view/StudentRegistrationForm.java</file>
-            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/controller/custom/StudentController.java</file>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/view/CourseDetails.java</file>
             <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/view/StudentRegistrationFormController.java</file>
+            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/dao/custom/impl/StudentDAOImpl.java</file>
+            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/view/PaymentForRegistrationCourse.java</file>
+            <file>file:/D:/IJSE/Projects/IJSE%20Payment%20System/src/lk/ijse/paymentsystem/other/IDGenarator.java</file>
         </group>
     </open-files>
 </project-private>

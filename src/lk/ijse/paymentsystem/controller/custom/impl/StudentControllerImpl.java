@@ -6,6 +6,9 @@
 package lk.ijse.paymentsystem.controller.custom.impl;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import lk.ijse.paymentsystem.controller.ControllerFactory;
+import lk.ijse.paymentsystem.controller.custom.PaymentController;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dao.DAOFactory;
 import lk.ijse.paymentsystem.dao.custom.GuardianDAO;
@@ -13,6 +16,7 @@ import lk.ijse.paymentsystem.dao.custom.RegistrationDAO;
 //import lk.ijse.paymentsystem.dao.custom.StuGuardianDAO;
 import lk.ijse.paymentsystem.dao.custom.StudentDAO;
 import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
+import lk.ijse.paymentsystem.dto.PaymentDTO;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 
@@ -23,6 +27,7 @@ public class StudentControllerImpl implements StudentController {
     private RegistrationDAO rdao;
 //    private StudentProQualiDAO spqdao;
     private GuardianDAO sgdao;
+    private PaymentController pc;
 
 //    private StudentOtherInfoDAO soidao;
     
@@ -34,7 +39,7 @@ public class StudentControllerImpl implements StudentController {
 //        spqdao=(StudentProQualiDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_PRO_QUALIFICATIONS);
         sgdao= (GuardianDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_GUARDIAN);
 //        soidao=(StudentOtherInfoDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STU_OTHER);
-        
+        pc=(PaymentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.PAYMENT);
         c=ConnectionFactory.getInstance().getConnection();
     }
     
@@ -42,7 +47,9 @@ public class StudentControllerImpl implements StudentController {
     private String sid;
     private boolean doNotCommit=false;
     @Override
-    public String addStudent(StudentDTO sdto, RegistrationDTO rdto) throws Exception {
+    public String[] addStudent(StudentDTO sdto, RegistrationDTO rdto, ArrayList<PaymentDTO> paymentDTOs) throws Exception {
+        String rid=null;
+        String payID=null;
         try {
             c.setAutoCommit(false);
             doNotCommit=true;
@@ -54,10 +61,19 @@ public class StudentControllerImpl implements StudentController {
                 detailsAdded=sgdao.add(sdto.getGuardian());
                 if (detailsAdded){
                     rdto.setSID(sid);
-                    String rid=rdao.addCall(rdto);
+                    rid=rdao.addCall(rdto);
                     System.out.println(rid);
                     if (rid!=null){
-                        return rid;
+                        if (rid!=null){
+                            for (PaymentDTO paymentDTO : paymentDTOs) {
+                                paymentDTO.setRegID(rid);
+                            }
+                            payID=pc.add(paymentDTOs);
+                            if (payID!=null){
+                                c.commit();
+                                return new String[]{rid,payID};
+                            }
+                        }
                     }
                 }
             }

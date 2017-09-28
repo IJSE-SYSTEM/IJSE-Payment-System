@@ -26,7 +26,7 @@ public class PaymentControllerImpl implements PaymentController {
     public String add(ArrayList<PaymentDTO> dtos) throws Exception {
         boolean isSuccessful = true;
         String payID;
-        payID=IDGenarator.getNewPayID(dtos.get(0).getRegID().substring(0, 1));
+        payID=IDGenarator.getNewPayID(dtos.get(0).getRegID().substring(5, 6));
         for (PaymentDTO paymentDTO : dtos) {
             paymentDTO.setPayID(payID);
             if (!paymentDAO.add(paymentDTO)){

@@ -22,7 +22,6 @@ import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 import lk.ijse.paymentsystem.dto.PaymentDTO;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
-import lk.ijse.paymentsystem.other.IDGenarator;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -183,9 +182,9 @@ public class PaymentForRegistrationCourseController {
 //                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
                 HashMap<String, Object> parameters=new HashMap<>();
                 
-                parameters.put("invoiceId", payID);
+                parameters.put("invoiceId", returns[1]);
                 parameters.put("invoiceDate", LocalDate.now().toString());
-                parameters.put("studentName", studentDTO.getInitialStudentName());
+                parameters.put("studentName", studentDTO.getInitialStudentName()+" - "+returns[0]);
                 parameters.put("studentAddress", studentDTO.getAddressLine1()+", "+studentDTO.getAddressLine2()+", "+studentDTO.getAddressLine3());
                 parameters.put("course", course.getCode()+"-"+course.getName());
                 parameters.put("batchNo", course.getBatchDTO().getBatchNo());
@@ -228,6 +227,7 @@ public class PaymentForRegistrationCourseController {
         
     }
     
+    String[] returns;
     public boolean completeRegistration(){
         boolean isSuccessful=false;
         int state=0;
@@ -236,14 +236,13 @@ public class PaymentForRegistrationCourseController {
             String rid=null;
             if (sid==null){
                 studentDTO.setRegFee(REGFEE);
-                rid=sc.addStudent(studentDTO, rdto);
+                returns=sc.addStudent(studentDTO, rdto, paymentDTOs);
             }else{
                 rdto.setSID(sid);
-                rid=rc.addCall(rdto);
+                returns=rc.addCall(rdto, paymentDTOs);
             }
-            
-            if (rid!=null){
-                payID=pc.add(paymentDTOs);
+            if (returns!=null){
+                isSuccessful=true;
             }
         } catch (Exception ex) {
             Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
@@ -253,7 +252,4 @@ public class PaymentForRegistrationCourseController {
     }
     
     private String payID;
-    public boolean doPayment(){
-        return false;
-    }
 }
