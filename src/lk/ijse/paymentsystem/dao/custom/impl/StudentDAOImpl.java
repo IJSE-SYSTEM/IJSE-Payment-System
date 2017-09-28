@@ -8,6 +8,7 @@ package lk.ijse.paymentsystem.dao.custom.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import lk.ijse.paymentsystem.dao.custom.StudentDAO;
 import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
 import lk.ijse.paymentsystem.dto.StudentDTO;
@@ -25,7 +26,7 @@ public class StudentDAOImpl implements StudentDAO{
 
     @Override
     public String addCall(StudentDTO dto) throws Exception {
-        String SQL = "call add_student(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; /* send data to the database without SID*/
+        String SQL = "call add_student(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; /* send data to the database without SID*/
         PreparedStatement stm = conn.prepareStatement(SQL);
         
         System.out.println(dto);
@@ -42,8 +43,9 @@ public class StudentDAOImpl implements StudentDAO{
         stm.setObject(11, dto.getNic());
         stm.setObject(12, dto.getRegFee());
         stm.setObject(13, dto.getSchool());
-        stm.setObject(14, dto.getGrade());
-        stm.setObject(15, dto.getUniversity());
+        stm.setObject(14, dto.getUniversity());
+        stm.setObject(15, dto.getJoinDate());
+        stm.setObject(16, dto.getIq_test());
         
         ResultSet rst=stm.executeQuery();
         if(rst.next()){
@@ -59,9 +61,7 @@ public class StudentDAOImpl implements StudentDAO{
         stm.setObject(1, dto.getSID());
         ResultSet rst=stm.executeQuery();
         if (rst.next()){
-            return new StudentDTO(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), 
-                    rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9), rst.getString(10), rst.getBoolean(11), 
-                    rst.getString(12), rst.getDouble(13), rst.getString(14), rst.getString(15), rst.getString(16));
+            return new StudentDTO(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9), rst.getString(10), rst.getBoolean(11), rst.getString(12), rst.getDouble(13), rst.getString(14), rst.getString(15), LocalDate.parse(rst.getString(16)), rst.getInt(17));
         }
         return null;
     }

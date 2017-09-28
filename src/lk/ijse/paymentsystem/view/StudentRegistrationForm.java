@@ -15,24 +15,13 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dto.GuardianDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
-import lk.ijse.paymentsystem.view.utils.DSButton;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
-import net.sf.jasperreports.engine.JREmptyDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
  *
@@ -661,8 +650,14 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         String nic = txtNic.getText();
         String school = txtSchool.getText();
         String university = txtUniversityOrOther.getText();
+        int iq_test;
+        try{
+            iq_test = Integer.parseInt(txtIqTest.getText());
+        }catch(NumberFormatException e){
+            iq_test=0;
+        }
 
-        StudentDTO student = new StudentDTO(nameWithInitials, studentName, addressLine1, addressLine2, addressLine3, telHome, mobile, email, dob, gender, nic, school, university);
+        StudentDTO student = new StudentDTO(nameWithInitials, studentName, addressLine1, addressLine2, addressLine3, telHome, mobile, email, dob, gender, nic, school, university, iq_test);
 
         String guardianName = txtNameOfPatentOrGuardian.getText();
         String telNo1 = txtMobile1.getText();

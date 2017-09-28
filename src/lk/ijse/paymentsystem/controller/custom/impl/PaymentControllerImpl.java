@@ -10,6 +10,7 @@ import lk.ijse.paymentsystem.controller.custom.PaymentController;
 import lk.ijse.paymentsystem.dao.DAOFactory;
 import lk.ijse.paymentsystem.dao.custom.PaymentDAO;
 import lk.ijse.paymentsystem.dto.PaymentDTO;
+import lk.ijse.paymentsystem.other.IDGenarator;
 
 
 public class PaymentControllerImpl implements PaymentController {
@@ -22,14 +23,18 @@ public class PaymentControllerImpl implements PaymentController {
 
     
     @Override
-    public boolean add(ArrayList<PaymentDTO> dtos) throws Exception {
+    public String add(ArrayList<PaymentDTO> dtos) throws Exception {
         boolean isSuccessful = true;
-        for (PaymentDTO dto : dtos) {
-            if (!paymentDAO.add(dto)){
+        String payID;
+        payID=IDGenarator.getNewPayID(dtos.get(0).getRegID().substring(0, 1));
+        for (PaymentDTO paymentDTO : dtos) {
+            paymentDTO.setPayID(payID);
+            if (!paymentDAO.add(paymentDTO)){
                 isSuccessful=false;
+                break;
             }
         }
-        return isSuccessful;
+        return isSuccessful?payID:null;
     }
     
 }

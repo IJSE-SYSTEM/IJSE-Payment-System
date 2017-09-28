@@ -51,19 +51,12 @@ public class StudentControllerImpl implements StudentController {
             if (sid!=null){
                 boolean detailsAdded=false;
                 sdto.getGuardian().setSID(sid);
-                sdto.getInfoDTO().setSid(sid);
                 detailsAdded=sgdao.add(sdto.getGuardian());
-//                System.out.println(detailsAdded);
-//                detailsAdded=soidao.add(sdto.getInfoDTO());/
-//                System.out.println(detailsAdded);
-//                detailsAdded=addQualifications(sdto.getQualifications());
-//                System.out.println(detailsAdded);
                 if (detailsAdded){
                     rdto.setSID(sid);
                     String rid=rdao.addCall(rdto);
                     System.out.println(rid);
                     if (rid!=null){
-                        c.commit();
                         return rid;
                     }
                 }
@@ -96,10 +89,7 @@ public class StudentControllerImpl implements StudentController {
             if (sid!=null){
                 boolean detailsAdded=false;
                 sdto.getGuardian().setSID(sid);
-//                sdto.getInfoDTO().setSid(sid);
                 detailsAdded=sgdao.add(sdto.getGuardian());
-//                detailsAdded=soidao.add(sdto.getInfoDTO());
-//                detailsAdded=addQualifications(sdto.getQualifications());
                 if (detailsAdded){
                     if(!doNotCommit)
                         c.commit();

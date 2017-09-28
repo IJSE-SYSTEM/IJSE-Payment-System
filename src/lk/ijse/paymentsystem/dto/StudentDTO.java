@@ -5,7 +5,7 @@
  */
 package lk.ijse.paymentsystem.dto;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 /**
  *
@@ -26,25 +26,26 @@ public class StudentDTO extends SuperDTO{
     private String nic;
     private double regFee;
     private String school;
-    private String grade;
     private String university;
+    private LocalDate joinDate;
+    private int iq_test;
     
     private GuardianDTO guardian;
-    private ArrayList<QualificationDTO> qualifications;
-    private StudentOtherInfoDTO infoDTO;
     
 
     public StudentDTO() {
     }
 
-    public StudentDTO(String SID, String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, boolean gender, String nic, double regFee, String school, String grade, String university) {
-        this(initialStudentName,studentName,addressLine1,addressLine2,addressLine3,telHome,mobile,email,dob,gender,nic,school,university);
+    public StudentDTO(String SID, String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, boolean gender, String nic, double regFee, String school, String university, LocalDate joinDate,int iq) {
+        this(initialStudentName,studentName,addressLine1,addressLine2,addressLine3,telHome,mobile,email,dob,gender,nic,school,university,iq);
         this.SID = SID;
         this.regFee = regFee;
+        this.joinDate = joinDate;
+        this.iq_test = iq;
     }
     
 //    this has no regFee Parameter
-    public StudentDTO(String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, boolean gender, String nic, String school, String university) {
+    public StudentDTO(String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, boolean gender, String nic, String school, String university, int iq) {
         this.initialStudentName = initialStudentName;
         this.studentName = studentName;
         this.addressLine1 = addressLine1;
@@ -58,6 +59,7 @@ public class StudentDTO extends SuperDTO{
         this.nic = nic;
         this.school = school;
         this.university = university;
+        this.iq_test = iq;
     }
 
     
@@ -205,7 +207,7 @@ public class StudentDTO extends SuperDTO{
      * @return the gender
      */
     public boolean getGender() {
-        return gender;
+        return isGender();
     }
 
     /**
@@ -244,20 +246,6 @@ public class StudentDTO extends SuperDTO{
     }
 
     /**
-     * @return the grade
-     */
-    public String getGrade() {
-        return grade;
-    }
-
-    /**
-     * @param grade the grade to set
-     */
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
-    /**
      * @return the university
      */
     public String getUniversity() {
@@ -286,34 +274,6 @@ public class StudentDTO extends SuperDTO{
     }
 
     /**
-     * @return the qualifications
-     */
-    public ArrayList<QualificationDTO> getQualifications() {
-        return qualifications;
-    }
-
-    /**
-     * @param qualifications the qualifications to set
-     */
-    public void setQualifications(ArrayList<QualificationDTO> qualifications) {
-        this.qualifications = qualifications;
-    }
-
-    /**
-     * @return the infoDTO
-     */
-    public StudentOtherInfoDTO getInfoDTO() {
-        return infoDTO;
-    }
-
-    /**
-     * @param infoDTO the infoDTO to set
-     */
-    public void setInfoDTO(StudentOtherInfoDTO infoDTO) {
-        this.infoDTO = infoDTO;
-    }
-
-    /**
      * @return the regFee
      */
     public double getRegFee() {
@@ -329,7 +289,42 @@ public class StudentDTO extends SuperDTO{
 
     @Override
     public String toString() {
-        return "StudentDTO{" + "SID=" + SID + ", initialStudentName=" + initialStudentName + ", studentName=" + studentName + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2 + ", addressLine3=" + addressLine3 + ", telHome=" + telHome + ", mobile=" + mobile + ", email=" + email + ", dob=" + dob + ", gender=" + gender + ", nic=" + nic + ", regFee=" + regFee + ", school=" + school + ", grade=" + grade + ", university=" + university + ", guardian=" + guardian + ", qualifications=" + qualifications + ", infoDTO=" + infoDTO + '}';
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    /**
+     * @return the gender
+     */
+    public boolean isGender() {
+        return gender;
+    }
+
+    /**
+     * @return the joinDate
+     */
+    public LocalDate getJoinDate() {
+        return joinDate;
+    }
+
+    /**
+     * @param joinDate the joinDate to set
+     */
+    public void setJoinDate(LocalDate joinDate) {
+        this.joinDate = joinDate;
+    }
+
+    /**
+     * @return the iq_test
+     */
+    public int getIq_test() {
+        return iq_test;
+    }
+
+    /**
+     * @param iq_test the iq_test to set
+     */
+    public void setIq_test(int iq_test) {
+        this.iq_test = iq_test;
     }
     
     

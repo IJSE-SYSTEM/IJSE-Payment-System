@@ -45,6 +45,6 @@ public interface PaymentController extends SuperController<PaymentDTO>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    boolean add(ArrayList<PaymentDTO> dtos) throws Exception;
+    String add(ArrayList<PaymentDTO> dtos) throws Exception;
     
 }
