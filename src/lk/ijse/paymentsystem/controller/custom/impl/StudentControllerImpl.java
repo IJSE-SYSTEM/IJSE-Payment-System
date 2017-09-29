@@ -6,6 +6,7 @@
 package lk.ijse.paymentsystem.controller.custom.impl;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dao.DAOFactory;
 import lk.ijse.paymentsystem.dao.custom.GuardianDAO;
@@ -118,6 +119,20 @@ public class StudentControllerImpl implements StudentController {
         return sdao.search(dto);
     }
     
+    @Override
+    public ArrayList<StudentDTO> searchName(String name) throws Exception{
+        return sdao.searchName(name);
+    }
+    
+    @Override
+    public StudentDTO search(String nic) throws Exception{
+        return sdao.search(nic);
+    }
+    
+    @Override
+    public StudentDTO search(String studentId, String batchId)throws Exception{
+        return sdao.search(studentId, batchId);
+    }
     
     
 }

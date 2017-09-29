@@ -36,6 +36,10 @@ public class StudentDTO extends SuperDTO{
 
     public StudentDTO() {
     }
+    
+    public StudentDTO(String sid){
+        this.SID = sid;
+    }
 
     public StudentDTO(String SID, String initialStudentName, String studentName, String addressLine1, String addressLine2, String addressLine3, String telHome, String mobile, String email, String dob, boolean gender, String nic, double regFee, String school, String grade, String university) {
         this(initialStudentName,studentName,addressLine1,addressLine2,addressLine3,telHome,mobile,email,dob,gender,nic,school,university);

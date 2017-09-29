@@ -35,11 +35,11 @@
                   <Component id="pnlParentContainer" alignment="0" max="32767" attributes="0"/>
                   <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="rdoNIC" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdiBtnNic" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="rdoName" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdiBtnName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="rdoStudentId" min="-2" max="-2" attributes="0"/>
+                      <Component id="rdiBtnStudentId" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -57,9 +57,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="rdoNIC" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rdoName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="rdoStudentId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rdiBtnNic" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rdiBtnName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rdiBtnStudentId" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
@@ -75,7 +75,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JRadioButton" name="rdoNIC">
+    <Component class="javax.swing.JRadioButton" name="rdiBtnNic">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpSearch"/>
@@ -92,10 +92,10 @@
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rdoNICItemStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rdiBtnNicItemStateChanged"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JRadioButton" name="rdoName">
+    <Component class="javax.swing.JRadioButton" name="rdiBtnName">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpSearch"/>
@@ -111,7 +111,7 @@
         <Property name="focusPainted" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rdoNameItemStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rdiBtnNameItemStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblSearchTitle">
@@ -209,7 +209,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JRadioButton" name="rdoStudentId">
+    <Component class="javax.swing.JRadioButton" name="rdiBtnStudentId">
       <Properties>
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="btnGrpSearch"/>
@@ -217,7 +217,7 @@
         <Property name="text" type="java.lang.String" value="via Student ID"/>
       </Properties>
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rdoStudentIdItemStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rdiBtnStudentIdItemStateChanged"/>
       </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbBoxBatch">

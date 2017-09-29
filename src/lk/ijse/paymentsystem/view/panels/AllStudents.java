@@ -7,6 +7,7 @@ package lk.ijse.paymentsystem.view.panels;
 
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
+import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.view.utils.DSButton;
 import lk.ijse.paymentsystem.view.utils.DSTable;
 
@@ -173,6 +174,10 @@ public class AllStudents extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
 
+    public void showDetails(StudentDTO student){
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;

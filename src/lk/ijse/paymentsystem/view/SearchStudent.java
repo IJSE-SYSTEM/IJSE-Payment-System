@@ -7,7 +7,12 @@ package lk.ijse.paymentsystem.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import lk.ijse.paymentsystem.controller.ControllerFactory;
+import lk.ijse.paymentsystem.controller.custom.StudentController;
+import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.view.panels.AllStudents;
 import lk.ijse.paymentsystem.view.panels.StudentDetails;
 import lk.ijse.paymentsystem.view.panels.StudentDetailsSearch;
@@ -20,6 +25,9 @@ import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 public class SearchStudent extends javax.swing.JDialog {
 
     private DSTextComponents textComponents;
+    private AllStudents allStudent = null;
+    private StudentDetails studentDetails = null;
+    private StudentDetailsSearch studentDetailsSearch = null;
     /**
      * Creates new form SearchStudent
      */
@@ -35,7 +43,7 @@ public class SearchStudent extends javax.swing.JDialog {
 
         cmbBoxBatch.setVisible(false);
         textComponents = new DSTextComponents(this.getContentPane());  
-        rdoNICItemStateChanged(null);
+        rdiBtnNicItemStateChanged(null);
         
     }
 
@@ -49,43 +57,43 @@ public class SearchStudent extends javax.swing.JDialog {
     private void initComponents() {
 
         btnGrpSearch = new javax.swing.ButtonGroup();
-        rdoNIC = new javax.swing.JRadioButton();
-        rdoName = new javax.swing.JRadioButton();
+        rdiBtnNic = new javax.swing.JRadioButton();
+        rdiBtnName = new javax.swing.JRadioButton();
         lblSearchTitle = new javax.swing.JLabel();
         pnlParentContainer = new javax.swing.JPanel();
         pnlContainer = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnSearch = new javax.swing.JButton();
         txtSearch = new javax.swing.JTextField();
-        rdoStudentId = new javax.swing.JRadioButton();
-        cmbBoxBatch = new javax.swing.JComboBox<>();
+        rdiBtnStudentId = new javax.swing.JRadioButton();
+        cmbBoxBatch = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Search an Existing Student - Manage Students | IJSE - Academic Results System");
         setResizable(false);
 
-        btnGrpSearch.add(rdoNIC);
-        rdoNIC.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        rdoNIC.setMnemonic('N');
-        rdoNIC.setSelected(true);
-        rdoNIC.setText("via NIC");
-        rdoNIC.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rdoNIC.setFocusPainted(false);
-        rdoNIC.addItemListener(new java.awt.event.ItemListener() {
+        btnGrpSearch.add(rdiBtnNic);
+        rdiBtnNic.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        rdiBtnNic.setMnemonic('N');
+        rdiBtnNic.setSelected(true);
+        rdiBtnNic.setText("via NIC");
+        rdiBtnNic.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rdiBtnNic.setFocusPainted(false);
+        rdiBtnNic.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                rdoNICItemStateChanged(evt);
+                rdiBtnNicItemStateChanged(evt);
             }
         });
 
-        btnGrpSearch.add(rdoName);
-        rdoName.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        rdoName.setMnemonic('a');
-        rdoName.setText("via Name");
-        rdoName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rdoName.setFocusPainted(false);
-        rdoName.addItemListener(new java.awt.event.ItemListener() {
+        btnGrpSearch.add(rdiBtnName);
+        rdiBtnName.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        rdiBtnName.setMnemonic('a');
+        rdiBtnName.setText("via Name");
+        rdiBtnName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rdiBtnName.setFocusPainted(false);
+        rdiBtnName.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                rdoNameItemStateChanged(evt);
+                rdiBtnNameItemStateChanged(evt);
             }
         });
 
@@ -149,11 +157,11 @@ public class SearchStudent extends javax.swing.JDialog {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnSearch, txtSearch});
 
-        btnGrpSearch.add(rdoStudentId);
-        rdoStudentId.setText("via Student ID");
-        rdoStudentId.addItemListener(new java.awt.event.ItemListener() {
+        btnGrpSearch.add(rdiBtnStudentId);
+        rdiBtnStudentId.setText("via Student ID");
+        rdiBtnStudentId.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                rdoStudentIdItemStateChanged(evt);
+                rdiBtnStudentIdItemStateChanged(evt);
             }
         });
 
@@ -167,11 +175,11 @@ public class SearchStudent extends javax.swing.JDialog {
                     .addComponent(pnlParentContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(rdoNIC)
+                        .addComponent(rdiBtnNic)
                         .addGap(18, 18, 18)
-                        .addComponent(rdoName)
+                        .addComponent(rdiBtnName)
                         .addGap(18, 18, 18)
-                        .addComponent(rdoStudentId)
+                        .addComponent(rdiBtnStudentId)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblSearchTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,9 +192,9 @@ public class SearchStudent extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdoNIC)
-                    .addComponent(rdoName)
-                    .addComponent(rdoStudentId))
+                    .addComponent(rdiBtnNic)
+                    .addComponent(rdiBtnName)
+                    .addComponent(rdiBtnStudentId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblSearchTitle)
@@ -200,75 +208,92 @@ public class SearchStudent extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void rdoNICItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdoNICItemStateChanged
-        rdoNIC.setFont(rdoNIC.getFont().deriveFont(Font.BOLD));
-        rdoName.setFont(rdoName.getFont().deriveFont(Font.PLAIN));
-        rdoStudentId.setFont(rdoStudentId.getFont().deriveFont(Font.PLAIN));
+    private void rdiBtnNicItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdiBtnNicItemStateChanged
+        rdiBtnNic.setFont(rdiBtnNic.getFont().deriveFont(Font.BOLD));
+        rdiBtnName.setFont(rdiBtnName.getFont().deriveFont(Font.PLAIN));
+        rdiBtnStudentId.setFont(rdiBtnStudentId.getFont().deriveFont(Font.PLAIN));
         
-        rdoNIC.setForeground(Color.BLUE);
-        rdoName.setForeground(Color.BLACK);
-        rdoStudentId.setForeground(Color.BLACK);
+        rdiBtnNic.setForeground(Color.BLUE);
+        rdiBtnName.setForeground(Color.BLACK);
+        rdiBtnStudentId.setForeground(Color.BLACK);
         btnSearch.setVisible(true);
         
-        StudentDetails pnlStudentDetails = new StudentDetails();
+        studentDetails = new StudentDetails();
         pnlContainer.removeAll();
-        pnlContainer.add(pnlStudentDetails);
-        pnlContainer.setSize(pnlStudentDetails.getSize());
+        pnlContainer.add(studentDetails);
+        pnlContainer.setSize(studentDetails.getSize());
         pnlContainer.updateUI();
         pack();
         setLocationRelativeTo(null);   
         
         lblSearchTitle.setText("Enter the student's NIC to search");
         cmbBoxBatch.setVisible(false);
-    }//GEN-LAST:event_rdoNICItemStateChanged
+    }//GEN-LAST:event_rdiBtnNicItemStateChanged
 
-    private void rdoNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdoNameItemStateChanged
-        rdoNIC.setFont(rdoNIC.getFont().deriveFont(Font.PLAIN));
-        rdoName.setFont(rdoName.getFont().deriveFont(Font.BOLD));
-        rdoStudentId.setFont(rdoStudentId.getFont().deriveFont(Font.PLAIN));
+    private void rdiBtnNameItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdiBtnNameItemStateChanged
+        rdiBtnNic.setFont(rdiBtnNic.getFont().deriveFont(Font.PLAIN));
+        rdiBtnName.setFont(rdiBtnName.getFont().deriveFont(Font.BOLD));
+        rdiBtnStudentId.setFont(rdiBtnStudentId.getFont().deriveFont(Font.PLAIN));
         
-        rdoNIC.setForeground(Color.BLACK);
-        rdoName.setForeground(Color.BLUE); 
-        rdoStudentId.setForeground(Color.BLACK);
+        rdiBtnNic.setForeground(Color.BLACK);
+        rdiBtnName.setForeground(Color.BLUE); 
+        rdiBtnStudentId.setForeground(Color.BLACK);
         btnSearch.setVisible(false);
         cmbBoxBatch.setVisible(false);
-        AllStudents pnlAllStudents = new AllStudents();
+        
+        allStudent = new AllStudents();
         pnlContainer.removeAll();
-        pnlContainer.add(pnlAllStudents);
-        pnlContainer.setSize(pnlAllStudents.getSize());
+        pnlContainer.add(allStudent);
+        pnlContainer.setSize(allStudent.getSize());
         pnlContainer.updateUI();
         pack();
         setLocationRelativeTo(null);               
         
         lblSearchTitle.setText("Enter the student's Name to search");
         
-    }//GEN-LAST:event_rdoNameItemStateChanged
+    }//GEN-LAST:event_rdiBtnNameItemStateChanged
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        StudentController student = (StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
+        
+        if (rdiBtnNic.isSelected()) {
+            try {
+                StudentDTO studentDTO = student.search(txtSearch.getText());
+                if (studentDTO != null) {
+                    studentDetails.showDetails(studentDTO);
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(SearchStudent.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if (rdiBtnName.isSelected()) {
+            
+        }else{
+            
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
         
-    private void rdoStudentIdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdoStudentIdItemStateChanged
-        rdoNIC.setFont(rdoNIC.getFont().deriveFont(Font.PLAIN));
-        rdoName.setFont(rdoName.getFont().deriveFont(Font.PLAIN));
-        rdoStudentId.setFont(rdoStudentId.getFont().deriveFont(Font.BOLD));
+    private void rdiBtnStudentIdItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdiBtnStudentIdItemStateChanged
+        rdiBtnNic.setFont(rdiBtnNic.getFont().deriveFont(Font.PLAIN));
+        rdiBtnName.setFont(rdiBtnName.getFont().deriveFont(Font.PLAIN));
+        rdiBtnStudentId.setFont(rdiBtnStudentId.getFont().deriveFont(Font.BOLD));
         
-        rdoNIC.setForeground(Color.BLACK);
-        rdoName.setForeground(Color.BLACK);
-        rdoStudentId.setForeground(Color.BLUE);
+        rdiBtnNic.setForeground(Color.BLACK);
+        rdiBtnName.setForeground(Color.BLACK);
+        rdiBtnStudentId.setForeground(Color.BLUE);
         btnSearch.setVisible(true);
         
-        StudentDetailsSearch pnlStudentDetailsSearch = new StudentDetailsSearch();
+        studentDetailsSearch = new StudentDetailsSearch();
        
         pnlContainer.removeAll();
-        pnlContainer.add(pnlStudentDetailsSearch);
-        pnlContainer.setSize(pnlStudentDetailsSearch.getSize());
+        pnlContainer.add(studentDetailsSearch);
+        pnlContainer.setSize(studentDetailsSearch.getSize());
         pnlContainer.updateUI();
         pack();
         setLocationRelativeTo(null);               
         
         lblSearchTitle.setText("Enter the student's ID and Select Batch to search");
         cmbBoxBatch.setVisible(true);
-    }//GEN-LAST:event_rdoStudentIdItemStateChanged
+    }//GEN-LAST:event_rdiBtnStudentIdItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup btnGrpSearch;
@@ -278,9 +303,9 @@ public class SearchStudent extends javax.swing.JDialog {
     private javax.swing.JLabel lblSearchTitle;
     private javax.swing.JPanel pnlContainer;
     private javax.swing.JPanel pnlParentContainer;
-    private javax.swing.JRadioButton rdoNIC;
-    private javax.swing.JRadioButton rdoName;
-    private javax.swing.JRadioButton rdoStudentId;
+    private javax.swing.JRadioButton rdiBtnName;
+    private javax.swing.JRadioButton rdiBtnNic;
+    private javax.swing.JRadioButton rdiBtnStudentId;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

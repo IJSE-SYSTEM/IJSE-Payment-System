@@ -364,8 +364,10 @@ public class Main extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         String sid = JOptionPane.showInputDialog("Enter Student ID:");
         if (sid != null) {
-            CourseDetails courseDetails = new CourseDetails(sid);
-            courseDetails.setVisible(true);
+//            CourseDetails courseDetails = new CourseDetails(sid);
+//            courseDetails.setVisible(true);
+            StudentDetails studentDetails = new StudentDetails(sid);
+            studentDetails.setVisible(true);
         }
         
         

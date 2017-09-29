@@ -52,6 +52,7 @@ public class CourseDetails extends javax.swing.JFrame {
 
     public CourseDetails(String sid) {
         this();
+        setLocationRelativeTo(null);
         controller = new CourseDetailsController();
         this.sid = sid;
         initComponents2();

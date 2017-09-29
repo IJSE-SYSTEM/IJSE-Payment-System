@@ -49,6 +49,21 @@ public interface StudentController extends SuperController<StudentDTO>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+//   @Override
+    public default ArrayList<StudentDTO> searchName(String name) throws Exception{
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+//    @Override
+    public default StudentDTO search(String nic) throws Exception{
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+//    @Override
+    public default StudentDTO search(String studentId, String batchId)throws Exception{
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     String addStudent(StudentDTO sdto, RegistrationDTO rdto) throws Exception;
     
      String addStudent(StudentDTO sdto) throws Exception;

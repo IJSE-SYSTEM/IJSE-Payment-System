@@ -5,6 +5,8 @@
  */
 package lk.ijse.paymentsystem.view.panels;
 
+import lk.ijse.paymentsystem.dto.StudentDTO;
+
 /**
  *
  * @author simo-ds
@@ -150,6 +152,10 @@ public class StudentDetailsSearch extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
 
+    public void showDetails(StudentDTO student){
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
