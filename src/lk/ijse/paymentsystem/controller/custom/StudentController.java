@@ -65,7 +65,7 @@ public interface StudentController extends SuperController<StudentDTO>{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    String addStudent(StudentDTO sdto, RegistrationDTO rdto) throws Exception;
+    String[] addStudent(StudentDTO sdto, RegistrationDTO rdto, ArrayList<PaymentDTO> paymentDTOs) throws Exception;
     
-     String addStudent(StudentDTO sdto) throws Exception;
+    String addStudent(StudentDTO sdto) throws Exception;
 }

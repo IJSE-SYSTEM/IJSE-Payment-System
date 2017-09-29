@@ -328,7 +328,6 @@ public class CourseDetails extends javax.swing.JFrame {
             paymentForm.setVisible(true);
             
         } else {
-            
             PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(student, courseDetailsDTO, rdto);
             paymentForm.setVisible(true);
             studentRFC.dispose();

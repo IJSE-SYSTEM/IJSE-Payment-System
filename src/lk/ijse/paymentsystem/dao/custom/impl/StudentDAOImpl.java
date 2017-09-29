@@ -8,6 +8,7 @@ package lk.ijse.paymentsystem.dao.custom.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import lk.ijse.paymentsystem.dao.custom.StudentDAO;
 import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
@@ -76,7 +77,8 @@ public class StudentDAOImpl implements StudentDAO{
         while (rst.next()) {
             StudentDTO student = new StudentDTO(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), 
                     rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9), rst.getString(10), rst.getBoolean(11), 
-                    rst.getString(12), rst.getDouble(13), rst.getString(14), rst.getString(15), rst.getString(16));
+                    rst.getString(12), rst.getDouble(13), rst.getString(14), rst.getString(15), 
+                    rst.getString(16)!=null?LocalDate.parse(rst.getString(16)):null,rst.getInt(17));
             
             studentList.add(student);
         }
@@ -105,7 +107,8 @@ public class StudentDAOImpl implements StudentDAO{
         if (rst.next()){
             return new StudentDTO(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), 
                     rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9), rst.getString(10), rst.getBoolean(11), 
-                    rst.getString(12), rst.getDouble(13), rst.getString(14), rst.getString(15), rst.getString(16));
+                    rst.getString(12), rst.getDouble(13), rst.getString(14), rst.getString(15), 
+                    rst.getString(16)!=null?LocalDate.parse(rst.getString(16)):null,rst.getInt(17));
         }
         return null;
         

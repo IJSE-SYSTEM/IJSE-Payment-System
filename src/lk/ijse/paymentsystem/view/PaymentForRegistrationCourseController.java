@@ -60,20 +60,24 @@ public class PaymentForRegistrationCourseController {
     
     public PaymentForRegistrationCourseController(String sid,CourseDetailsDTO cdto,RegistrationDTO rdto) {
          this.course = cdto;
-//         this.studentDTO=studentDTO;
          this.batchID=rdto.getBatchId();
          this.rdto = rdto;
          this.sid=sid;
 //         c=ConnectionFactory.getInstance().getConnection();
         sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
+        System.out.println("why null="+sc);
         pc=(PaymentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.PAYMENT);
         rc=(RegistrationController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.REGISTRATION);
+        
+        getStudent();
     }
     
     private void getStudent(){
         StudentDTO s=new StudentDTO();
         s.setSID(sid);
+        System.out.println(sid);
         try {
+            System.out.println(sc);
             this.studentDTO=sc.search(s);
         } catch (Exception ex) {
             Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);

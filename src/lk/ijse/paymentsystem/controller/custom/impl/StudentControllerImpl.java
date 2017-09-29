@@ -138,6 +138,5 @@ public class StudentControllerImpl implements StudentController {
     public StudentDTO search(String studentId, String batchId)throws Exception{
         return sdao.search(studentId, batchId);
     }
-    
-    
+        
 }
