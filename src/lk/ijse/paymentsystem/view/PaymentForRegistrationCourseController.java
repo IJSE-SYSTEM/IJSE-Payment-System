@@ -22,7 +22,6 @@ import lk.ijse.paymentsystem.dto.CourseDetailsDTO;
 import lk.ijse.paymentsystem.dto.PaymentDTO;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
-import lk.ijse.paymentsystem.other.IDGenarator;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -46,7 +45,7 @@ public class PaymentForRegistrationCourseController {
     RegistrationDTO rdto;
     String sid;
     private RegistrationController rc;
-    private final double regFee=5000;
+    private final double REGFEE=5000;
     
     public PaymentForRegistrationCourseController(StudentDTO studentDTO,CourseDetailsDTO cdto,RegistrationDTO rdto) {
          this.course = cdto;
@@ -122,7 +121,7 @@ public class PaymentForRegistrationCourseController {
                     if(!course.getCode().equals("CMJD")){
                         paymentDTOs.add(new PaymentDTO("", "", 0, 0, LocalDate.now(), amount, discount, payable));
                     }else{
-                        amount=BigDecimal.valueOf(amount).subtract(BigDecimal.valueOf(regFee)).doubleValue();
+                        amount=BigDecimal.valueOf(amount).subtract(BigDecimal.valueOf(REGFEE)).doubleValue();
                         payable=BigDecimal.valueOf(amount).subtract(BigDecimal.valueOf(discount)).doubleValue();
                         paymentDTOs.add(new PaymentDTO("", "", 0, 0, LocalDate.now(), amount, discount, payable));
                     }
@@ -148,7 +147,7 @@ public class PaymentForRegistrationCourseController {
                     System.out.println("3-");
                     amount=BigDecimal.valueOf(course.getCourseFee()).divide(BigDecimal.valueOf(course.getNo_of_Semesters()*2)).doubleValue();
                     if (course.getCode().equals("CMJD") && row_semMap[selectedRow]==1){
-                        amount=BigDecimal.valueOf(course.getCourseFee()).divide(BigDecimal.valueOf(course.getNo_of_Semesters()*2)).subtract(BigDecimal.valueOf(regFee)).doubleValue();
+                        amount=BigDecimal.valueOf(course.getCourseFee()).divide(BigDecimal.valueOf(course.getNo_of_Semesters()*2)).subtract(BigDecimal.valueOf(REGFEE)).doubleValue();
                     }
                     payable=amount;
                     paymentDTOs.add(new PaymentDTO("", "", row_semMap[selectedRow], 1, LocalDate.now(), amount, discount, payable));
@@ -183,9 +182,9 @@ public class PaymentForRegistrationCourseController {
 //                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
                 HashMap<String, Object> parameters=new HashMap<>();
                 
-                parameters.put("invoiceId", payID);
+                parameters.put("invoiceId", returns[1]);
                 parameters.put("invoiceDate", LocalDate.now().toString());
-                parameters.put("studentName", studentDTO.getInitialStudentName());
+                parameters.put("studentName", studentDTO.getInitialStudentName()+" - "+returns[0]);
                 parameters.put("studentAddress", studentDTO.getAddressLine1()+", "+studentDTO.getAddressLine2()+", "+studentDTO.getAddressLine3());
                 parameters.put("course", course.getCode()+"-"+course.getName());
                 parameters.put("batchNo", course.getBatchDTO().getBatchNo());
@@ -228,6 +227,7 @@ public class PaymentForRegistrationCourseController {
         
     }
     
+    String[] returns;
     public boolean completeRegistration(){
         boolean isSuccessful=false;
         int state=0;
@@ -235,23 +235,14 @@ public class PaymentForRegistrationCourseController {
         try {
             String rid=null;
             if (sid==null){
-                rid=sc.addStudent(studentDTO, rdto);
-                studentDTO.setRegFee(regFee);
+                studentDTO.setRegFee(REGFEE);
+                returns=sc.addStudent(studentDTO, rdto, paymentDTOs);
             }else{
                 rdto.setSID(sid);
-                rid=rc.addCall(rdto);
+                returns=rc.addCall(rdto, paymentDTOs);
             }
-            
-            if (rid!=null){
-                state=1;
-                for (PaymentDTO paymentDTO : paymentDTOs) {
-                    paymentDTO.setRegID(rid);
-                }
-//                while(state==1){
-                    if(isSuccessful=doPayment())
-                        System.out.println(isSuccessful+"1");
-                        state=2;
-//                }
+            if (returns!=null){
+                isSuccessful=true;
             }
         } catch (Exception ex) {
             Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
@@ -261,17 +252,4 @@ public class PaymentForRegistrationCourseController {
     }
     
     private String payID;
-    public boolean doPayment(){
-        boolean isSuccessful=false;
-        payID=IDGenarator.getNewPayID(course.getBatchDTO().getBranch().substring(0, 1));
-        for (PaymentDTO paymentDTO : paymentDTOs) {
-            paymentDTO.setPayID(payID);
-        }
-        try {
-            isSuccessful=pc.add(paymentDTOs);
-        } catch (Exception ex) {
-            Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return isSuccessful;
-    }
 }

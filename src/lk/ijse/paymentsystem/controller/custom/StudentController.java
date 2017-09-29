@@ -3,6 +3,7 @@ package lk.ijse.paymentsystem.controller.custom;
 
 import java.util.ArrayList;
 import lk.ijse.paymentsystem.controller.SuperController;
+import lk.ijse.paymentsystem.dto.PaymentDTO;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 

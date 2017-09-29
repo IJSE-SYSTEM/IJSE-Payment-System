@@ -25,17 +25,17 @@ import net.sf.jasperreports.engine.util.JRLoader;
  *
  * @author midda
  */
-public class StudentRegistrationCourseDetailFormController {
+public class StudentRegistrationFormController {
 
     private StudentDTO studentDTO;
     private StudentController sc;
     private final double regFee=5000;
     
-    public StudentRegistrationCourseDetailFormController() {
+    public StudentRegistrationFormController() {
     }
 
     
-    public StudentRegistrationCourseDetailFormController(StudentDTO studentDTO) {
+    public StudentRegistrationFormController(StudentDTO studentDTO) {
         this.studentDTO = studentDTO;
         sc=(StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
     }
@@ -75,7 +75,7 @@ public class StudentRegistrationCourseDetailFormController {
         } catch (JRException ex) {
             Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
-            Logger.getLogger(StudentRegistrationCourseDetailFormController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(StudentRegistrationFormController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

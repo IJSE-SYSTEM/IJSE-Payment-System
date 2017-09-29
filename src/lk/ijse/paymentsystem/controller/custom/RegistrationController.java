@@ -7,6 +7,7 @@ package lk.ijse.paymentsystem.controller.custom;
 
 import java.util.ArrayList;
 import lk.ijse.paymentsystem.controller.SuperController;
+import lk.ijse.paymentsystem.dto.PaymentDTO;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 
 /**
@@ -46,4 +47,6 @@ public interface RegistrationController extends SuperController<RegistrationDTO>
     }
     
     public String addCall(RegistrationDTO dto) throws Exception;
+    
+    public String[] addCall(RegistrationDTO dto, ArrayList<PaymentDTO> paymentDTOs) throws Exception;
 }

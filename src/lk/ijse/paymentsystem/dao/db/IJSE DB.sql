@@ -182,7 +182,7 @@ INSERT INTO batch VALUES('GDSE45','C001',45,'2017-09-19','Panadura');
 DROP PROCEDURE IF EXISTS add_student;
 
 DELIMITER --
-CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(350), IN addressLine1 VARCHAR(255), IN addressLine2 VARCHAR(255), IN addressLine3 VARCHAR(255), IN tel_home INT(11), IN tel_mobile INT(11), IN email VARCHAR(255), IN dob DATE, IN gender BOOLEAN, IN nic VARCHAR(13), IN regFee DECIMAL(8,2), IN school VARCHAR(255), IN grade VARCHAR(50), IN university VARCHAR(255))
+CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(350), IN addressLine1 VARCHAR(255), IN addressLine2 VARCHAR(255), IN addressLine3 VARCHAR(255), IN tel_home INT(11), IN tel_mobile INT(11), IN email VARCHAR(255), IN dob DATE, IN gender BOOLEAN, IN nic VARCHAR(13), IN regFee DECIMAL(8,2), IN school VARCHAR(255), IN university VARCHAR(255), IN join_date DATE, IN iq_test INT(3))
   BEGIN
     DECLARE student_id VARCHAR(10);
     DECLARE current_year VARCHAR(4);
@@ -210,7 +210,7 @@ CREATE PROCEDURE add_student(IN nameWithInitial VARCHAR(255), IN sname VARCHAR(3
     END IF;
 
 
-     INSERT INTO student VALUES(student_id, nameWithInitial, sname, addressLine1,addressLine2,addressLine3,tel_home,tel_mobile, email, dob, gender, nic, regFee,school,grade,university);
+     INSERT INTO student VALUES(student_id, nameWithInitial, sname, addressLine1,addressLine2,addressLine3,tel_home,tel_mobile, email, dob, gender, nic, regFee,school,university,join_date,iq_test);
      SELECT student_id;
 
   END --
@@ -260,3 +260,15 @@ CREATE PROCEDURE add_registration(IN sid VARCHAR(10), IN batch_Id VARCHAR(10), I
   END --
 
 DELIMITER ;
+
+ALTER TABLE student ADD COLUMN join_date DATE;
+
+ALTER TABLE student ADD COLUMN iq_test INT(3);
+
+UPDATE student
+INNER JOIN stu_other_info USING (sid)
+SET student.iq_test = stu_other_info.iq_test;
+
+DROP TABLE stu_other_info;
+
+ALTER TABLE student DROP COLUMN grade;
