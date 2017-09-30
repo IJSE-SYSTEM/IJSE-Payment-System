@@ -6,13 +6,10 @@
 package lk.ijse.paymentsystem.view;
 
 import java.awt.Color;
-import java.awt.HeadlessException;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
-import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 
@@ -24,7 +21,7 @@ public class StudentDetails extends javax.swing.JFrame {
 
     private StudentController studentController;
     private String sid;
-    private StudentDTO student1 = null;
+//    private StudentDTO student1 = null;
 
     /**
      * Creates new form StudentDetails
@@ -38,23 +35,16 @@ public class StudentDetails extends javax.swing.JFrame {
         setDefaultCloseOperation(2);
     }
 
-    public StudentDetails(String id) {
+    public StudentDetails(String sid,StudentDTO student1) {
 //        super(title);
         this();
-        this.sid = id;
-        studentController = (StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
-        StudentDTO student = new StudentDTO(id);
-
-        try {
-            student1 = studentController.search(student);
-        } catch (Exception ex) {
-            Logger.getLogger(StudentDetails.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        setValues();
+//        this.student1 = student1;
+        this.sid = sid;
+        setValues(student1);
 
     }
 
-    public void setValues() {
+    public void setValues(StudentDTO student1) {
         if (student1 != null) {
             lblNameWithInitials.setText(student1.getInitialStudentName());
             lblName.setText(student1.getStudentName());
@@ -369,13 +359,13 @@ public class StudentDetails extends javax.swing.JFrame {
         }
         
         if (registration != null) {
-
+//            PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(sid);
+//            paymentForm.setVisible(true);
         } else {
             CourseDetails courseDetails = new CourseDetails(sid);
             courseDetails.setVisible(true);
-            this.dispose();
         }
-
+        this.dispose();
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed

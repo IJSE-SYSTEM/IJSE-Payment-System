@@ -44,7 +44,7 @@ public class RegistrationDAOImpl implements RegistrationDAO {
     
     @Override
     public RegistrationDTO search(RegistrationDTO dto) throws Exception {
-        String SQL = "Select * from Registration where sid=?";
+        String SQL = "Select * from registration where sid=?";
         PreparedStatement stm = conn.prepareStatement(SQL);
         stm.setObject(1, dto.getSID());
         ResultSet rst = stm.executeQuery();

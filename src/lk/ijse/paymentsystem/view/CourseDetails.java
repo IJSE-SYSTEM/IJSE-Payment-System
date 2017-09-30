@@ -322,6 +322,7 @@ public class CourseDetails extends javax.swing.JFrame {
 
     private void btnAddStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStudentActionPerformed
         RegistrationDTO rdto = new RegistrationDTO(controller.getBatchID(cmbBxBatches.getSelectedIndex()), LocalDate.now(), rbtnBcs.isSelected());
+        
         courseDetailsDTO.setBatchDTO(controller.batchDTOs.get(cmbBxBatches.getSelectedIndex()));
         if (sid != null) {
             PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(sid, courseDetailsDTO, rdto);

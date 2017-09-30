@@ -13,12 +13,17 @@ import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import lk.ijse.paymentsystem.controller.ControllerFactory;
+import lk.ijse.paymentsystem.controller.custom.StudentController;
+import lk.ijse.paymentsystem.dto.StudentDTO;
 
 /**
  *
@@ -363,10 +368,20 @@ public class Main extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         String sid = JOptionPane.showInputDialog("Enter Student ID:");
-        if (sid != null) {
-//            CourseDetails courseDetails = new CourseDetails(sid);
-//            courseDetails.setVisible(true);
-            StudentDetails studentDetails = new StudentDetails(sid);
+        StudentController studentController = (StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
+        StudentDTO student = new StudentDTO(sid);
+        StudentDTO student1 = null;
+        try {
+            student1 = studentController.search(student);
+        } catch (Exception ex) {
+            Logger.getLogger(StudentDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+//        System.out.println(student1.getSID());
+        if (student1 == null) {
+          JOptionPane.showMessageDialog(null, "Sorry! Student not Found");
+            
+        }else{
+            StudentDetails studentDetails = new StudentDetails(sid,student1);
             studentDetails.setVisible(true);
         }
         
