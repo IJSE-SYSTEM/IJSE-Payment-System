@@ -45,7 +45,7 @@ public class RegistrationControllerImpl implements RegistrationController {
 
     @Override
     public RegistrationDTO search(RegistrationDTO dto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return dao.search(dto);
     }
 
     @Override

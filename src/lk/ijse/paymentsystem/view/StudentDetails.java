@@ -12,6 +12,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
+import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
+import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 
 /**
@@ -23,6 +25,7 @@ public class StudentDetails extends javax.swing.JFrame {
     private StudentController studentController;
     private String sid;
     private StudentDTO student1 = null;
+
     /**
      * Creates new form StudentDetails
      */
@@ -35,24 +38,23 @@ public class StudentDetails extends javax.swing.JFrame {
         setDefaultCloseOperation(2);
     }
 
-    public StudentDetails(String id){
+    public StudentDetails(String id) {
 //        super(title);
         this();
         this.sid = id;
         studentController = (StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
         StudentDTO student = new StudentDTO(id);
-        
+
         try {
             student1 = studentController.search(student);
         } catch (Exception ex) {
             Logger.getLogger(StudentDetails.class.getName()).log(Level.SEVERE, null, ex);
         }
         setValues();
-        
-        
+
     }
-    
-    public void setValues(){
+
+    public void setValues() {
         if (student1 != null) {
             lblNameWithInitials.setText(student1.getInitialStudentName());
             lblName.setText(student1.getStudentName());
@@ -63,21 +65,19 @@ public class StudentDetails extends javax.swing.JFrame {
             lblMobileTel.setText(student1.getMobile());
             lblMail.setText(student1.getEmail());
             lblId.setText(student1.getNic());
-            String [] dob = student1.getDob().split("-");
+            String[] dob = student1.getDob().split("-");
             lblBirthYear.setText(dob[0]);
             lblBirthMonth.setText(dob[1]);
             lblBirthDay.setText(dob[2]);
             if (student1.getGender()) {
                 rdiBtnMale.setSelected(true);
-            }else{
+            } else {
                 rdiBtnFemale.setSelected(true);
             }
-            
+
             lblSchoolStu.setText(student1.getSchool());
         }
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -359,9 +359,23 @@ public class StudentDetails extends javax.swing.JFrame {
     }//GEN-LAST:event_rdiBtnMaleActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-CourseDetails courseDetails = new CourseDetails(sid);
+        RegistrationDTO registrationDTO = new RegistrationDTO();
+        registrationDTO.setSID(sid);
+        RegistrationDTO registration = null;
+        try {
+            registration = (RegistrationDTO) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.REGISTRATION).search(registrationDTO);
+        } catch (Exception ex) {
+            Logger.getLogger(StudentDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (registration != null) {
+
+        } else {
+            CourseDetails courseDetails = new CourseDetails(sid);
             courseDetails.setVisible(true);
             this.dispose();
+        }
+
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackActionPerformed
@@ -369,7 +383,7 @@ CourseDetails courseDetails = new CourseDetails(sid);
     }//GEN-LAST:event_btnGoBackActionPerformed
 
     private void btnGoBackKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnGoBackKeyReleased
-      
+
     }//GEN-LAST:event_btnGoBackKeyReleased
 
     /**

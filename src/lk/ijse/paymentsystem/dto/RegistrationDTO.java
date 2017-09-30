@@ -23,6 +23,13 @@ public class RegistrationDTO extends SuperDTO{
     public RegistrationDTO() {
     }
 
+    public RegistrationDTO(String RID) {
+        this.RID = RID;
+    }
+
+    
+    
+
     public RegistrationDTO(String batchId, LocalDate registrationDate, boolean bcs) {
         this.batchId = batchId;
         this.registrationDate = registrationDate;

@@ -14,6 +14,7 @@ import lk.ijse.paymentsystem.dto.RegistrationDTO;
 
 
 public class RegistrationDAOImpl implements RegistrationDAO {
+
     private Connection conn;
 
     public RegistrationDAOImpl() {
@@ -38,5 +39,19 @@ public class RegistrationDAOImpl implements RegistrationDAO {
             return rst.getString(1);
         }
         return null;
+    }
+    
+    
+    @Override
+    public RegistrationDTO search(RegistrationDTO dto) throws Exception {
+        String SQL = "Select * from Registration where sid=?";
+        PreparedStatement stm = conn.prepareStatement(SQL);
+        stm.setObject(1, dto.getSID());
+        ResultSet rst = stm.executeQuery();
+        RegistrationDTO registrationDTO = null;
+        if (rst.next()) {
+            registrationDTO = new RegistrationDTO(rst.getString(1));
+        }
+        return registrationDTO;
     }
 }
