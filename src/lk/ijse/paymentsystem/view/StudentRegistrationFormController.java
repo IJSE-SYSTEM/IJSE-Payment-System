@@ -1,4 +1,4 @@
-/*
+  /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -46,6 +46,7 @@ public class StudentRegistrationFormController {
         try {
 //            System.out.println();
             String sid=sc.addStudent(studentDTO);
+            System.out.println(sid);
             if(sid!=null){
                 
 //                JasperReport compiledReport=(JasperReport) JRLoader.loadObject(PaymentForRegistrationCourseController.class.getResourceAsStream("/lk/ijse/paymentsystem/reports/Invoice.jasper"));
@@ -70,7 +71,8 @@ public class StudentRegistrationFormController {
                 JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,parameters, new JREmptyDataSource());
                 JasperPrintManager.printReport(jasperPrint, true);
 //                JasperPrint filledReport=JasperFillManager.fillReport(compiledReport, parameters);
-            }          
+            } 
+            
             return sid;
         } catch (JRException ex) {
             Logger.getLogger(PaymentForRegistrationCourseController.class.getName()).log(Level.SEVERE, null, ex);

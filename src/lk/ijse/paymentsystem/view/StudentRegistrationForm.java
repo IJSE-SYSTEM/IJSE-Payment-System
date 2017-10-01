@@ -650,13 +650,8 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         String nic = txtNic.getText();
         String school = txtSchool.getText();
         String university = txtUniversityOrOther.getText();
-        int iq_test;
-        try{
-            iq_test = Integer.parseInt(txtIqTest.getText());
-        }catch(NumberFormatException e){
-            iq_test=0;
-        }
-
+        int iq_test = txtIqTest.getText().equals("")?0:Integer.parseInt(txtIqTest.getText());
+        
         StudentDTO student = new StudentDTO(nameWithInitials, studentName, addressLine1, addressLine2, addressLine3, telHome, mobile, email, dob, gender, nic, school, university, iq_test);
 
         String guardianName = txtNameOfPatentOrGuardian.getText();

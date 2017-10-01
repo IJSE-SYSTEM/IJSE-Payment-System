@@ -8,6 +8,7 @@ package lk.ijse.paymentsystem.view;
 import java.awt.Color;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
@@ -361,6 +362,9 @@ public class StudentDetails extends javax.swing.JFrame {
         if (registration != null) {
 //            PaymentForRegistrationCourse paymentForm = new PaymentForRegistrationCourse(sid);
 //            paymentForm.setVisible(true);
+//            CourseDetails courseDetails = new CourseDetails(sid);
+//            courseDetails.setVisible(true);
+               JOptionPane.showMessageDialog(null, "Not Working");
         } else {
             CourseDetails courseDetails = new CourseDetails(sid);
             courseDetails.setVisible(true);

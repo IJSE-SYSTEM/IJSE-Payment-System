@@ -67,5 +67,5 @@ public interface StudentController extends SuperController<StudentDTO>{
     
     String[] addStudent(StudentDTO sdto, RegistrationDTO rdto, ArrayList<PaymentDTO> paymentDTOs) throws Exception;
     
-    String addStudent(StudentDTO sdto) throws Exception;
+    public String addStudent(StudentDTO sdto) throws Exception;
 }
