@@ -6,6 +6,7 @@
 package lk.ijse.paymentsystem.dao;
 
 import lk.ijse.paymentsystem.dao.custom.RegistrationDAO;
+import lk.ijse.paymentsystem.dao.custom.SchoolDAO;
 import lk.ijse.paymentsystem.dao.custom.StudentProQualiDAO;
 import lk.ijse.paymentsystem.dao.custom.impl.BatchDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.CourseDAOImpl;
@@ -14,6 +15,7 @@ import lk.ijse.paymentsystem.dao.custom.impl.GuardianDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.PaymentDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.QueryDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.RegistrationDAOImpl;
+import lk.ijse.paymentsystem.dao.custom.impl.SchoolDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.StudentDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.StudentOtherInfoDAOImpl;
 import lk.ijse.paymentsystem.dao.custom.impl.StudentProQualiDAOImpl;
@@ -72,9 +74,7 @@ public class DAOFactory {
         return null;
     }
     
-    
-    
-    
-    
-    
+    public SchoolDAO getSchool(){
+        return new SchoolDAOImpl();
+    }
 }

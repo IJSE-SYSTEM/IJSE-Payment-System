@@ -5,10 +5,12 @@
  */
 package lk.ijse.paymentsystem.controller;
 
+import lk.ijse.paymentsystem.controller.custom.SchoolController;
 import lk.ijse.paymentsystem.controller.custom.impl.BatchControllerImpl;
 import lk.ijse.paymentsystem.controller.custom.impl.CourseControllerImpl;
 import lk.ijse.paymentsystem.controller.custom.impl.PaymentControllerImpl;
 import lk.ijse.paymentsystem.controller.custom.impl.RegistrationControllerImpl;
+import lk.ijse.paymentsystem.controller.custom.impl.SchoolControllerImpl;
 import lk.ijse.paymentsystem.controller.custom.impl.StudentControllerImpl;
 
 /**
@@ -54,9 +56,8 @@ public class ControllerFactory {
         return null;
     }
     
-    
-    
-    
-    
+       public SchoolController getSchool(){
+        return new SchoolControllerImpl();
+    }
     
 }

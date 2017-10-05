@@ -272,3 +272,24 @@ SET student.iq_test = stu_other_info.iq_test;
 DROP TABLE stu_other_info;
 
 ALTER TABLE student DROP COLUMN grade;
+
+CREATE TABLE school(
+    school varchar(400)
+);
+
+
+DROP TRIGGER IF EXISTS school ;
+
+DELIMITER --
+CREATE TRIGGER school BEFORE INSERT ON student 
+FOR EACH ROW
+    BEGIN
+        DECLARE school_exist VARCHAR(400) DEFAULT NULL;
+        SELECT school FROM student WHERE school=NEW.school INTO school_exist;
+        IF  school_exist IS NULL THEN
+            INSERT INTO school VALUES(NEW.school);
+        END IF;
+    END--
+DELIMITER;
+
+

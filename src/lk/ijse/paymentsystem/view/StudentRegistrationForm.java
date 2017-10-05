@@ -11,13 +11,25 @@ import java.awt.Font;
 import java.awt.KeyEventPostProcessor;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ComboBoxEditor;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.plaf.basic.BasicComboBoxEditor;
+import lk.ijse.paymentsystem.controller.ControllerFactory;
+import lk.ijse.paymentsystem.controller.custom.SchoolController;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dto.GuardianDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
@@ -31,8 +43,10 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
 
     private StudentDTO studentDTO;
     private StudentController sc;
-    private final double regFee=5000;
+    private final double regFee = 5000;
     private StudentRegistrationFormController controller;
+
+    String[] elements;
     /**
      * Creates new form StudentRegistrationForm
      */
@@ -40,6 +54,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
 //    private DSButton button;
 
     public StudentRegistrationForm() {
+        loadSchool();
         initComponents();
         setDefaultCloseOperation(2);
         setLocationRelativeTo(null);
@@ -77,6 +92,103 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
 
         textComponent = new DSTextComponents(this.getContentPane());
+//        cmbSchool.addItem("");
+        cmbSchool.setSelectedIndex(-1);
+
+    }
+
+    ////////////////////////////////////
+    class AutoCompleteComboBox extends JComboBox {
+
+        private int count = 0;
+        public int caretPos = 0;
+        public JTextField inputField = null;
+
+        public AutoCompleteComboBox(final Object elements[]) {
+            super(elements);
+            setEditor(new BasicComboBoxEditor());
+            setEditable(true);
+        }
+
+        public void setSelectedIndex(int index) {
+            super.setSelectedIndex(index);
+            if (count >= 1) {
+                inputField.setText(getItemAt(index).toString());
+            }
+            count++;
+
+      inputField.setSelectionEnd(caretPos + inputField.getText().length());
+            inputField.moveCaretPosition(caretPos);
+        }
+
+        public void setEditor(ComboBoxEditor editor) {
+            super.setEditor(editor);
+            if (editor.getEditorComponent() instanceof JTextField) {
+                inputField = (JTextField) editor.getEditorComponent();
+
+                inputField.addKeyListener(new KeyAdapter() {
+                    public void keyReleased(KeyEvent ev) {
+                        char key = ev.getKeyChar();
+                        if (!(Character.isLetterOrDigit(key) || Character.isSpaceChar(key))) {
+                            return;
+                        }
+
+                        caretPos = inputField.getCaretPosition();
+                        String text = "";
+                        try {
+                            text = inputField.getText(0, caretPos);
+                        } catch (javax.swing.text.BadLocationException e) {
+                            e.printStackTrace();
+                        }
+
+                        for (int i = 0; i < getItemCount(); i++) {
+                            String element = (String) getItemAt(i);
+                            if (element.startsWith(text)) {
+                                setSelectedIndex(i);
+                                return;
+                            }
+                        }
+                    }
+                    
+                });
+                
+                inputField.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        inputField.setSelectionEnd(caretPos + inputField.getText().length());
+                        inputField.setCaretPosition(inputField.getText().length());
+                        txtUniversityOrOther.requestFocus();
+                    }
+                    
+                });
+                
+                inputField.addFocusListener(new FocusAdapter() {
+                    @Override
+                    public void focusGained(FocusEvent e) {
+                        cmbSchool.setPopupVisible(true);
+                        cmbSchool.showPopup();
+                    }
+                    
+                });
+            }
+        }
+    }
+//////////////////////////
+
+    private void loadSchool() {
+        SchoolController schoolController = ControllerFactory.getInstance().getSchool();
+        ArrayList<String> schoolList = null;
+        try {
+            schoolList = schoolController.getAll();
+        } catch (Exception ex) {
+            Logger.getLogger(StudentRegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        elements = new String[schoolList.size()];
+
+        for (int i = 0; i < schoolList.size(); i++) {
+            elements[i] = schoolList.get(i);
+        }
     }
 
     /**
@@ -118,12 +230,12 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         txtMonth = new javax.swing.JTextField();
         lblDay = new javax.swing.JLabel();
         txtDay = new javax.swing.JTextField();
-        txtSchool = new javax.swing.JTextField();
         txtUniversityOrOther = new javax.swing.JTextField();
         lblNameWithInitials = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         chkBoxMale = new javax.swing.JCheckBox();
         chkBoxFemale = new javax.swing.JCheckBox();
+        cmbSchool = new AutoCompleteComboBox(elements);
         jSeparator1 = new javax.swing.JSeparator();
         jPanel2 = new javax.swing.JPanel();
         lblSubTitle1 = new javax.swing.JLabel();
@@ -217,7 +329,6 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
 
         lblSchool.setDisplayedMnemonic('S');
         lblSchool.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        lblSchool.setLabelFor(txtSchool);
         lblSchool.setText("School:");
         jPanel1.add(lblSchool, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 460, -1, -1));
 
@@ -269,7 +380,6 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         lblDay.setText("Day:");
         jPanel1.add(lblDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 380, -1, -1));
         jPanel1.add(txtDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 380, 68, -1));
-        jPanel1.add(txtSchool, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, 440, -1));
         jPanel1.add(txtUniversityOrOther, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 500, 440, -1));
 
         lblNameWithInitials.setDisplayedMnemonic('t');
@@ -288,6 +398,19 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
 
         chkBoxFemale.setText("Female");
         jPanel1.add(chkBoxFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 420, -1, -1));
+
+        cmbSchool.setEditable(true);
+        cmbSchool.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSchoolActionPerformed(evt);
+            }
+        });
+        cmbSchool.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmbSchoolKeyPressed(evt);
+            }
+        });
+        jPanel1.add(cmbSchool, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, 440, -1));
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -532,7 +655,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
                         txtDay.setText("" + (dob.getDayOfMonth() - 1));
                     }
                 }
-                txtSchool.requestFocus();
+                cmbSchool.requestFocus();
 
             } else if (txtNic.getText().toCharArray().length == 12) {
                 String nic = txtNic.getText();
@@ -560,7 +683,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
                         txtDay.setText("" + (dob.getDayOfMonth() - 1));
                     }
                 }
-                txtSchool.requestFocus();
+                cmbSchool.requestFocus();
             }
         }
     }//GEN-LAST:event_txtNicKeyReleased
@@ -590,21 +713,20 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
 
         /* take data from the qualification table*/
 
-        /*show confirm message to confirm that the student has paid the registration fee*/
-
-        int res = JOptionPane.showConfirmDialog(null,"Do you want to add this Student to the IJSE adminstration System? \n (Make sure this Student has paid the registration fee)","Warning",JOptionPane.YES_NO_OPTION);
+ /*show confirm message to confirm that the student has paid the registration fee*/
+        int res = JOptionPane.showConfirmDialog(null, "Do you want to add this Student to the IJSE adminstration System? \n (Make sure this Student has paid the registration fee)", "Warning", JOptionPane.YES_NO_OPTION);
 
         /* if the student has paid registration fee, he will be added to the database*/
-        if(res==0){
+        if (res == 0) {
             getValue();
             String sid = controller.doRegistration(studentDTO);
             if (sid != null) {
-                JOptionPane.showMessageDialog(null, "Student added successfully.\nYour student's ID is "+sid);
+                JOptionPane.showMessageDialog(null, "Student added successfully.\nYour student's ID is " + sid);
                 this.dispose();
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Student addidtion failed");
             }
-                        this.dispose();
+            this.dispose();
         }
 
     }//GEN-LAST:event_btnRegisterStudentActionPerformed
@@ -615,8 +737,17 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAddCourseActionPerformed
 
-    private void getValue(){
-        
+    private void cmbSchoolKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbSchoolKeyPressed
+//        System.out.println("NIKJNKJBm");
+    }//GEN-LAST:event_cmbSchoolKeyPressed
+
+    private void cmbSchoolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSchoolActionPerformed
+//            JTextField textField = (JTextField) cmbSchool.getEditor().getEditorComponent();
+//            textField.setSelectionStart(cmbSchool.getSelectedItem().toString().length());
+    }//GEN-LAST:event_cmbSchoolActionPerformed
+
+    private void getValue() {
+
         String nameWithInitials = txtNameWithInitials.getText();
         String studentName = txtFullName.getText();
         String addressLine1 = txtAddress1.getText();
@@ -624,34 +755,39 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         String addressLine3 = txtAddress3.getText();
         String telHome = null;
         if (txtHome.getText().equals("")) {
-            telHome = "0000";
+            telHome = "0000000000";
         } else {
             telHome = txtHome.getText();
         }
 
         String mobile = null;
-        
+
         if (txtMobile.getText().equals("")) {
-            mobile = "0000";
-        }else {
+            mobile = "0000000000";
+        } else {
             mobile = txtMobile.getText();
         }
-       
+
         String email = txtEmail.getText();
-        
+
         String dob = null;
         if (txtYear.getText().equals("") || txtMonth.getText().equals("") || txtDay.getText().equals("")) {
-            dob = "2000-00-00";
-        }else {
+            dob = "2000-01-01";
+        } else {
             dob = txtYear.getText() + "-" + txtMonth.getText() + "-" + txtDay.getText();
         }
-         
+
         boolean gender = chkBoxMale.isSelected();
         String nic = txtNic.getText();
-        String school = txtSchool.getText();
+        String school = null;
+        if (cmbSchool.getSelectedItem() != null) {
+             school = cmbSchool.getSelectedItem().toString();
+        }
+            
+
         String university = txtUniversityOrOther.getText();
-        int iq_test = txtIqTest.getText().equals("")?0:Integer.parseInt(txtIqTest.getText());
-        
+        int iq_test = txtIqTest.getText().equals("") ? 0 : Integer.parseInt(txtIqTest.getText());
+
         StudentDTO student = new StudentDTO(nameWithInitials, studentName, addressLine1, addressLine2, addressLine3, telHome, mobile, email, dob, gender, nic, school, university, iq_test);
 
         String guardianName = txtNameOfPatentOrGuardian.getText();
@@ -667,17 +803,16 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         GuardianDTO guardian = new GuardianDTO(guardianName, telNo1, telNo2, email, designation, workPlace, addressLine1, addressLine2, addressLine3);
 
         student.setGuardian(guardian);
-        
-        int iq = Integer.parseInt(txtIqTest.getText());
-        
+
+        int iq = txtIqTest.getText().equals("")? 0:Integer.parseInt(txtIqTest.getText());
+
         this.studentDTO = student;
 
 //        StudentRegistrationCourseDetailForm studentRegistrationCourseDetailForm = new StudentRegistrationCourseDetailForm(this, student);
 //        studentRegistrationCourseDetailForm.setVisible(true);
 //        this.dispose();
     }
-    
-     
+
     /**
      * @param args the command line arguments
      */
@@ -720,6 +855,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
     private javax.swing.JButton btnRegisterStudent;
     private javax.swing.JCheckBox chkBoxFemale;
     private javax.swing.JCheckBox chkBoxMale;
+    private javax.swing.JComboBox<String> cmbSchool;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -773,7 +909,6 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtParentAddress2;
     private javax.swing.JTextField txtParentAddress4;
     private javax.swing.JTextField txtParentEmail;
-    private javax.swing.JTextField txtSchool;
     private javax.swing.JTextField txtUniversityOrOther;
     private javax.swing.JTextField txtWorkingPlace;
     private javax.swing.JTextField txtYear;

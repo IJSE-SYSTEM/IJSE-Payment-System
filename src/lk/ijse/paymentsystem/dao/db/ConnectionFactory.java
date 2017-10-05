@@ -22,7 +22,7 @@ public class ConnectionFactory {
     private ConnectionFactory(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection=DriverManager.getConnection("jdbc:mysql://localhost/ijse", "root", "ijse");
+            connection=DriverManager.getConnection("jdbc:mysql://localhost/ijse", "root", "mysql");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
