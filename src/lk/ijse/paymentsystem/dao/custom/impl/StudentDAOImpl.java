@@ -45,7 +45,7 @@ public class StudentDAOImpl implements StudentDAO{
         stm.setObject(12, dto.getRegFee());
         stm.setObject(13, dto.getSchool());
         stm.setObject(14, dto.getUniversity());
-        stm.setObject(15, dto.getJoinDate());
+        stm.setObject(15, dto.getJoinDate().toString());
         stm.setObject(16, dto.getIq_test());
         
         ResultSet rst=stm.executeQuery();

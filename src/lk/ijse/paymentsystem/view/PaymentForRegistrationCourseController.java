@@ -240,6 +240,7 @@ public class PaymentForRegistrationCourseController {
             String rid=null;
             if (sid==null){
                 studentDTO.setRegFee(REGFEE);
+                studentDTO.setJoinDate(LocalDate.now());
                 returns=sc.addStudent(studentDTO, rdto, paymentDTOs);
             }else{
                 rdto.setSID(sid);
