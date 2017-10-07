@@ -5,9 +5,14 @@
  */
 package lk.ijse.paymentsystem.dao.db;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,14 +25,37 @@ public class ConnectionFactory {
     private static ConnectionFactory cf;
 
     private ConnectionFactory(){
+
+            
+        FileReader reader = null;
         try {
+            // (1)
+            Properties myAppSettings = new Properties();
+            // (2) Loading property file
+            File myFile = new File("settings/myappsettings.properties");
+            reader = new FileReader(myFile);
+            myAppSettings.load(reader);
+            
+            // (3) Reading properties
+            String ip = myAppSettings.getProperty("ip");
+            String port = myAppSettings.getProperty("port");
+            String username = myAppSettings.getProperty("username");
+            String password = myAppSettings.getProperty("password");
+            String database = myAppSettings.getProperty("database");
+
+            
             Class.forName("com.mysql.jdbc.Driver");
-            connection=DriverManager.getConnection("jdbc:mysql://localhost/ijse", "root", "mysql");
+            connection=DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+database,username,password);
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }   catch (FileNotFoundException ex) {
+                Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     /**
