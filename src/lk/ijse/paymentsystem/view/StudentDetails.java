@@ -364,7 +364,8 @@ public class StudentDetails extends javax.swing.JFrame {
 //            paymentForm.setVisible(true);
 //            CourseDetails courseDetails = new CourseDetails(sid);
 //            courseDetails.setVisible(true);
-               JOptionPane.showMessageDialog(null, "Not Working");
+               JOptionPane.showMessageDialog(null, "Student has already registered for a course.");
+               
         } else {
             CourseDetails courseDetails = new CourseDetails(sid);
             courseDetails.setVisible(true);

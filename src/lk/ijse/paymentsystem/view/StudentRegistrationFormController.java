@@ -43,6 +43,7 @@ public class StudentRegistrationFormController {
     public String doRegistration(StudentDTO studentDTO){
         this.studentDTO = studentDTO;
         studentDTO.setRegFee(5000);
+        studentDTO.setJoinDate(LocalDate.now());
         try {
 //            System.out.println();
             String sid=sc.addStudent(studentDTO);

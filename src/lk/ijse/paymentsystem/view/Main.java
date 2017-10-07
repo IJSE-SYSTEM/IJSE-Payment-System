@@ -22,7 +22,9 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
+import lk.ijse.paymentsystem.controller.custom.RegistrationController;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
+import lk.ijse.paymentsystem.dto.RegistrationDTO;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 
 /**
@@ -216,21 +218,32 @@ public class Main extends javax.swing.JFrame {
     
     private void paymentUI(){
         String sid = JOptionPane.showInputDialog("Enter Student ID:");
-        StudentController studentController = (StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
-        StudentDTO student = new StudentDTO(sid);
         StudentDTO student1 = null;
-        try {
-            student1 = studentController.search(student);
-        } catch (Exception ex) {
-            Logger.getLogger(StudentDetails.class.getName()).log(Level.SEVERE, null, ex);
-        }
-//        System.out.println(student1.getSID());
-        if (student1 == null) {
-          JOptionPane.showMessageDialog(null, "Sorry! Student not Found");
+        RegistrationDTO rdto = null;
+        
+        if (sid.matches("^\\d{7}$")){
+            StudentController studentController = (StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
+            StudentDTO student = new StudentDTO(sid);
+            try {
+                student1 = studentController.search(student);
+            } catch (Exception ex) {
+                Logger.getLogger(StudentDetails.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    //        System.out.println(student1.getSID());
+            if (student1 == null) {
+              JOptionPane.showMessageDialog(null, "Sorry! Student not Found");
+
+            }else{
+                StudentDetails studentDetails = new StudentDetails(sid,student1);
+                studentDetails.setVisible(true);
+            }
+        }else if(sid.matches("^[A-Z]{4}/[PG]/\\d{2}/\\d{3}$")){
+            try {
+                 rdto = (RegistrationDTO) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.REGISTRATION).search(new RegistrationDTO(sid));
+            } catch (Exception ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
-        }else{
-            StudentDetails studentDetails = new StudentDetails(sid,student1);
-            studentDetails.setVisible(true);
         }
     }
 
