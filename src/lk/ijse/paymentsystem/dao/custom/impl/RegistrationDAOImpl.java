@@ -8,6 +8,7 @@ package lk.ijse.paymentsystem.dao.custom.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import lk.ijse.paymentsystem.dao.custom.RegistrationDAO;
 import lk.ijse.paymentsystem.dao.db.ConnectionFactory;
 import lk.ijse.paymentsystem.dto.RegistrationDTO;
@@ -44,14 +45,19 @@ public class RegistrationDAOImpl implements RegistrationDAO {
     
     @Override
     public RegistrationDTO search(RegistrationDTO dto) throws Exception {
-        String SQL = "Select * from registration where sid=?";
+        String SQL = "select * from registration where (sid = (Select sid from registration where regid=?) || sid = ?) && transferred_to_batch IS NULL order by registration_date desc, regID desc limit 1";
         PreparedStatement stm = conn.prepareStatement(SQL);
-        stm.setObject(1, dto.getSID());
+        stm.setObject(1, dto.getRID());
+        stm.setObject(2, dto.getRID());
         ResultSet rst = stm.executeQuery();
         RegistrationDTO registrationDTO = null;
         if (rst.next()) {
-            registrationDTO = new RegistrationDTO(rst.getString(1));
+            registrationDTO = new RegistrationDTO(rst.getString(1),rst.getString(2), rst.getString(3), LocalDate.parse(rst.getString(4)), rst.getBoolean(5), rst.getString(6), rst.getString(7));
         }
         return registrationDTO;
     }
 }
+
+//select * from registration where sid in (Select sid from registration where regid='GDSE/P/45/010') && transferred_to_batch IS NULL order by registration_date desc, regID desc;
+//select * from registration where (sid = (Select sid from registration where regid="") || sid = '2017003') && transferred_to_batch IS NULL order by registration_date desc, regID desc;
+//"Select * from registration where sid=?

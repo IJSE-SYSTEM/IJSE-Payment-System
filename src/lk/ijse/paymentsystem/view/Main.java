@@ -220,30 +220,46 @@ public class Main extends javax.swing.JFrame {
         String sid = JOptionPane.showInputDialog("Enter Student ID:");
         StudentDTO student1 = null;
         RegistrationDTO rdto = null;
-        
-        if (sid.matches("^\\d{7}$")){
-            StudentController studentController = (StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
-            StudentDTO student = new StudentDTO(sid);
-            try {
-                student1 = studentController.search(student);
-            } catch (Exception ex) {
-                Logger.getLogger(StudentDetails.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    //        System.out.println(student1.getSID());
-            if (student1 == null) {
-              JOptionPane.showMessageDialog(null, "Sorry! Student not Found");
+        StudentController studentController = (StudentController) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.STUDENT);
 
-            }else{
-                StudentDetails studentDetails = new StudentDetails(sid,student1);
-                studentDetails.setVisible(true);
-            }
-        }else if(sid.matches("^[A-Z]{4}/[PG]/\\d{2}/\\d{3}$")){
+        if(sid.matches("^[A-Z]{4}/[PG]/\\d{2}/\\d{3}$")){
             try {
                  rdto = (RegistrationDTO) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.REGISTRATION).search(new RegistrationDTO(sid));
+                 if(rdto==null){
+                     JOptionPane.showMessageDialog(null, "Sorry! Registration not Found");
+                     return;
+                 }
+                 sid = rdto.getSID();
             } catch (Exception ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+        }else if (!sid.matches("^\\d{7}$")){
+            JOptionPane.showMessageDialog(null, "Invalid Registration ID or Student ID");
+            return;
+        }
+        StudentDTO student = new StudentDTO(sid);
+        try {
+            student1 = studentController.search(student);
+        } catch (Exception ex) {
+            Logger.getLogger(StudentDetails.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if (rdto != null){
+            StudentDetails studentDetails = new StudentDetails(sid,student1,rdto);
+            studentDetails.setVisible(true);
+        }else if (student1 == null) {
+          JOptionPane.showMessageDialog(null, "Sorry! Student not Found");
+        }else{
+            try {
+                rdto = (RegistrationDTO) ControllerFactory.getInstance().getController(ControllerFactory.ControllerTypes.REGISTRATION).search(new RegistrationDTO(sid));
+            } catch (Exception ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (rdto==null){
+                StudentDetails studentDetails = new StudentDetails(sid,student1);
+                studentDetails.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(null, "Student has already registered for a course. Please proceed with Registration ID");
+            }
         }
     }
 

@@ -42,7 +42,11 @@ public class StudentDetails extends javax.swing.JFrame {
 //        this.student1 = student1;
         this.sid = sid;
         setValues(student1);
-
+    }
+    
+    public StudentDetails(String sid,StudentDTO sdto, RegistrationDTO rdto){
+        this(sid, sdto);
+        setValues(rdto);
     }
 
     public void setValues(StudentDTO student1) {
@@ -67,6 +71,14 @@ public class StudentDetails extends javax.swing.JFrame {
             }
 
             lblSchoolStu.setText(student1.getSchool());
+        }
+    }
+    
+    public void setValues(RegistrationDTO rdto){
+        
+        if (rdto!=null){
+            lblCourseCode.setText(rdto.getBatchId().substring(0, 4));
+            lblBatch.setText(rdto.getBatchId().substring(4));
         }
     }
 
@@ -98,6 +110,7 @@ public class StudentDetails extends javax.swing.JFrame {
         lblDay = new javax.swing.JLabel();
         rdiBtnMale = new javax.swing.JRadioButton();
         rdiBtnFemale = new javax.swing.JRadioButton();
+        lblBatch = new javax.swing.JLabel();
         lblSchoolStu = new javax.swing.JLabel();
         lblNameWithInitials2 = new javax.swing.JLabel();
         lblNameWithInitials = new javax.swing.JLabel();
@@ -112,6 +125,10 @@ public class StudentDetails extends javax.swing.JFrame {
         lblBirthYear = new javax.swing.JLabel();
         lblBirthMonth = new javax.swing.JLabel();
         lblBirthDay = new javax.swing.JLabel();
+        lblSubTitle1 = new javax.swing.JLabel();
+        lblSchool1 = new javax.swing.JLabel();
+        lblSchool2 = new javax.swing.JLabel();
+        lblCourseCode = new javax.swing.JLabel();
         btnConfirm = new javax.swing.JButton();
         btnGoBack = new javax.swing.JButton();
 
@@ -123,67 +140,67 @@ public class StudentDetails extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblSubTitle.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
-        lblSubTitle.setText("PERSONAL DETAILS");
-        jPanel1.add(lblSubTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        lblSubTitle.setText("COURSE DETAILS");
+        jPanel1.add(lblSubTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
 
         lblFullName.setDisplayedMnemonic('N');
         lblFullName.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblFullName.setText("Full Name:");
-        jPanel1.add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
+        jPanel1.add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         lblAddress.setDisplayedMnemonic('o');
         lblAddress.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblAddress.setText("Personal Address:");
-        jPanel1.add(lblAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, -1));
+        jPanel1.add(lblAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
         lblTelephone.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblTelephone.setText("Telephone:");
-        jPanel1.add(lblTelephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        jPanel1.add(lblTelephone, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         lblEmail.setDisplayedMnemonic('E');
         lblEmail.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblEmail.setText("E-mail:");
-        jPanel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        jPanel1.add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         lblNic.setDisplayedMnemonic('c');
         lblNic.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblNic.setText("NIC:");
-        jPanel1.add(lblNic, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+        jPanel1.add(lblNic, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
 
         lblDateOfBirth.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblDateOfBirth.setText("Date of Birth:");
-        jPanel1.add(lblDateOfBirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+        jPanel1.add(lblDateOfBirth, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         lblGender.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblGender.setText("Gender:");
-        jPanel1.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
+        jPanel1.add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
         lblSchool.setDisplayedMnemonic('S');
         lblSchool.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        lblSchool.setText("School:");
-        jPanel1.add(lblSchool, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, -1, -1));
+        lblSchool.setText("Batch:");
+        jPanel1.add(lblSchool, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, -1, -1));
 
         lblHome.setDisplayedMnemonic('H');
         lblHome.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblHome.setText("Home:");
-        jPanel1.add(lblHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, -1, -1));
+        jPanel1.add(lblHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, -1, -1));
 
         lblMobile.setDisplayedMnemonic('b');
         lblMobile.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblMobile.setText("Mobile:");
-        jPanel1.add(lblMobile, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, -1));
+        jPanel1.add(lblMobile, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, -1, -1));
 
         lblYear.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblYear.setText("Year:");
-        jPanel1.add(lblYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
+        jPanel1.add(lblYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, -1, -1));
 
         lblMonth.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblMonth.setText("Month:");
-        jPanel1.add(lblMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 290, -1, -1));
+        jPanel1.add(lblMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, -1, -1));
 
         lblDay.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblDay.setText("Day:");
-        jPanel1.add(lblDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 290, -1, -1));
+        jPanel1.add(lblDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, -1, -1));
 
         buttonGroup1.add(rdiBtnMale);
         rdiBtnMale.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
@@ -193,96 +210,122 @@ public class StudentDetails extends javax.swing.JFrame {
                 rdiBtnMaleActionPerformed(evt);
             }
         });
-        jPanel1.add(rdiBtnMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, -1, -1));
+        jPanel1.add(rdiBtnMale, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, -1, -1));
 
         buttonGroup1.add(rdiBtnFemale);
         rdiBtnFemale.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         rdiBtnFemale.setText("Female");
-        jPanel1.add(rdiBtnFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 320, -1, -1));
+        jPanel1.add(rdiBtnFemale, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 300, -1, -1));
+
+        lblBatch.setDisplayedMnemonic('t');
+        lblBatch.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblBatch.setText("xxxx");
+        lblBatch.setToolTipText("");
+        jPanel1.add(lblBatch, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 390, 140, 20));
 
         lblSchoolStu.setDisplayedMnemonic('t');
         lblSchoolStu.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblSchoolStu.setText("xxxx");
         lblSchoolStu.setToolTipText("");
-        jPanel1.add(lblSchoolStu, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 430, 20));
+        jPanel1.add(lblSchoolStu, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 430, 20));
 
         lblNameWithInitials2.setDisplayedMnemonic('t');
         lblNameWithInitials2.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblNameWithInitials2.setText("Name with Initials:");
         lblNameWithInitials2.setToolTipText("");
-        jPanel1.add(lblNameWithInitials2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        jPanel1.add(lblNameWithInitials2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         lblNameWithInitials.setDisplayedMnemonic('t');
         lblNameWithInitials.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblNameWithInitials.setText("xxxx");
         lblNameWithInitials.setToolTipText("");
-        jPanel1.add(lblNameWithInitials, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, 430, 20));
+        jPanel1.add(lblNameWithInitials, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 430, 20));
 
         lblName.setDisplayedMnemonic('t');
         lblName.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblName.setText("xxxx");
         lblName.setToolTipText("");
-        jPanel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, 430, 20));
+        jPanel1.add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 430, 20));
 
         lblPersonalAddress1.setDisplayedMnemonic('t');
         lblPersonalAddress1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblPersonalAddress1.setText("xxxx");
         lblPersonalAddress1.setToolTipText("");
-        jPanel1.add(lblPersonalAddress1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 430, 20));
+        jPanel1.add(lblPersonalAddress1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, 430, 20));
 
         lblPersonalAddress2.setDisplayedMnemonic('t');
         lblPersonalAddress2.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblPersonalAddress2.setText("xxxx");
         lblPersonalAddress2.setToolTipText("");
-        jPanel1.add(lblPersonalAddress2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 140, 430, 20));
+        jPanel1.add(lblPersonalAddress2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 430, 20));
 
         lblPersonalAddress3.setDisplayedMnemonic('t');
         lblPersonalAddress3.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblPersonalAddress3.setText("xxxx");
         lblPersonalAddress3.setToolTipText("");
-        jPanel1.add(lblPersonalAddress3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 430, 20));
+        jPanel1.add(lblPersonalAddress3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 430, 20));
 
         lblMail.setDisplayedMnemonic('t');
         lblMail.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblMail.setText("xxxx");
         lblMail.setToolTipText("");
-        jPanel1.add(lblMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 430, 20));
+        jPanel1.add(lblMail, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 430, 20));
 
         lblId.setDisplayedMnemonic('t');
         lblId.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblId.setText("xxxx");
         lblId.setToolTipText("");
-        jPanel1.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 430, 20));
+        jPanel1.add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 430, 20));
 
         lblHomeTel.setDisplayedMnemonic('t');
         lblHomeTel.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblHomeTel.setText("xxxx");
         lblHomeTel.setToolTipText("");
-        jPanel1.add(lblHomeTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 150, 20));
+        jPanel1.add(lblHomeTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 150, 20));
 
         lblMobileTel.setDisplayedMnemonic('t');
         lblMobileTel.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblMobileTel.setText("xxxx");
         lblMobileTel.setToolTipText("");
-        jPanel1.add(lblMobileTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, 150, 20));
+        jPanel1.add(lblMobileTel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 150, 20));
 
         lblBirthYear.setDisplayedMnemonic('t');
         lblBirthYear.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblBirthYear.setText("xxxx");
         lblBirthYear.setToolTipText("");
-        jPanel1.add(lblBirthYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 80, 20));
+        jPanel1.add(lblBirthYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 270, 80, 20));
 
         lblBirthMonth.setDisplayedMnemonic('t');
         lblBirthMonth.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblBirthMonth.setText("xxxx");
         lblBirthMonth.setToolTipText("");
-        jPanel1.add(lblBirthMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 80, 20));
+        jPanel1.add(lblBirthMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, 80, 20));
 
         lblBirthDay.setDisplayedMnemonic('t');
         lblBirthDay.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
         lblBirthDay.setText("xxxx");
         lblBirthDay.setToolTipText("");
-        jPanel1.add(lblBirthDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, 80, 20));
+        jPanel1.add(lblBirthDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 80, 20));
+
+        lblSubTitle1.setFont(new java.awt.Font("Noto Sans", 1, 18)); // NOI18N
+        lblSubTitle1.setText("PERSONAL DETAILS");
+        jPanel1.add(lblSubTitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
+
+        lblSchool1.setDisplayedMnemonic('S');
+        lblSchool1.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblSchool1.setText("School:");
+        jPanel1.add(lblSchool1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+
+        lblSchool2.setDisplayedMnemonic('S');
+        lblSchool2.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblSchool2.setText("Course Code:");
+        jPanel1.add(lblSchool2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
+
+        lblCourseCode.setDisplayedMnemonic('t');
+        lblCourseCode.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        lblCourseCode.setText("xxxx");
+        lblCourseCode.setToolTipText("");
+        jPanel1.add(lblCourseCode, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 200, 20));
 
         btnConfirm.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         btnConfirm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lk/ijse/paymentsystem/icons/add.png"))); // NOI18N
@@ -331,15 +374,15 @@ public class StudentDetails extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGoBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -422,9 +465,11 @@ public class StudentDetails extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblBatch;
     private javax.swing.JLabel lblBirthDay;
     private javax.swing.JLabel lblBirthMonth;
     private javax.swing.JLabel lblBirthYear;
+    private javax.swing.JLabel lblCourseCode;
     private javax.swing.JLabel lblDateOfBirth;
     private javax.swing.JLabel lblDay;
     private javax.swing.JLabel lblEmail;
@@ -446,8 +491,11 @@ public class StudentDetails extends javax.swing.JFrame {
     private javax.swing.JLabel lblPersonalAddress2;
     private javax.swing.JLabel lblPersonalAddress3;
     private javax.swing.JLabel lblSchool;
+    private javax.swing.JLabel lblSchool1;
+    private javax.swing.JLabel lblSchool2;
     private javax.swing.JLabel lblSchoolStu;
     private javax.swing.JLabel lblSubTitle;
+    private javax.swing.JLabel lblSubTitle1;
     private javax.swing.JLabel lblTelephone;
     private javax.swing.JLabel lblYear;
     private javax.swing.JRadioButton rdiBtnFemale;
