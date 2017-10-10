@@ -193,11 +193,17 @@ public class PaymentForRegistrationCourseController {
                 parameters.put("course", course.getCode()+"-"+course.getName());
                 parameters.put("batchNo", course.getBatchDTO().getBatchNo());
                 parameters.put("batchCommencingDate",course.getBatchDTO().getStartDate().toString());
-                parameters.put("registrationFee",new Double(5000.00));
+                
                 parameters.put("amount", calculatedAmounts.get(0));
                 parameters.put("discount", calculatedAmounts.get(1));
                 parameters.put("amountRecieved", calculatedAmounts.get(2));
-                parameters.put("total", BigDecimal.valueOf(5000).add(BigDecimal.valueOf(calculatedAmounts.get(2))).doubleValue());
+                
+                if (sid!=null){
+                    parameters.put("total", calculatedAmounts.get(2));
+                }else{
+                    parameters.put("registrationFee",new Double(5000.00));
+                    parameters.put("total", BigDecimal.valueOf(5000).add(BigDecimal.valueOf(calculatedAmounts.get(2))).doubleValue());
+                }
                 String description = "Full Payment";
                 LocalDate nextPay=null;
                 if(paymentDTOs.size()>0){
