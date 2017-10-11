@@ -45,8 +45,8 @@ public class ConnectionFactory {
 
             
             Class.forName("com.mysql.jdbc.Driver");
-//            connection=DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+database,username,password);
-            connection=DriverManager.getConnection("jdbc:mysql://localhost/ijse/ijse");
+            connection=DriverManager.getConnection("jdbc:mysql://"+ip+":"+port+"/"+database,username,password);
+//            connection=DriverManager.getConnection("jdbc:mysql://localhost/ijse/ijse");
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
