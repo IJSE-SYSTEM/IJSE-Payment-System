@@ -9,12 +9,12 @@ import com.sun.glass.events.KeyEvent;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.KeyEventPostProcessor;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
@@ -29,11 +29,12 @@ public class ManageStudents extends javax.swing.JDialog {
      */
     public static ManageStudents manageStudents;
     
-    
+    Frame parent;
     private ManageStudents(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        this.parent=parent;
         
         
 
@@ -199,8 +200,11 @@ public class ManageStudents extends javax.swing.JDialog {
     }//GEN-LAST:event_btnViewAllStudentsKeyReleased
 
     private void btnAddNewStudentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewStudentActionPerformed
-        new StudentRegistrationForm().setVisible(true);
+        StudentRegistrationForm form = new StudentRegistrationForm();
+        form.setVisible(true);
         this.dispose();
+//        parent.toBack();
+        form.toFront();
     }//GEN-LAST:event_btnAddNewStudentActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

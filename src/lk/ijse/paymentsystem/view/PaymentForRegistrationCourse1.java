@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.TreeSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.controller.custom.CourseController;
@@ -72,7 +71,7 @@ public class PaymentForRegistrationCourse1 extends javax.swing.JFrame {
         @Override
         public void setSelectionInterval(int index0, int index1) {
             if (index0<=index1 && index0>=fromIndex && index1<=toIndex)
-                super.setSelectionInterval(index0, index1); //To change body of generated methods, choose Tools | Templates.
+                super.setSelectionInterval(index0, index1);
             else if (fromIndex==0 && toIndex==0)
                 super.setSelectionInterval(index0, index1);
         }

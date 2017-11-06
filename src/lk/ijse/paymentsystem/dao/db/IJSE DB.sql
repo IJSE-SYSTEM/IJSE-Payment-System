@@ -290,6 +290,6 @@ FOR EACH ROW
             INSERT INTO school VALUES(NEW.school);
         END IF;
     END--
-DELIMITER;
+DELIMITER ;
 
 

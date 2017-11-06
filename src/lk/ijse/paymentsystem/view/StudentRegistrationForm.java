@@ -58,7 +58,7 @@ public class StudentRegistrationForm extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(2);
         setLocationRelativeTo(null);
-        isAlwaysOnTop();
+        
         controller = new StudentRegistrationFormController(studentDTO);
 
 //        button = new DSButton(this);
