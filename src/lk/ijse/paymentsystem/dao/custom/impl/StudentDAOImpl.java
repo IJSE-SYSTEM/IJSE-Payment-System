@@ -8,6 +8,7 @@ package lk.ijse.paymentsystem.dao.custom.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import lk.ijse.paymentsystem.dao.custom.StudentDAO;
@@ -69,10 +70,12 @@ public class StudentDAOImpl implements StudentDAO{
     
     @Override
     public ArrayList<StudentDTO> searchName(String name)throws Exception{
-        String SQL = "Select * from student where name = ?";
-        PreparedStatement stm = conn.prepareStatement(SQL);
-        stm.setObject(1, name);
-        ResultSet rst = stm.executeQuery();
+        String SQL = "Select * from student where sname like '%"+ name +"%'";
+        Statement stm = conn.createStatement();
+//        PreparedStatement stm = conn.prepareStatement(SQL);
+//        stm.setObject(1, name);
+//        stm.setObject(2, name);
+        ResultSet rst = stm.executeQuery(SQL);
         ArrayList<StudentDTO> studentList = new ArrayList<>();
         while (rst.next()) {
             StudentDTO student = new StudentDTO(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), 

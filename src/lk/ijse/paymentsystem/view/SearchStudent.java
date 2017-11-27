@@ -7,14 +7,17 @@ package lk.ijse.paymentsystem.view;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import lk.ijse.paymentsystem.controller.ControllerFactory;
 import lk.ijse.paymentsystem.controller.custom.StudentController;
 import lk.ijse.paymentsystem.dto.StudentDTO;
 import lk.ijse.paymentsystem.view.panels.AllStudents;
-import lk.ijse.paymentsystem.view.panels.StudentDetails;
+import lk.ijse.paymentsystem.view.panels.StudentDetailsUtil;
 import lk.ijse.paymentsystem.view.panels.StudentDetailsSearch;
 import lk.ijse.paymentsystem.view.utils.DSTextComponents;
 
@@ -26,7 +29,7 @@ public class SearchStudent extends javax.swing.JDialog {
 
     private DSTextComponents textComponents;
     private AllStudents allStudent = null;
-    private StudentDetails studentDetails = null;
+    private StudentDetailsUtil studentDetails = null;
     private StudentDetailsSearch studentDetailsSearch = null;
     /**
      * Creates new form SearchStudent
@@ -218,7 +221,7 @@ public class SearchStudent extends javax.swing.JDialog {
         rdiBtnStudentId.setForeground(Color.BLACK);
         btnSearch.setVisible(true);
         
-        studentDetails = new StudentDetails();
+        studentDetails = new StudentDetailsUtil();
         pnlContainer.removeAll();
         pnlContainer.add(studentDetails);
         pnlContainer.setSize(studentDetails.getSize());
@@ -238,7 +241,7 @@ public class SearchStudent extends javax.swing.JDialog {
         rdiBtnNic.setForeground(Color.BLACK);
         rdiBtnName.setForeground(Color.BLUE); 
         rdiBtnStudentId.setForeground(Color.BLACK);
-        btnSearch.setVisible(false);
+//        btnSearch.setVisible(false);
         cmbBoxBatch.setVisible(false);
         
         allStudent = new AllStudents();
@@ -260,13 +263,26 @@ public class SearchStudent extends javax.swing.JDialog {
             try {
                 StudentDTO studentDTO = student.search(txtSearch.getText());
                 if (studentDTO != null) {
-                    studentDetails.showDetails(studentDTO);
+                    studentDetails.showDetails(studentDTO,this);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Student Not Found!!!");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(SearchStudent.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else if (rdiBtnName.isSelected()) {
-            
+            String name = txtSearch.getText();
+            ArrayList<StudentDTO> studentList = null;
+            try {
+                studentList = student.searchName(name);
+            } catch (Exception ex) {
+                Logger.getLogger(SearchStudent.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (studentList != null) {
+                allStudent.showDetails(studentList, this);
+            }else{
+                JOptionPane.showMessageDialog(null, "No Student Found!!!");
+            }
         }else{
             
         }

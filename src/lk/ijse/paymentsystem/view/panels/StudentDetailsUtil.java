@@ -6,20 +6,24 @@
 package lk.ijse.paymentsystem.view.panels;
 
 import lk.ijse.paymentsystem.dto.StudentDTO;
+import lk.ijse.paymentsystem.view.SearchStudent;
+import lk.ijse.paymentsystem.view.StudentDetails;
 import lk.ijse.paymentsystem.view.utils.DSButton;
 
 /**
  *
  * @author Ranjith Suranga
  */
-public class StudentDetails extends javax.swing.JPanel {
+public class StudentDetailsUtil extends javax.swing.JPanel {
     
     private DSButton button;
+    private StudentDTO studentDTO;
+    private SearchStudent searchStudent;
 
     /**
      * Creates new form StudentDetails
      */
-    public StudentDetails() {
+    public StudentDetailsUtil() {
         initComponents();
         button = new DSButton(this);
         button.convertAllJButtonsToDSButtons();
@@ -89,6 +93,11 @@ public class StudentDetails extends javax.swing.JPanel {
         btnSeeResults.setToolTipText("Click to see the results of this student");
         btnSeeResults.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSeeResults.setFocusPainted(false);
+        btnSeeResults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeeResultsActionPerformed(evt);
+            }
+        });
 
         btnEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lk/ijse/paymentsystem/icons/edit.png"))); // NOI18N
@@ -173,15 +182,17 @@ public class StudentDetails extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel4)
-                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel4)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5)
-                    .addComponent(lblNic, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNic, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -201,9 +212,20 @@ public class StudentDetails extends javax.swing.JPanel {
 //        new AddEditStudent(null, true).setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
+    private void btnSeeResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeeResultsActionPerformed
+        System.out.println(studentDTO);
+        StudentDetails studentDetails = new StudentDetails(studentDTO.getSID(), studentDTO);
+        studentDetails.setVisible(true);
+        searchStudent.dispose();
+    }//GEN-LAST:event_btnSeeResultsActionPerformed
 
-    public void showDetails(StudentDTO student){
-        
+
+    public void showDetails(StudentDTO studentDTO, SearchStudent searchStudent){
+        this.studentDTO = studentDTO;
+        this.searchStudent = searchStudent;
+        lblName.setText(studentDTO.getStudentName());
+        lblNic.setText(studentDTO.getNic());
+//        lblCourse.setText(student.get);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

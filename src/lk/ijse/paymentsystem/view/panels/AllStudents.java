@@ -5,9 +5,17 @@
  */
 package lk.ijse.paymentsystem.view.panels;
 
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableModel;
 import lk.ijse.paymentsystem.dto.StudentDTO;
+import lk.ijse.paymentsystem.view.SearchStudent;
+import lk.ijse.paymentsystem.view.StudentDetails;
 import lk.ijse.paymentsystem.view.utils.DSButton;
 import lk.ijse.paymentsystem.view.utils.DSTable;
 
@@ -19,6 +27,9 @@ public class AllStudents extends javax.swing.JPanel {
 
     private DSButton button;
     private DSTable table;
+    private SearchStudent searchStudent;
+    private ArrayList<StudentDTO> studentDTOs;
+
     /**
      * Creates new form AllStudents
      */
@@ -27,12 +38,14 @@ public class AllStudents extends javax.swing.JPanel {
         button = new DSButton(this);
         button.convertAllJButtonsToDSButtons();
         table = new DSTable(tblStudents);
-        
+
         for (int i = 0; i < tblStudents.getColumnCount(); i++) {
             table.setHeaderAlignment(i, SwingConstants.CENTER);
         }
         tblStudents.setFillsViewportHeight(true);
         tblStudents.setBorder(new MatteBorder(0, 1, 0, 1, pnlButtonContainer.getBackground()));
+
+        showRowDetails();
     }
 
     /**
@@ -60,7 +73,7 @@ public class AllStudents extends javax.swing.JPanel {
 
             },
             new String [] {
-                "NIC", "Name", "Course"
+                "Student ID", "Name", "NIC"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -173,11 +186,40 @@ public class AllStudents extends javax.swing.JPanel {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
     }//GEN-LAST:event_btnEditActionPerformed
 
+    public void showDetails(ArrayList<StudentDTO> student, SearchStudent searchStudent) {
+        this.searchStudent = searchStudent;
+        this.studentDTOs = student;
+        DefaultTableModel dtm = (DefaultTableModel) tblStudents.getModel();
+        dtm.setRowCount(0);
+        for (StudentDTO studentDTO : student) {
+            Object[] rowData = {studentDTO.getSID(), studentDTO.getStudentName(), studentDTO.getNic()};
+            dtm.addRow(rowData);
+        }
+    }
 
-    public void showDetails(StudentDTO student){
-        
+    public void showRowDetails() {
+        tblStudents.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table = (JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2) {
+                    StudentDTO studentDTO = studentDTOs.get(tblStudents.getSelectedRow());
+                    
+                    StudentDetails studentDetails = new StudentDetails(studentDTO.getSID(), studentDTO);
+                    studentDetails.setVisible(true);
+                    searchStudent.dispose();
+                    disposeWindow();
+                }
+            }
+        });
     }
     
+    private void disposeWindow(){
+        this.searchStudent.dispose();
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
