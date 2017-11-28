@@ -63,7 +63,7 @@ public class StudentDAOImpl implements StudentDAO{
         stm.setObject(1, nic);
         ResultSet rst=stm.executeQuery();
         if (rst.next()){
-            return new StudentDTO(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9), rst.getString(10), rst.getBoolean(11), rst.getString(12), rst.getDouble(13), rst.getString(14), rst.getString(15), LocalDate.parse(rst.getString(16)), rst.getInt(17));
+            return new StudentDTO(rst.getString(1), rst.getString(2), rst.getString(3), rst.getString(4), rst.getString(5), rst.getString(6), rst.getString(7), rst.getString(8), rst.getString(9), rst.getString(10), rst.getBoolean(11), rst.getString(12), rst.getDouble(13), rst.getString(14), rst.getString(15), rst.getString(16)!=null?LocalDate.parse(rst.getString(16)):null, rst.getInt(17));
         }
         return null;
     }
